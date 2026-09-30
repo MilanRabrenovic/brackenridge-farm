@@ -1,0 +1,1353 @@
+{
+  "version": 5,
+  "name": "Brackenridge Farm",
+  "bounds": {
+    "width": 170,
+    "depth": 120
+  },
+  "standards": {
+    "gridMetres": 4,
+    "footpathWidth": 3,
+    "farmTrackWidth": 6,
+    "heavyLaneWidth": 9,
+    "ordinaryGateWidth": 6,
+    "combineGateWidth": 10,
+    "cropHeadlandDepth": 12
+  },
+  "vehicles": {
+    "combine": {
+      "width": 6.5,
+      "length": 9
+    },
+    "tractor": {
+      "width": 3.2,
+      "length": 5
+    },
+    "trailer": {
+      "width": 3,
+      "length": 6.5
+    }
+  },
+  "districts": [
+    {
+      "id": "yard",
+      "label": "FARMYARD",
+      "kind": "yard",
+      "x": 0,
+      "z": 3,
+      "width": 52,
+      "depth": 42,
+      "exits": 5,
+      "points": [
+        [
+          -26,
+          -17
+        ],
+        [
+          24,
+          -17
+        ],
+        [
+          28,
+          -8
+        ],
+        [
+          28,
+          18
+        ],
+        [
+          18,
+          24
+        ],
+        [
+          -18,
+          24
+        ],
+        [
+          -27,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "pasture",
+      "label": "NORTH PASTURE",
+      "kind": "pasture",
+      "x": -54,
+      "z": -31,
+      "width": 56,
+      "depth": 50,
+      "exits": 2,
+      "points": [
+        [
+          -82,
+          -57
+        ],
+        [
+          -28,
+          -57
+        ],
+        [
+          -26,
+          -17
+        ],
+        [
+          -40,
+          -8
+        ],
+        [
+          -82,
+          -10
+        ]
+      ]
+    },
+    {
+      "id": "crop",
+      "label": "BARLEY FIELD",
+      "kind": "crop",
+      "x": 53,
+      "z": -32,
+      "width": 58,
+      "depth": 50,
+      "exits": 2,
+      "points": [
+        [
+          25,
+          -57
+        ],
+        [
+          82,
+          -57
+        ],
+        [
+          82,
+          -10
+        ],
+        [
+          42,
+          -8
+        ],
+        [
+          25,
+          -17
+        ]
+      ]
+    },
+    {
+      "id": "hay",
+      "label": "SHEEP MEADOW",
+      "kind": "hay",
+      "x": -55,
+      "z": 17,
+      "width": 54,
+      "depth": 46,
+      "exits": 2,
+      "points": [
+        [
+          -82,
+          -10
+        ],
+        [
+          -40,
+          -8
+        ],
+        [
+          -27,
+          14
+        ],
+        [
+          -32,
+          38
+        ],
+        [
+          -82,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "orchard",
+      "label": "OLD ORCHARD",
+      "kind": "orchard",
+      "x": 55,
+      "z": 14,
+      "width": 54,
+      "depth": 44,
+      "exits": 2,
+      "points": [
+        [
+          28,
+          -8
+        ],
+        [
+          42,
+          -8
+        ],
+        [
+          82,
+          -10
+        ],
+        [
+          82,
+          34
+        ],
+        [
+          58,
+          38
+        ],
+        [
+          30,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "lower_meadow",
+      "label": "RIVERSIDE MEADOW",
+      "kind": "meadow",
+      "x": -42,
+      "z": 45,
+      "width": 80,
+      "depth": 24,
+      "exits": 2,
+      "points": [
+        [
+          -82,
+          42
+        ],
+        [
+          -32,
+          38
+        ],
+        [
+          -18,
+          24
+        ],
+        [
+          0,
+          30
+        ],
+        [
+          0,
+          57
+        ],
+        [
+          -82,
+          57
+        ]
+      ]
+    },
+    {
+      "id": "loading",
+      "label": "PACKING YARD",
+      "kind": "loading",
+      "x": 17,
+      "z": 41,
+      "width": 34,
+      "depth": 24,
+      "exits": 3,
+      "points": [
+        [
+          0,
+          30
+        ],
+        [
+          18,
+          24
+        ],
+        [
+          32,
+          29
+        ],
+        [
+          35,
+          48
+        ],
+        [
+          22,
+          53
+        ],
+        [
+          0,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "south_paddock",
+      "label": "SOUTH PADDOCK",
+      "kind": "pasture",
+      "x": 58,
+      "z": 46,
+      "width": 48,
+      "depth": 22,
+      "exits": 2,
+      "points": [
+        [
+          32,
+          29
+        ],
+        [
+          58,
+          38
+        ],
+        [
+          82,
+          34
+        ],
+        [
+          82,
+          57
+        ],
+        [
+          22,
+          57
+        ],
+        [
+          22,
+          53
+        ],
+        [
+          35,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "delivery",
+      "label": "DELIVERY LAY-BY",
+      "kind": "delivery",
+      "x": 62,
+      "z": 48,
+      "width": 38,
+      "depth": 14,
+      "exits": 2,
+      "points": [
+        [
+          42,
+          42
+        ],
+        [
+          82,
+          42
+        ],
+        [
+          82,
+          54
+        ],
+        [
+          43,
+          54
+        ]
+      ]
+    }
+  ],
+  "structures": [
+    {
+      "id": "barn",
+      "label": "STONE BARN",
+      "kind": "barn",
+      "x": -8,
+      "z": -13,
+      "width": 18,
+      "depth": 11,
+      "height": 6.5,
+      "rotation": 0,
+      "node": "StoneBarn",
+      "asset": "reference_barn",
+      "door": 7
+    },
+    {
+      "id": "machine_shed",
+      "label": "MACHINE SHED",
+      "kind": "shed",
+      "x": 12,
+      "z": -16,
+      "width": 22,
+      "depth": 11,
+      "height": 6,
+      "rotation": 0,
+      "node": "MachineryShed",
+      "asset": "reference_shed",
+      "door": 13
+    },
+    {
+      "id": "workshop",
+      "label": "WORKSHOP",
+      "kind": "workshop",
+      "x": -19,
+      "z": 0,
+      "width": 15,
+      "depth": 9,
+      "height": 5.5,
+      "rotation": 0,
+      "node": "RepairWorkshop",
+      "asset": "reference_workshop",
+      "door": 6
+    },
+    {
+      "id": "feed",
+      "label": "FEED STORE",
+      "kind": "shed",
+      "x": -19,
+      "z": 15,
+      "width": 13,
+      "depth": 8,
+      "height": 4.5,
+      "rotation": 0,
+      "node": "FeedStore",
+      "asset": "reference_feed",
+      "door": 5
+    },
+    {
+      "id": "silo",
+      "label": "GRAIN SILOS",
+      "kind": "silo",
+      "x": 20,
+      "z": 8,
+      "width": 9,
+      "depth": 6,
+      "height": 10,
+      "rotation": 0,
+      "node": "GrainSilos",
+      "asset": "reference_silos",
+      "door": 0
+    },
+    {
+      "id": "produce",
+      "label": "PACKING CANOPY",
+      "kind": "canopy",
+      "x": 13,
+      "z": 39,
+      "width": 18,
+      "depth": 8,
+      "height": 4.5,
+      "rotation": 0,
+      "node": "PackingCanopy",
+      "asset": "reference_packing",
+      "door": 0
+    }
+  ],
+  "roads": [
+    {
+      "id": "entrance_lane",
+      "kind": "farm",
+      "width": 6,
+      "points": [
+        [
+          -87,
+          18
+        ],
+        [
+          -66,
+          18
+        ],
+        [
+          -50,
+          16
+        ],
+        [
+          -36,
+          12
+        ],
+        [
+          -27,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "field_lane",
+      "kind": "heavy",
+      "width": 9,
+      "points": [
+        [
+          23,
+          0
+        ],
+        [
+          33,
+          -3
+        ],
+        [
+          33,
+          -10
+        ],
+        [
+          41,
+          -18
+        ]
+      ]
+    },
+    {
+      "id": "field_headland",
+      "kind": "heavy",
+      "width": 9,
+      "points": [
+        [
+          41,
+          -18
+        ],
+        [
+          57,
+          -18
+        ],
+        [
+          76,
+          -18
+        ]
+      ]
+    },
+    {
+      "id": "pasture_lane",
+      "kind": "farm",
+      "width": 6,
+      "points": [
+        [
+          -27,
+          8
+        ],
+        [
+          -34,
+          1
+        ],
+        [
+          -42,
+          -9
+        ],
+        [
+          -46,
+          -21
+        ]
+      ]
+    },
+    {
+      "id": "dispatch_lane",
+      "kind": "farm",
+      "width": 6,
+      "points": [
+        [
+          16,
+          23
+        ],
+        [
+          24,
+          29
+        ],
+        [
+          32,
+          36
+        ],
+        [
+          44,
+          44
+        ],
+        [
+          64,
+          48
+        ],
+        [
+          87,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "orchard_path",
+      "kind": "foot",
+      "width": 3,
+      "points": [
+        [
+          27,
+          10
+        ],
+        [
+          42,
+          10
+        ],
+        [
+          58,
+          10
+        ],
+        [
+          68,
+          11
+        ],
+        [
+          73,
+          15
+        ],
+        [
+          73,
+          24
+        ],
+        [
+          73,
+          35
+        ],
+        [
+          54,
+          40
+        ],
+        [
+          44,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "river_path",
+      "kind": "foot",
+      "width": 3,
+      "points": [
+        [
+          -66,
+          58
+        ],
+        [
+          -66,
+          49
+        ],
+        [
+          -62,
+          43
+        ],
+        [
+          -58,
+          37
+        ],
+        [
+          -58,
+          33
+        ],
+        [
+          -45,
+          33
+        ],
+        [
+          -30,
+          29
+        ],
+        [
+          -18,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "ford_path",
+      "kind": "foot",
+      "width": 3,
+      "points": [
+        [
+          3,
+          43
+        ],
+        [
+          -8,
+          43
+        ],
+        [
+          -20,
+          49
+        ],
+        [
+          -20,
+          61
+        ]
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "id": "crop_gate",
+      "x": 33,
+      "z": -10,
+      "width": 10,
+      "route": "field_lane",
+      "rotation": 0
+    },
+    {
+      "id": "pasture_gate",
+      "x": -42,
+      "z": -9,
+      "width": 12,
+      "route": "pasture_lane",
+      "rotation": 0
+    },
+    {
+      "id": "yard_gate",
+      "x": -27,
+      "z": 8,
+      "width": 6,
+      "route": "entrance_lane",
+      "rotation": 0
+    },
+    {
+      "id": "delivery_gate",
+      "x": 44,
+      "z": 42,
+      "width": 6,
+      "route": "dispatch_lane",
+      "rotation": 0
+    }
+  ],
+  "destinations": [
+    {
+      "id": "animal_care",
+      "label": "ANIMAL CARE",
+      "position": [
+        -13,
+        -2
+      ],
+      "radius": 7,
+      "purpose": "feed, hay and livestock staging"
+    },
+    {
+      "id": "repair_bay",
+      "label": "REPAIR BAY",
+      "position": [
+        -8,
+        5
+      ],
+      "radius": 7,
+      "purpose": "machine diagnosis and supplied parts"
+    },
+    {
+      "id": "grain_intake",
+      "label": "GRAIN INTAKE",
+      "position": [
+        20,
+        17
+      ],
+      "radius": 7,
+      "purpose": "trailer unloading and silo storage"
+    },
+    {
+      "id": "crop_gate",
+      "label": "BARLEY FIELD",
+      "position": [
+        33,
+        -11
+      ],
+      "radius": 8,
+      "purpose": "cultivation, sowing, tramlines and harvest"
+    },
+    {
+      "id": "pasture_gate",
+      "label": "SHEEP PASTURE",
+      "position": [
+        -42,
+        -10
+      ],
+      "radius": 8,
+      "purpose": "guide-and-gate animal incidents"
+    },
+    {
+      "id": "apiary",
+      "label": "ORCHARD APIARY",
+      "position": [
+        64,
+        28
+      ],
+      "radius": 8,
+      "purpose": "bee weather risk and produce collection"
+    },
+    {
+      "id": "packing",
+      "label": "PACKING",
+      "position": [
+        18,
+        46
+      ],
+      "radius": 8,
+      "purpose": "assemble and check orders"
+    },
+    {
+      "id": "dispatch",
+      "label": "DISPATCH",
+      "position": [
+        65,
+        49
+      ],
+      "radius": 9,
+      "purpose": "final load and buyer handoff"
+    },
+    {
+      "id": "bridge",
+      "label": "STONE BRIDGE",
+      "position": [
+        -62,
+        43
+      ],
+      "radius": 7,
+      "purpose": "western river crossing"
+    },
+    {
+      "id": "ford",
+      "label": "SHALLOW FORD",
+      "position": [
+        -20,
+        55
+      ],
+      "radius": 7,
+      "purpose": "eastern river crossing"
+    }
+  ],
+  "logistics": {
+    "grain": [
+      "crop",
+      "field_lane",
+      "yard",
+      "silo",
+      "dispatch_lane",
+      "delivery"
+    ],
+    "animals": [
+      "pasture",
+      "pasture_gate",
+      "yard_gate",
+      "barn"
+    ],
+    "produce": [
+      "orchard",
+      "loading",
+      "delivery"
+    ],
+    "repairs": [
+      "workshop",
+      "tractor",
+      "machine_shed"
+    ]
+  },
+  "props": [
+    {
+      "node": "BarnHay",
+      "asset": "hay_bale_stack",
+      "position": [
+        -16,
+        -5
+      ],
+      "widthPixels": 48,
+      "collisionPixels": [
+        28,
+        18
+      ]
+    },
+    {
+      "node": "LivestockWater",
+      "asset": "water_trough",
+      "position": [
+        -59,
+        -18
+      ],
+      "widthPixels": 44,
+      "collisionPixels": [
+        32,
+        13
+      ]
+    },
+    {
+      "node": "WorkshopTools",
+      "asset": "tool_station",
+      "position": [
+        -11,
+        3
+      ],
+      "widthPixels": 52,
+      "collisionPixels": [
+        31,
+        13
+      ]
+    },
+    {
+      "node": "FeedSupplies",
+      "asset": "farm_supplies",
+      "position": [
+        -11,
+        17
+      ],
+      "widthPixels": 48,
+      "collisionPixels": [
+        29,
+        16
+      ]
+    },
+    {
+      "node": "PackingProduce",
+      "asset": "produce_crates",
+      "position": [
+        23,
+        44
+      ],
+      "widthPixels": 48,
+      "collisionPixels": [
+        28,
+        17
+      ]
+    },
+    {
+      "node": "YardSignpost",
+      "asset": "destination_signpost",
+      "position": [
+        1,
+        22
+      ],
+      "widthPixels": 31,
+      "collisionPixels": [
+        11,
+        9
+      ]
+    },
+    {
+      "node": "OrchardApiary",
+      "asset": "apiary_hives",
+      "position": [
+        64,
+        25
+      ],
+      "widthPixels": 58,
+      "collisionPixels": [
+        34,
+        18
+      ]
+    },
+    {
+      "node": "SiloGrainIntake",
+      "asset": "grain_intake",
+      "position": [
+        20,
+        15
+      ],
+      "widthPixels": 54,
+      "collisionPixels": [
+        0,
+        0
+      ]
+    },
+    {
+      "node": "ParkedFarmTrailer",
+      "asset": "farm_trailer",
+      "position": [
+        12,
+        16
+      ],
+      "widthPixels": 72,
+      "collisionPixels": [
+        46,
+        24
+      ]
+    },
+    {
+      "node": "DeliveryVan",
+      "asset": "delivery_van",
+      "position": [
+        65,
+        54
+      ],
+      "widthPixels": 72,
+      "collisionPixels": [
+        42,
+        23
+      ]
+    },
+    {
+      "node": "PackingProducePallet",
+      "asset": "produce_pallet",
+      "position": [
+        23,
+        48
+      ],
+      "widthPixels": 49,
+      "collisionPixels": [
+        29,
+        17
+      ]
+    },
+    {
+      "node": "WorkshopSpareParts",
+      "asset": "spare_parts_crate",
+      "position": [
+        -11,
+        7
+      ],
+      "widthPixels": 36,
+      "collisionPixels": [
+        22,
+        13
+      ]
+    },
+    {
+      "node": "PastureSheep00",
+      "asset": "sheep_alert",
+      "position": [
+        -67,
+        -42
+      ],
+      "widthPixels": 32,
+      "collisionPixels": [
+        0,
+        0
+      ]
+    },
+    {
+      "node": "PastureSheep01",
+      "asset": "sheep_grazing",
+      "position": [
+        -58,
+        -34
+      ],
+      "widthPixels": 32,
+      "collisionPixels": [
+        0,
+        0
+      ]
+    },
+    {
+      "node": "PastureSheep02",
+      "asset": "sheep_alert",
+      "position": [
+        -72,
+        -25
+      ],
+      "widthPixels": 32,
+      "collisionPixels": [
+        0,
+        0
+      ]
+    },
+    {
+      "node": "PastureSheep03",
+      "asset": "sheep_grazing",
+      "position": [
+        -51,
+        -45
+      ],
+      "widthPixels": 32,
+      "collisionPixels": [
+        0,
+        0
+      ]
+    },
+    {
+      "node": "PastureSheep04",
+      "asset": "sheep_alert",
+      "position": [
+        -39,
+        -29
+      ],
+      "widthPixels": 32,
+      "collisionPixels": [
+        0,
+        0
+      ]
+    }
+  ],
+  "trees": [
+    {
+      "node": "Tree0",
+      "asset": "oak_tree",
+      "position": [
+        -73,
+        -48
+      ],
+      "heightMetres": 18
+    },
+    {
+      "node": "Tree1",
+      "asset": "flowering_tree",
+      "position": [
+        -48,
+        -51
+      ],
+      "heightMetres": 14
+    },
+    {
+      "node": "Tree2",
+      "asset": "oak_tree",
+      "position": [
+        10,
+        -42
+      ],
+      "heightMetres": 18
+    },
+    {
+      "node": "Tree3",
+      "asset": "willow_tree",
+      "position": [
+        -75,
+        51
+      ],
+      "heightMetres": 16
+    },
+    {
+      "node": "Tree4",
+      "asset": "willow_tree",
+      "position": [
+        -36,
+        53
+      ],
+      "heightMetres": 14
+    },
+    {
+      "node": "Tree5",
+      "asset": "willow_tree",
+      "position": [
+        -3,
+        56
+      ],
+      "heightMetres": 13
+    },
+    {
+      "node": "Tree6",
+      "asset": "oak_tree",
+      "position": [
+        -35,
+        -25
+      ],
+      "heightMetres": 13
+    },
+    {
+      "node": "Tree7",
+      "asset": "flowering_tree",
+      "position": [
+        -8,
+        30
+      ],
+      "heightMetres": 11
+    },
+    {
+      "node": "Tree8",
+      "asset": "oak_tree",
+      "position": [
+        80,
+        39
+      ],
+      "heightMetres": 11
+    },
+    {
+      "node": "Tree9",
+      "asset": "orchard_tree",
+      "position": [
+        42,
+        2
+      ],
+      "heightMetres": 10
+    },
+    {
+      "node": "Tree10",
+      "asset": "orchard_tree",
+      "position": [
+        56,
+        2
+      ],
+      "heightMetres": 10
+    },
+    {
+      "node": "Tree11",
+      "asset": "orchard_tree",
+      "position": [
+        69,
+        2
+      ],
+      "heightMetres": 10
+    },
+    {
+      "node": "Tree12",
+      "asset": "orchard_tree",
+      "position": [
+        42,
+        28
+      ],
+      "heightMetres": 10
+    },
+    {
+      "node": "Tree13",
+      "asset": "orchard_tree",
+      "position": [
+        54,
+        28
+      ],
+      "heightMetres": 10
+    },
+    {
+      "node": "Tree14",
+      "asset": "orchard_tree",
+      "position": [
+        80,
+        28
+      ],
+      "heightMetres": 10
+    }
+  ],
+  "boundaries": [
+    {
+      "node": "PastureSouthWest",
+      "kind": "hedge",
+      "start": [
+        -82.0,
+        -9.0
+      ],
+      "end": [
+        -48.0,
+        -9.0
+      ]
+    },
+    {
+      "node": "PastureSouthEast",
+      "kind": "hedge",
+      "start": [
+        -36.0,
+        -9.0
+      ],
+      "end": [
+        -27.0,
+        -9.0
+      ]
+    },
+    {
+      "node": "PastureEast",
+      "kind": "hedge",
+      "start": [
+        -27.0,
+        -57.0
+      ],
+      "end": [
+        -27.0,
+        -18.0
+      ]
+    },
+    {
+      "node": "CropWest",
+      "kind": "hedge",
+      "start": [
+        25.0,
+        -57.0
+      ],
+      "end": [
+        25.0,
+        -18.0
+      ]
+    },
+    {
+      "node": "CropSouthWest",
+      "kind": "hedge",
+      "start": [
+        25.0,
+        -9.0
+      ],
+      "end": [
+        28.0,
+        -9.0
+      ]
+    },
+    {
+      "node": "CropSouthEast",
+      "kind": "hedge",
+      "start": [
+        38.0,
+        -9.0
+      ],
+      "end": [
+        82.0,
+        -9.0
+      ]
+    },
+    {
+      "node": "OrchardWestNorth",
+      "kind": "hedge",
+      "start": [
+        29.0,
+        2.0
+      ],
+      "end": [
+        29.0,
+        6.0
+      ]
+    },
+    {
+      "node": "OrchardWestSouth",
+      "kind": "hedge",
+      "start": [
+        29.0,
+        15.0
+      ],
+      "end": [
+        29.0,
+        31.0
+      ]
+    },
+    {
+      "node": "OrchardSouth",
+      "kind": "hedge",
+      "start": [
+        29.0,
+        31.0
+      ],
+      "end": [
+        69.0,
+        31.0
+      ]
+    },
+    {
+      "node": "OrchardSouthEast",
+      "kind": "hedge",
+      "start": [
+        77.0,
+        31.0
+      ],
+      "end": [
+        82.0,
+        31.0
+      ]
+    },
+    {
+      "node": "MeadowSouth",
+      "kind": "wall",
+      "start": [
+        -82.0,
+        39.0
+      ],
+      "end": [
+        -67.0,
+        39.0
+      ]
+    },
+    {
+      "node": "MeadowSouthEast",
+      "kind": "wall",
+      "start": [
+        -57.0,
+        39.0
+      ],
+      "end": [
+        -33.0,
+        39.0
+      ]
+    },
+    {
+      "node": "YardWestNorth",
+      "kind": "wall",
+      "start": [
+        -27.0,
+        -8.0
+      ],
+      "end": [
+        -27.0,
+        5.0
+      ]
+    },
+    {
+      "node": "YardWestSouth",
+      "kind": "wall",
+      "start": [
+        -27.0,
+        11.0
+      ],
+      "end": [
+        -27.0,
+        22.0
+      ]
+    }
+  ]
+}

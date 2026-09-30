@@ -1,0 +1,11 @@
+node_modules/
+.tools/
+.godot/
+game/.godot/
+build/
+artifacts/
+.env
+*.log
+*.keystore
+*.jks
+.DS_Store

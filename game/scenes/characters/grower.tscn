@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/farmhand_visual.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/characters/rigged/bracken_grower_rigged.glb" id="2"]
+
+[node name="FarmhandVisual" type="Node3D"]
+script = ExtResource("1")
+
+[node name="BrackenGrowerRigged" parent="." instance=ExtResource("2")]

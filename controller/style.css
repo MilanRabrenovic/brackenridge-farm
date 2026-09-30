@@ -1,0 +1,52 @@
+:root { color-scheme: dark; font-family: ui-rounded, "SF Pro Rounded", system-ui, sans-serif; background:#0e1b17; color:#f9f5e8; }
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body { margin:0; min-height:100dvh; background:radial-gradient(circle at 50% 0,#335542,#0e1b17 66%); overscroll-behavior:none; }
+main { max-width:640px; min-height:100dvh; margin:auto; padding:max(20px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom)); display:grid; }
+.card { align-self:center; padding:28px; background:#182d26e8; border:1px solid #ffffff26; border-radius:26px; box-shadow:0 22px 70px #0008; }
+.eyebrow { margin:0 0 6px; color:#d3c681; letter-spacing:.16em; font-weight:800; font-size:12px; }
+h1 { margin:0 0 24px; font-size:clamp(28px,8vw,44px); line-height:1; }
+label { display:block; margin-bottom:8px; font-weight:700; }
+input { width:100%; padding:18px; border:2px solid #ffffff42; border-radius:15px; background:#0e1b17; color:white; font:800 28px/1 ui-monospace,monospace; text-transform:uppercase; letter-spacing:.18em; text-align:center; }
+button { border:0; color:#102018; background:#eadb91; font:800 18px/1 system-ui; border-radius:16px; touch-action:none; user-select:none; }
+#joinButton { width:100%; padding:18px; margin-top:14px; }
+.status { min-height:2.5em; color:#cbd6cf; }
+#controller { display:grid; grid-template-rows:auto auto auto 1fr auto; min-height:calc(100dvh - 40px); }
+header,footer { display:flex; justify-content:space-between; align-items:center; gap:14px; }
+header h1 { margin:0; font-size:30px; }
+.pill { padding:9px 12px; border-radius:99px; background:#744; font-weight:700; font-size:13px; }
+.pill.online { background:#315f3c; }
+#privateCard { margin-top:18px; padding:16px 18px; color:#1b231d; background:#f4e7ad; border-radius:16px; box-shadow:0 8px 22px #0005; }
+#privateCard p { margin:6px 0 0; font-size:18px; }
+.controls { display:grid; grid-template-columns:1fr 1fr; align-items:end; gap:26px; padding:28px 0; }
+.stick { position:relative; width:min(42vw,220px); aspect-ratio:1; justify-self:center; border-radius:50%; background:#ffffff14; border:2px solid #ffffff25; touch-action:none; }
+#knob { position:absolute; width:44%; aspect-ratio:1; left:28%; top:28%; border-radius:50%; background:#d9e2d6; box-shadow:0 5px 15px #0008; transform:translate(0,0); }
+.action { width:min(38vw,190px); aspect-ratio:1; justify-self:center; background:#d8944c; box-shadow:inset 0 -8px 0 #a9662c,0 10px 25px #0007; }
+.action.pressed { transform:translateY(5px); box-shadow:inset 0 -3px 0 #a9662c,0 5px 12px #0007; }
+footer { font-size:12px; color:#aebbb4; }
+@media (orientation:landscape) { .controls { padding:8px 0; } .stick { width:min(35vh,220px); } .action { width:min(32vh,190px); } }
+
+[hidden] { display:none !important; }
+.wheel-hub { display:none; }
+.tractor-mode { grid-template-rows:auto auto auto auto 1fr auto !important; }
+.tractor-mode #privateCard { margin-top:12px; padding:12px 16px; border-radius:10px; }
+.tractor-mode #privateCard p { font-size:14px; line-height:1.4; }
+#tractorDash { margin-top:18px; padding:18px; border:2px solid #6a7468; border-radius:18px; background:linear-gradient(145deg,#38483f,#182b25); box-shadow:inset 0 2px #ffffff20,0 8px 20px #0005; }
+.dash-top { display:flex; justify-content:space-between; gap:12px; font-size:10px; letter-spacing:.1em; color:#c4c9b7; }
+.engine-light { color:#bddb84; }
+.engine-light:before { content:'● '; }
+.dash-readout { display:flex; justify-content:space-between; align-items:center; margin:18px 0 10px; }
+.dash-readout strong { font:800 24px ui-monospace,monospace; color:#e8d59b; }
+.dash-readout span { font-size:11px; color:#cad0c3; }
+.dash-readout b { display:block; text-align:right; font-size:24px; }
+.power-track { height:7px; background:#0d1c17; border-radius:4px; overflow:hidden; }
+#powerFill { height:100%; width:0; background:#d3bc70; transition:width .1s; }
+#tractorDash p { font-size:12px; line-height:1.5; color:#d0d7c9; margin-bottom:0; }
+.tractor-mode .controls { grid-template-columns:1fr auto; gap:16px; align-items:center; }
+.tractor-mode .stick { width:min(53vw,250px); border:14px solid #303b35; background:radial-gradient(circle,#607066 0 20%,transparent 21%),conic-gradient(from var(--wheel-angle,0deg),transparent 0 28%,#617267 28% 33%,transparent 33% 61%,#617267 61% 66%,transparent 66% 94%,#617267 94%); box-shadow:0 5px 0 #111d18,inset 0 0 0 3px #879184,0 12px 24px #0007; }
+.tractor-mode #knob { opacity:.22; background:#edce7e; }
+.tractor-mode .wheel-hub { display:grid; place-items:center; position:absolute; inset:36%; border-radius:50%; background:#aa4032; border:2px solid #e6c98b; color:#ffe9af; font-weight:900; pointer-events:none; }
+.tractor-mode .action { width:94px; aspect-ratio:auto; min-height:68px; font-size:14px; border-radius:12px; background:#dcc99e; box-shadow:inset 0 -5px #a78d5e,0 6px 12px #0005; }
+@media (max-height:650px) { #tractorDash { padding:10px; margin-top:8px; } .dash-readout { margin:8px 0; } #tractorDash p { margin:5px 0 0; } .tractor-mode .controls { padding:12px 0; } .tractor-mode .stick { width:150px; } }
+
+.utility { display:flex; gap:8px; margin-top:14px; }
+.utility button { flex:1; padding:12px 5px; font-size:11px; border-radius:10px; background:#ced4b5; }

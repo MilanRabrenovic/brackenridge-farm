@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 1200" role="img" aria-labelledby="title desc">
+<title id="title">Brackenridge Farm production map</title>
+<desc id="desc">Layered gameplay blueprint showing irregular districts, routes, buildings, gates and hackathon activity anchors.</desc>
+<defs>
+  <filter id="shadow"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity=".35"/></filter>
+  <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M100 0H0V100" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="2"/></pattern>
+  <style>
+    .district{font:700 20px system-ui,sans-serif;fill:#fff9df;paint-order:stroke;stroke:#34442e;stroke-width:6px;text-anchor:middle;letter-spacing:1px}
+    .building{fill:#384c45;stroke:#fff0c7;stroke-width:5;filter:url(#shadow)}
+    .structure{font:700 15px system-ui,sans-serif;fill:#fff7db;paint-order:stroke;stroke:#27332d;stroke-width:5px;text-anchor:middle}
+    .gate{stroke:#6f3f27;stroke-width:13;stroke-linecap:round;paint-order:stroke;filter:url(#shadow)}
+    .activity{fill:#b94b3f;stroke:#fff4c9;stroke-width:5;filter:url(#shadow)}
+    .activity-key{font:800 22px system-ui,sans-serif;fill:#fff;text-anchor:middle}
+    .activity-label{font:800 18px system-ui,sans-serif;fill:#fff7db;paint-order:stroke;stroke:#27332d;stroke-width:6px}
+    .small{font:600 15px system-ui,sans-serif;fill:#fff5d5}
+  </style>
+</defs>
+<rect width="1700" height="1200" fill="#426746"/>
+
+  <polygon points="590,430 1090,430 1130,520 1130,780 1030,840 670,840 580,740" fill="#d9ad6f" stroke="#f6e6bd" stroke-width="5"/>
+  <text x="850" y="630" class="district">FARMYARD</text>
+  <polygon points="30,30 570,30 590,430 450,520 30,500" fill="#79a45d" stroke="#f6e6bd" stroke-width="5"/>
+  <text x="310" y="290" class="district">NORTH PASTURE</text>
+  <polygon points="1100,30 1670,30 1670,500 1270,520 1100,430" fill="#d9b84f" stroke="#f6e6bd" stroke-width="5"/>
+  <text x="1380" y="280" class="district">BARLEY FIELD</text>
+  <polygon points="30,500 450,520 580,740 530,980 30,1020" fill="#9dbb68" stroke="#f6e6bd" stroke-width="5"/>
+  <text x="300" y="770" class="district">SHEEP MEADOW</text>
+  <polygon points="1130,520 1270,520 1670,500 1670,940 1430,980 1150,880" fill="#668e50" stroke="#f6e6bd" stroke-width="5"/>
+  <text x="1400" y="740" class="district">OLD ORCHARD</text>
+  <polygon points="30,1020 530,980 670,840 850,900 850,1170 30,1170" fill="#78aa86" stroke="#f6e6bd" stroke-width="5"/>
+  <text x="430" y="1050" class="district">RIVERSIDE MEADOW</text>
+  <polygon points="850,900 1030,840 1170,890 1200,1080 1070,1130 850,1100" fill="#c88d58" stroke="#f6e6bd" stroke-width="5"/>
+  <text x="1020" y="1010" class="district">PACKING YARD</text>
+  <polygon points="1170,890 1430,980 1670,940 1670,1170 1070,1170 1070,1130 1200,1080" fill="#79a45d" stroke="#f6e6bd" stroke-width="5"/>
+  <text x="1430" y="1060" class="district">SOUTH PADDOCK</text>
+  <polygon points="1270,1020 1670,1020 1670,1140 1280,1140" fill="#89938f" stroke="#f6e6bd" stroke-width="5"/>
+  <text x="1470" y="1080" class="district">DELIVERY LAY-BY</text>
+
+  <polyline points="-20,780 190,780 350,760 490,720 580,680" fill="none" stroke="#5c442f" stroke-opacity=".26" stroke-width="68" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="-20,780 190,780 350,760 490,720 580,680" fill="none" stroke="#ead09c" stroke-width="60" stroke-linecap="round" stroke-linejoin="round" />
+  <polyline points="1080,600 1180,570 1180,500 1260,420" fill="none" stroke="#5c442f" stroke-opacity=".26" stroke-width="98" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="1080,600 1180,570 1180,500 1260,420" fill="none" stroke="#ead09c" stroke-width="90" stroke-linecap="round" stroke-linejoin="round" />
+  <polyline points="1260,420 1420,420 1610,420" fill="none" stroke="#5c442f" stroke-opacity=".26" stroke-width="98" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="1260,420 1420,420 1610,420" fill="none" stroke="#ead09c" stroke-width="90" stroke-linecap="round" stroke-linejoin="round" />
+  <polyline points="580,680 510,610 430,510 390,390" fill="none" stroke="#5c442f" stroke-opacity=".26" stroke-width="68" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="580,680 510,610 430,510 390,390" fill="none" stroke="#ead09c" stroke-width="60" stroke-linecap="round" stroke-linejoin="round" />
+  <polyline points="1010,830 1090,890 1170,960 1290,1040 1490,1080 1720,1080" fill="none" stroke="#5c442f" stroke-opacity=".26" stroke-width="68" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="1010,830 1090,890 1170,960 1290,1040 1490,1080 1720,1080" fill="none" stroke="#ead09c" stroke-width="60" stroke-linecap="round" stroke-linejoin="round" />
+  <polyline points="1120,700 1270,700 1430,700 1530,710 1580,750 1580,840 1580,950 1390,1000 1290,1040" fill="none" stroke="#5c442f" stroke-opacity=".26" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="1120,700 1270,700 1430,700 1530,710 1580,750 1580,840 1580,950 1390,1000 1290,1040" fill="none" stroke="#d9c397" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="15 10"/>
+  <polyline points="190,1180 190,1090 230,1030 270,970 270,930 400,930 550,890 670,840" fill="none" stroke="#5c442f" stroke-opacity=".26" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="190,1180 190,1090 230,1030 270,970 270,930 400,930 550,890 670,840" fill="none" stroke="#d9c397" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="15 10"/>
+  <polyline points="880,1030 770,1030 650,1090 650,1210" fill="none" stroke="#5c442f" stroke-opacity=".26" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="880,1030 770,1030 650,1090 650,1210" fill="none" stroke="#d9c397" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="15 10"/>
+<g transform="rotate(0 770 470)"><rect x="680" y="415" width="180" height="110" rx="12" class="building"/></g><text x="770" y="475" class="structure">STONE BARN</text><g transform="rotate(0 970 440)"><rect x="860" y="385" width="220" height="110" rx="12" class="building"/></g><text x="970" y="445" class="structure">MACHINE SHED</text><g transform="rotate(0 660 600)"><rect x="585" y="555" width="150" height="90" rx="12" class="building"/></g><text x="660" y="605" class="structure">WORKSHOP</text><g transform="rotate(0 660 750)"><rect x="595" y="710" width="130" height="80" rx="12" class="building"/></g><text x="660" y="755" class="structure">FEED STORE</text><g transform="rotate(0 1050 680)"><rect x="1005" y="650" width="90" height="60" rx="12" class="building"/></g><text x="1050" y="685" class="structure">GRAIN SILOS</text><g transform="rotate(0 980 990)"><rect x="890" y="950" width="180" height="80" rx="12" class="building"/></g><text x="980" y="995" class="structure">PACKING CANOPY</text>
+<g transform="rotate(0 1180 500)"><line x1="1130" y1="500" x2="1230" y2="500" class="gate"/></g><g transform="rotate(0 430 510)"><line x1="370" y1="510" x2="490" y2="510" class="gate"/></g><g transform="rotate(0 580 680)"><line x1="550" y1="680" x2="610" y2="680" class="gate"/></g><g transform="rotate(0 1290 1020)"><line x1="1260" y1="1020" x2="1320" y2="1020" class="gate"/></g>
+<g><circle cx="370" cy="280" r="25" class="activity"/><text x="370" y="287" class="activity-key">A</text><text x="405" y="287" class="activity-label">SHEEP + GATE</text></g><g><circle cx="1270" cy="270" r="25" class="activity"/><text x="1270" y="277" class="activity-key">B</text><text x="1305" y="277" class="activity-label">BARLEY + WEATHER</text></g><g><circle cx="680" cy="620" r="25" class="activity"/><text x="680" y="627" class="activity-key">C</text><text x="715" y="627" class="activity-label">REPAIR + PARTS</text></g><g><circle cx="1370" cy="710" r="25" class="activity"/><text x="1370" y="717" class="activity-key">D</text><text x="1405" y="717" class="activity-label">ORCHARD + APIARY</text></g><g><circle cx="970" cy="990" r="25" class="activity"/><text x="970" y="997" class="activity-key">E</text><text x="1005" y="997" class="activity-label">PACK + LOAD</text></g><g><circle cx="1470" cy="1050" r="25" class="activity"/><text x="1470" y="1057" class="activity-key">F</text><text x="1505" y="1057" class="activity-label">FINAL DISPATCH</text></g>
+<rect width="1700" height="1200" fill="url(#grid)" pointer-events="none"/>
+<g transform="translate(26 28)"><rect width="465" height="95" rx="16" fill="#17271f" fill-opacity=".9" stroke="#f1d58a" stroke-width="3"/><text x="22" y="35" class="small" style="font-size:24px;font-weight:800">BRACKENRIDGE FARM · PRODUCTION MAP</text><text x="22" y="64" class="small">170 × 120 m · central loop · adaptive shared/split camera</text><text x="22" y="86" class="small">Diagram only — runtime world is assembled from layers and scenes</text></g>
+<g transform="translate(1425 28)"><rect width="247" height="112" rx="16" fill="#17271f" fill-opacity=".9" stroke="#f1d58a" stroke-width="3"/><text x="22" y="30" class="small">NORTH ↑</text><text x="22" y="55" class="small">Cream: usable routes</text><text x="22" y="78" class="small">Brown: gates</text><text x="22" y="101" class="small">Red: activity anchors</text></g>
+</svg>

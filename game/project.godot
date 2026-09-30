@@ -1,0 +1,24 @@
+[application]
+config/name="Brackenridge Farm"
+run/main_scene="res://main.tscn"
+config/icon="res://icon.svg"
+boot_splash/image="res://assets/2d/production/reference_barn.png"
+boot_splash/bg_color=Color(0.075, 0.13, 0.09, 1)
+boot_splash/show_image=true
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.075, 0.13, 0.09, 1)
+textures/default_filters/use_nearest_mipmap_filter=false
+textures/vram_compression/import_etc2_astc=true
+
+[network]
+limits/debugger/max_queued_messages=2048
