@@ -1,6 +1,6 @@
 # Hackathon source handoff
 
-Prepared September 30, 2026. Publication is pending.
+Prepared September 30, 2026. Publication is pending. Baseline local commit `ba36a38` contains 712 tracked files; the initial checkout was clean and had no remote.
 
 ## Prepared source
 
