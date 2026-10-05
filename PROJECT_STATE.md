@@ -221,3 +221,5 @@ Refreshed the isolated publishing checkout from the current 765-file curated can
 **Single recommended next task:** establish a usable actual TV view/device and run the complete two-phone acceptance route; the simulator-view observation question remains unanswered.
 
 Snapshot verification also caught the general `*.log` ignore excluding the sanitized startup evidence from Git. Added a specific exception for that retained evidence; unrelated logs remain ignored. Archive/snapshot comparison passed for 765 files, four manifest hashes matched, and a credential-pattern scan passed for 137 text files (a scoped scan, not a universal secrets guarantee). The local checkout has no remote.
+
+The same exact-file exception also retains the earlier path/status-only `vega-startup-http.log`; inspected content contains local LAN URLs and HTTP statuses, with no queries or phone tokens. Both retained log files are part of the 765-file snapshot.

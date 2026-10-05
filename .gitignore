@@ -12,3 +12,4 @@ artifacts/
 
 # Retain scoped, sanitized startup evidence in the submission source.
 !docs/audits/2026-10-05-tv-inspection/startup-diagnostics.log
+!docs/audits/2026-09-30-release/vega-startup-http.log

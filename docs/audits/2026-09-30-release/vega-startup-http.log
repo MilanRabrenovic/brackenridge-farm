@@ -1,0 +1,15 @@
+Brackenridge Farm
+Controllers: http://192.168.1.9:8788/
+Browser host: http://192.168.1.9:8788/host/
+Native host relay: ws://192.168.1.9:8788/ws
+Local LAN development only; use HTTPS/WSS for any public deployment.
+[host-load] GET /host/ 200
+[host-load] GET /host/index.png 200
+[host-load] GET /host/index.js 200
+[host-load] GET /host/ 200
+[host-load] GET /host/index.png 200
+[host-load] GET /host/index.js 200
+[host-load] GET /host/index.pck 200
+[host-load] GET /host/index.wasm 200
+[host-load] GET /host/index.audio.position.worklet.js 200
+[host-load] GET /host/index.audio.worklet.js 200
