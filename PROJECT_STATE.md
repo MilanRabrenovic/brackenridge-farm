@@ -1,11 +1,11 @@
 # Current project state
 
-Updated September 30, 2026. Active game: **Brackenridge Farm**, original 2D two-player cooperative weekend. This is a playable release candidate with completed scripted routes; **hackathon submission readiness is not yet established**. Previous status entries are preserved in `docs/history/2026-09-30/PROJECT_STATE.md` and are historical.
+Updated October 5, 2026. Active game: **Brackenridge Farm**, original 2D two-player cooperative weekend. This is a playable release candidate with completed scripted routes; **hackathon submission readiness is not yet established**. Previous status entries are preserved in `docs/history/2026-09-30/PROJECT_STATE.md` and are historical.
 
 ## September 30 completed implementation pass
 
-- Added host-owned `WeekendSession2D`: arrival/tutorial, sheep guide-and-gate, two £20 planning decisions, asymmetric repair/supply, timed rain/harvest/storage protection, buyer/stock dispatch, outcomes/contributions/balance and replay.
-- Normal cooperative deadlines total roughly 14–15 minutes; successful jobs advance immediately. Failure continues with reserve apples rather than trapping the run. Seed variants affect timing/order; not a full adaptive AI Director.
+- Added host-owned `WeekendSession2D`: arrival/tutorial, sheep guide-and-gate, one confirmed £20 planning decision and a delivery briefing, asymmetric repair/supply, timed rain/harvest/storage protection, buyer/stock dispatch, outcomes/contributions/balance and replay.
+- Normal cooperative deadlines total roughly 14–15 minutes; successful jobs advance after a three-second result beat. Failure continues with reserve apples rather than trapping the run. Seed variants affect timing/order; not a full adaptive AI Director.
 - First phone launches a full assisted solo test weekend with normal mission deadlines. Gate holder, repair diagnosis/helper and loading assistance are provided; harvest starts unprepared and requires the entire crop lifecycle. Second phone admitted during arrival promotes to co-op; after arrival restart with R to choose two-player mode.
 - Phone buttons share the current clue on TV, return held cargo/part, pause/resume. Automatic token reconnect restores slot/clues/mode. Missing required farmer (including solo) pauses clocks/crops; manual resume cannot bypass that pause.
 - Quick action down/up packets are buffered through the next simulation tick. Keyboard E/slash also buffer taps. Host still owns movement and input sequencing.
@@ -25,7 +25,7 @@ Updated September 30, 2026. Active game: **Brackenridge Farm**, original 2D two-
 | Real relay → Godot | Passed; latest recorded frame acknowledgement 25.7 ms; two private welcome cards, screen-axis input and tractor mode |
 | 2D host | Passed with corrected failure exit; crop states, collision/occlusion, walk animation, admission and adaptive cameras |
 | Map | 468 road/vehicle-envelope samples, zero blocked; all ten interaction destinations connected through actual physics space |
-| Repair | Passed diagnosis, wrong/correct parts, joint hold, timeout and two-occupant cutaway |
+| Repair | Passed inspect-to-discover private diagnosis, wrong/correct parts, pressure regulation/overheat, runner fitting, maintenance, timeout and two-occupant cutaway |
 | Weekend | Three complete scripted successful routes, rejected goods, joint loading, failed jobs continuing, solo repair, pause/drop/replay, quick-tap buffer; 1000 repeated seeds stable within three variants |
 | Tractor | Four upright direction-selection assertions/native review captures passed; wheels inspected in side view |
 | Native art/UI | Mission, results, split, yard/map and cutaway inspected. `docs/audits/2026-09-30-release/` and `docs/audits/2026-09-28-cohesive/release-*.png` |
@@ -50,7 +50,7 @@ Scripted tests move actors directly for some interactions; they do not establish
 
 ## Single recommended next task
 
-**Play the updated full solo weekend in the browser with one phone and review the art/readability at normal speed.** Local solo development continues without a two-human or TV gate. Fix observed solo issues first; the two-human full run and TV runtime/qualifying footage remain final submission checks.
+**Observe a first-time normal-speed run for clarity, then a two-person run for communication, idle periods and replay interest.** The local mission improvements below address the audited defects; human pacing/fun and qualifying TV footage remain acceptance checks.
 
 ## Vega setup limitations
 
@@ -115,3 +115,107 @@ Source handoff result: baseline local commit `ba36a38` contains 712 tracked file
 ## September 30 — browser startup recheck
 
 Inspected the live browser, joined a temporary controller and admitted it with Enter. The lobby disappeared, SOLO TEST WEEKEND arrival rendered and the controller received the walking/tractor welcome instructions. Frame acknowledgements settled to 23 ms median / 25 ms p95 in this brief local check. This verifies startup only, not a full normal-speed browser playthrough. Closed the temporary controller and reloaded the host; the fresh QR lobby rendered with zero farmers. Normal-permission ADB listing now contains no devices. No code or art changed, and no full-suite rerun was warranted. Source visibility remains pending; refresh the publishing snapshot after these documentation changes before any publication.
+
+## September 30 — mission experience audit (historical baseline; superseded below)
+
+The user made mission fun, clarity and attention the priority. Ran the full native solo input route again successfully (221.5 seconds of simulated input plus explicit planning waits; rendered results 4:33). Ran the three-route weekend/failure/private-clue regression successfully. Added and executed `capture_mission_audit.gd`, then inspected eight staged cooperative mission states and private cards, plus current actual solo route frames. These are an expert usability review and automated regression, not a human fun/pacing study. No gameplay balancing or art changed.
+
+`docs/MISSION_EXPERIENCE_AUDIT.md` records confirmed defects and inferred boredom risks. The second planning purchase affects only jobs already finished, and ownership is not checked. Hold-to-buy confirms on one tick. Mission results are immediately overwritten. Weather work is uneven, field stages change globally after 16 small cells, original clues are overwritten by cargo/status messages, and contribution scoring rewards repeated commands. These findings supersede any assumption that mechanical completion proves an engaging experience. The audit report gives the exact next implementation pass. Restricted Godot log/certificate warnings remain; no failed mission regression. Source ZIP/publishing snapshot now need refreshing after this audit addition before publication.
+
+## September 30 — mission improvement implementation
+
+Implemented the local audit fixes within the four existing incident families: acknowledged hay tutorial, eight-second gate windows, three-second purchase hold/reset/ownership guards, delivery briefing replacing late spending, readable success/failure beats, 16 marked field plots with local worked patches and deliberate sow/harvest tool engagement, intake sealing, optional crate preparation, visible cover/storage progress, persistent private facts plus current hints, correct cargo guidance, outcome-dependent loading/rewards and deduplicated task recognition. Failed repair slows delivery; crates shorten loading. No art asset or world placement was changed. Field stages still change globally after all plots; this is an abstraction, not continuous per-plant simulation.
+
+Verification: full solo input/physics route passed and rendered results at 5:18 simulated time (266.9 seconds of input simulation plus explicit planning waits); three cooperative scripted routes/failure/privacy checks and 1000 seeds passed; new mission regression, existing 2D/repair tests, nine Node tests and TypeScript passed. Native eight-screen staged review passed. Initial tests exposed outdated immediate-transition/tool assumptions and a test tap lacking release after sealing; fixtures/input test were corrected. A cover expectation was corrected for the purchased shelter's faster duration. The pre-existing small 2D-host ObjectDB exit warning remains. These are automated/expert checks, not human fun evidence.
+
+Phone tractor UI inspected at 390×780 with dashboard, tool and steering/EXIT controls visible. Web export plus actual exported-PCK startup passed; Fire OS export and v2/v3 signature verification passed. Physical TV execution remains unverified. Current evidence and residual design risks are in `docs/MISSION_EXPERIENCE_AUDIT.md`. Source packaging includes current mission review captures. The curated source ZIP passed CRC and required mission-test inclusion checks; the release manifest records refreshed hashes; the separate Git publishing snapshot remains older and must be refreshed before publication. No external source upload or submission was performed.
+
+**Single recommended next task:** observe a first-time normal-speed run for clarity, then a two-person run for communication, idle periods and replay interest. Mechanic waiting, split-view offscreen navigation, simplified field stages and bespoke work animations remain limits; do not call the game fun-tested or submission-ready.
+
+Final handoff: browser freshly reloaded and visibly reached the QR lobby with zero farmers; relay remains running. Final APK signature check passed with the bundled JDK (the initial plain invocation lacked JAVA_HOME). Exported Web/PCK and APK contain the final instruction wording. The isolated publishing Git checkout remains stale, explicitly documented in SOURCE_HANDOFF.
+
+## September 30 — sheep personality and animation
+
+Added a four-second staggered fence breakout at the beginning of the existing sheep event, with seed-controlled jump order, bounded fleeing/jinks when rushed and calm guiding unchanged. Sheep now move diagonal leg pairs independently through a shader using the existing raster art; cadence responds to movement, bodies settle subtly and hop shadows stay at ground level. Animation/wandering use simulation time, not wall-clock noise. Recovered sheep remain safe: no surprise repeated progress loss. No new incident family, map placement or generated asset was introduced. This is lightweight art deformation, not an authored directional gait sheet; fixed illustration perspectives remain visible.
+
+Verification: full headless solo input/physics route passed (266.0 seconds of input simulation plus planning waits). Three complete scripted co-op routes, failed-job recovery and 1000 seed selections passed. Focused sheep test and native four-frame capture passed; inspected frames 0 and 2 at real gameplay scale. Restricted macOS log/certificate warnings remain. Web export/exported-PCK startup and Fire OS export/v2/v3 signing checks passed; source package refreshed for this change; physical TV execution and human fun remain unverified.
+
+**Single recommended next task:** normal-speed first-time co-op playtest, recording time to understand objectives, idle time (especially the mechanic), wrong turns and replay interest. Use that evidence to improve repair/weather participation and split-view navigation. Do not treat local regression success as human fun or hackathon submission acceptance.
+
+## September 30 — active co-op repair
+
+Replaced the mechanic's continuous fitting hold with pressure regulation: ACTION inspection reveals the seeded fault; HOLD pumps and RELEASE cools, while the runner fetches/delivers and holds to fit. Both must remain at the bay, with pressure 40–75% green. Overheating or low pressure pauses fitting without erasing it; six seconds of safe fitting are needed, three with maintenance. Solo helper balances pressure. Added readable sage/cream instrument UI and playful overheat/success copy. Arrival's second-phone instructions now name CHECK HAY rather than a vague blue marker. No incident family, map placement or raster asset was added; no physical repair/work animation was authored.
+
+Verification: full solo input/physics route passed (266.0 seconds of input simulation plus planning waits). Three scripted co-op routes and failure/privacy/1000-seed checks passed after adapting the mechanic inputs. Repair checks cover absence, overheating, cool-down, held-progress, correct/wrong part, maintenance, private-fact persistence, timeout and cutaway. Mission checks passed. Initial checks caught a percent-formatting error and tests assuming continuous joint hold; fixed both. The weekend test's released mechanic input also needed resetting before its separate covering stage. Native low/green/hot captures inspected, panel fit checked. A restricted native launch hung before graphics initialization; stopped it and the normal-permission capture passed. Existing restricted certificate/log warnings remain.
+
+Web/Fire OS/source packaging is refreshed for this pass; detailed final checks follow. Human fun, balanced participation, normal-speed pacing and physical TV execution remain unverified. The isolated publishing Git snapshot is still older than current source.
+
+**Single recommended next task:** normal-speed co-op playtest with first-time players, recording repair communication/pressure understanding, idle periods, navigation difficulties and replay interest. Per-player offscreen navigation, directional animal/work animations and physical TV acceptance remain open; no submission-ready claim.
+
+Final repair packaging checks: first exported-PCK smoke rejected the missing dynamically referenced gauge script. Added it explicitly to both export presets. Rebuilt Web/exported-PCK smoke and Fire OS export successfully; APK v2/v3 signature check passed. Refreshed curated source package includes the gauge, updated tests and repair review evidence. No public repository upload or TV execution was performed.
+
+## September 30 — adaptive minimap
+
+Added a live schematic minimap using authored field/road/building data, river, farmer identity markers and public mission targets. It sits at bottom-centre over the split seam when farmers separate, moves to bottom-right when they share a camera, and hides for QR lobby/results. Solo shows only the active farmer. Order/diagnosis details remain private; targets never inspect buyer preference. The map draws one compact UI chart rather than rendering a second farm viewport. No art asset, map placement, mission mechanics, input or collision was changed. Added both export-filter entries for the dynamically loaded script.
+
+Verification: existing 2D host checks passed. Focused minimap test checks shared/split/merge/solo layouts, lobby/results visibility, privacy, packed-order van targeting and small-window logical bounds. Native staged shared/split/merged captures inspected; adjusted footer spacing after review. The first capture test called an incorrectly named method and hung; stopped its test processes and corrected it. The small-window assertion initially compared physical window size with the stretched logical viewport; corrected the coordinate-space assertion. Restricted certificate/log warnings remain. Export/source final results follow. This verifies local UI behavior, not physical TV readability or human navigation success.
+
+**Single recommended next task:** observe a normal-speed two-player run with the minimap, checking if first-time players locate field, intake, packing and van without help, alongside pressure-minigame comprehension and idle time. Physical TV acceptance, human fun and published submission evidence remain open.
+
+Final minimap checks: native and headless minimap tests passed; Web export plus actual exported-PCK startup passed; Fire OS export and v2/v3 APK signature verification passed. Source packaging includes the minimap script/test and shared/split/merge review frames. The original browser surface briefly had zero width/empty rendering; a temporary 1280×720 test viewport allowed a fresh export load, with final browser startup checked separately. Physical TV readability and performance remain untested.
+
+Browser handoff: fresh exported game visibly reached the QR lobby with zero farmers; minimap correctly hidden there. Restored the temporary viewport override. Relay remains running for phone joining.
+
+## October 5 — Android packaged-resource verification
+
+Rechecked adaptive minimap behavior: focused headless test passed for shared/split/merge placement, solo visibility, public target privacy and small-window bounds; inspected the existing split gameplay capture. No minimap/gameplay/art changes were needed.
+
+Added `scripts/verify-fireos-assets.py` and integrated it into `export:fireos`. It checks APK ZIP CRC, extracts the shipped Godot assets into an isolated temporary project, and boots those resources with desktop headless Godot. Both the existing and newly exported APK passed with 257 resources. A deliberate removal of the dynamically loaded minimap script was correctly rejected. This checks the actual packaged dependency graph rather than the editor source tree; it does **not** prove Android native libraries, graphics, input, audio or Fire TV performance. Added `test:fireos-assets`; Python/JavaScript syntax checks passed. Release manifest dates now use the packaging date instead of a hard-coded September 30 date.
+
+ADB initially failed under restricted local socket permissions; normal-permission retry returned no connected devices. Fire TV execution and a complete human cooperative playtest remain unverified. Earlier relay-running claims describe September 30, not current availability; the local health probe returned no response this pass. Export and v2/v3 signature verification passed; existing restricted macOS certificate warning remains. Curated source ZIP refreshed (753 files); CRC, changed-file freshness and all four manifest hashes passed. Manifest uses October 5 packaging date. The separate publishing Git snapshot is still stale and unpublished.
+
+**Single recommended next task:** perform a full normal-speed cooperative browser run, recording navigation, pressure-control clarity and idle periods, then complete physical Fire TV acceptance before submission. No finished/submission-ready claim is supported yet.
+
+## October 5 — complete cooperative input/physics route
+
+Added `test:coop-route`, reusing the actual motor/pathfinding helpers from the solo route with an active-player slot. Both farmers move through input packets and normal host physics ticks; the route does not position actors, assign crop stages, call context handlers directly or enable solo assistance. It covers five sheep with a real gate keeper, normal planning-clock saving, private mechanic diagnosis/pressure control and runner fitting, second-farmer intake/apple/crate jobs, tractor entry/full crop lifecycle/storage, both delivery readiness inputs, buyer inspection, a load packed by each farmer, rejection of single-player loading, joint dispatch, results and co-op replay.
+
+The first route exposed a gameplay defect: ACTION during a result beat could fall through to boarding a nearby tractor, so the first delivery-readiness action became EXIT. Added a result-transition guard in `_try_context_action`; the complete route now asserts the farmer stays on foot after storage/result hold. Headless and native seed-1731 routes passed (349.8 simulated seconds, rendered results 5:49). These are accelerated deterministic technical runs, not a typical human duration or fun test. Actual repair/harvest/results frames inspected under `docs/audits/2026-10-05-coop-route/`; no art/map placement changed. Seeds 1732 and 1733 also passed headless complete routes (358.9 simulated seconds each), covering all three bounded variants.
+
+Full solo route passed after the shared helper/game fix (266.0 seconds of motor simulation plus explicit planning waits). Mission and 2D-host regressions passed; the pre-existing small ObjectDB exit warning and restricted macOS log/certificate warnings remain. Web export/actual-PCK startup passed; Fire OS export/actual-APK resource startup and v2/v3 signatures passed. A restricted relay launch failed on socket permissions; normal-permission launch succeeded and the fresh browser visibly reached a zero-farmer QR lobby, left open for joining. This is browser startup evidence, not a full browser/network co-op run. Physical TV execution remains unverified. Source packaging now retains the new route test and actual co-op capture evidence; Refreshed 759-file ZIP passed CRC, changed-source and four co-op-image inclusion/freshness checks; all four manifest artifact hashes matched. Separate publishing Git snapshot remains stale/unpublished.
+
+**Single recommended next task:** a normal-speed first-time two-person browser playtest, recording navigation, pressure comprehension, participation and replay interest; then physical Fire TV acceptance/qualifying footage. The technical routes strengthen playability evidence but cannot establish human fun or submission readiness.
+
+## October 5 — supported TV inspection investigation
+
+Minimap headless shared/split/merge/solo/privacy/visibility regression passed; existing split gameplay frame inspected. No runtime or art changes needed; restricted Godot log/certificate warnings remain.
+
+Established official local Appium Inspector tooling (Appium 2.2.2, Kepler 3.30.0, checksum-verified Inspector 2026.9.2 ARM ZIP). Current Amazon VDA docs explicitly say the previous `gwsi-tool-screenshooter` route is unsupported on VVD. Existing simulator/server handles confirmed live. Component listing showed the game had stopped, so it was relaunched; listing then showed game VISIBLE and WebView renderer READY. Inspector returned a 1280×720 window and black screenshot. A GUI UP command received driver HTTP 200, but visible response was not established. Later screenshot/source refresh stayed pending; recorded pending Inspector UI under `docs/audits/2026-10-05-tv-inspection/`. This is not gameplay footage. GWSI buffer-state logs were found, but capture limitation versus actual rendering failure remains unresolved. No security bypass/filesystem-permission workaround applied; local tools excluded from source.
+
+No physical Fire OS execution, complete rendered TV playthrough, normal-speed two-human fun test, qualifying video or publication completed. Goal remains active; prior blocked entries are historical. Source packaging now includes the TV diagnostic README/pending capture. Python syntax check passed. The 761-file ZIP passed CRC, current source/docs/evidence byte comparisons and tool exclusion checks; all four manifest hashes matched. Game binaries unchanged.
+
+**Single recommended next task:** gather fresh TV wrapper/startup diagnostics alongside a supported Inspector view to distinguish loading/rendering failure from capture limitation; retain live handles while requests are pending. Human cooperative acceptance remains required afterwards.
+
+## October 5 — TV startup diagnostics and readable failure handling
+
+Added scoped WebView startup reporting for Godot's canvas dimensions, visible bounds, startup-overlay removal, secure context, WebAssembly support and context loss/restoration. Sampling stops after 45 samples and only changed state/first/final samples are sent. It never creates/reconfigures a WebGL context, and collects no room code, phone token or private mission fact. The native wrapper shows friendly loading/connection/startup failure messages; diagnostic detail appears only in development mode. Main-frame HTTP/SSL/load failures hide the app splash so the error can be seen. No game simulation, art, map placement or phone controller changed.
+
+Fresh debug install/launch passed. Actual scoped runtime logs show canvas 300×150 / not ready at 11:51:22 UTC, then 1280×720 / ready / visible / secure / WebAssembly supported at 11:51:32 UTC, with no startup failure notice; final sample remained ready. This readiness means the Godot startup overlay was removed, not that the rendered farm pixels were verified. Native Inspector later showed the debug diagnostic strip reading `Canvas 1280,720; view 1280,720; ready=true; visible`, but the game surface remained flat-coloured. Saved `inspector-flat.png` and scoped `startup-diagnostics.log` under `docs/audits/2026-10-05-tv-inspection/`. The temporary log collection process ended (exit 0). Renderer service is already present in the manifest, as required by Amazon's blank-screen troubleshooting. Capture/compositing versus actual game rendering remains unresolved; a user observation question about the simulator window is pending.
+
+Verification: lint and TypeScript passed; three tests in two suites passed, including execution of the actual shipped injection string against zero-sized/lost/restored canvas states without creating a graphics context. Initial test failures exposed missing Text/StyleSheet.flatten in the template mock; corrected those. SDK TypeScript lacked Node VM declarations, so the test now executes owned injection code with explicit fake browser globals. Restricted Watchman access initially failed; a normal-permission run passed, and final `--watchman=false` run passed without the external cache. Debug and release packages built for all three configured architectures; aarch64 release artifact refreshed. Existing manifest warnings about missing icon/build number and empty asset glob remain; build returned success. Native debug strip inspected; friendly error states have component-test evidence, not observed device error evidence.
+
+No physical Fire OS or complete TV gameplay/input/audio/performance/replay acceptance, first-time human fun test, qualifying recording or publication was achieved. Browser/APK game binaries are unchanged. Source packaging refresh follows.
+
+**Single recommended next task:** establish whether the farm is visible in the actual simulator window (pending user observation) or connect a physical Fire TV, then run the complete two-phone acceptance route. The ready canvas and native diagnostic strip must not be presented as a full TV graphics pass.
+
+Late context recovery is now sampled immediately even after the 45-second polling window ends, so a restored context clears the native failure text. The actual injected-code regression covers this; final three tests, lint and TypeScript passed. Earlier ready-strip inspection remains valid startup evidence; late recovery was regression-tested rather than induced on the simulator.
+
+Final late-recovery builds: Debug and Release completed successfully for aarch64, armv7 and x86_64. The retained aarch64 release candidate includes the recovery fix. Source handoff is refreshed with current diagnostics, tests and scoped inspection evidence; this remains a candidate, not a completed TV acceptance pass.
+
+Final handoff verification: 765-file source ZIP passed CRC, current edited source/docs/evidence byte comparisons and tool exclusion checks; all four release-manifest hashes matched.
+
+## October 5 — refreshed submission source checkout
+
+Refreshed the isolated publishing checkout from the current 765-file curated candidate, retaining its local Git history. The previous 712-file snapshot had no obsolete tracked files and no local edits. Current source/docs/evidence are compared against the ZIP, whose CRC and four manifest hashes are checked. No remote or upload is added. This closes source handoff freshness only; human/browser whole-run and TV visual/runtime acceptance, recording and publication remain open.
+
+**Single recommended next task:** establish a usable actual TV view/device and run the complete two-phone acceptance route; the simulator-view observation question remains unanswered.

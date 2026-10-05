@@ -35,3 +35,35 @@ Crop progression now provides current-step objectives, cell/growth progress and 
 Corrected a repeat-play gap: variants now select belt/slipping drive or gasket/leaking pump, with mechanic-only diagnosis and runner supply locations. Both correct and wrong-part cases/privacy passed, as did the complete solo/weekend regressions. Staged solo wording views were inspected. This is bounded incident variation, not an adaptive AI Director or additional incident category. No new TV/human/publication evidence exists.
 
 Source handoff is prepared in an isolated local Git snapshot. GitHub authentication was verified, proposed repository absence confirmed and a scoped credential-pattern scan passed. Public/private creation and push remain pending; no repository URL or submitted entry is claimed.
+
+## Mission quality is not accepted
+
+The mission audit prompted purchase confirmation, result beats, explicit field-tool handoffs and marked plots, persistent phone facts, intake sealing/crate preparation, eight-second gate windows, and outcome-dependent delivery/rewards. Full solo input simulation, three cooperative scripted routes and focused mission tests pass. Eight staged mission captures and the real solo results were inspected. These establish local behavior/readability, not human fun: mechanic idle time, split navigation and normal-speed two-human pacing still need acceptance. See `MISSION_EXPERIENCE_AUDIT.md`.
+
+September 30 sheep follow-up: bounded seeded fence breakout and shader leg-pair animation inspected in four native frames. Full solo and three scripted co-op routes still pass; focused sheep and mission checks pass. This adds personality within the existing event, not proof of human fun or authored directional animation completeness.
+
+Active co-op repair follow-up: inspect-to-discover diagnosis, pump/release pressure regulation and runner fitting tested; solo helper and maintenance benefit preserved. Native low/green/hot panel inspected. Does not establish human entertainment or authored work-animation completeness.
+
+Adaptive minimap: layout-derived public chart, player identities and phase-dependent task targets added. Shared/split/merge/solo/visibility/privacy checks and native review passed. This supplies orientation when world markers are offscreen; it is not collision-aware routing or human/TV wayfinding acceptance.
+
+## October 5 packaged-resource evidence
+
+The Fire OS export now boots its actual shipped Godot resources with desktop headless Godot after packaging. The existing and refreshed APK both passed with 257 resources; deliberately deleting the dynamic minimap script from an isolated temporary copy was rejected. APK archive integrity is checked before extraction. Syntax checks, export and v2/v3 signature verification passed. A normal-permission ADB device query returned no connected devices. This closes a resource-inclusion verification gap; it does not prove Android execution, TV graphics/audio/remote, full cooperative play or performance. Minimap regression was also rerun successfully. External completion gates remain open.
+
+## October 5 full cooperative motor evidence
+
+The new complete cooperative route uses both input slots and actual CharacterBody physics/collision, without actor placement, direct interaction calls, crop-stage assignment or solo helpers. Seed 1731 passed headless and native through all four successful outcomes/results/replay, with both players contributing to delivery and single-player loading rejected. Actual rendered repair/harvest/results were inspected. It caught and prompted a fix for accidental tractor boarding during mission result beats. Solo/mission/host regressions and refreshed Web/PCK plus APK resource/signature checks passed. Fresh browser QR startup was visible. This strengthens the technical co-op evidence; normal-speed human participation/fun, a full browser/network route and TV execution/footage remain unverified.
+
+Final variant checks: complete input/physics routes for seeds 1732 and 1733 also passed (358.9 simulated seconds each), covering all three bounded weekend variants. This remains automated evidence, not a human playtest.
+
+## October 5 supported TV observation
+
+The goal has resumed; older blocked paragraphs are historical. Official documentation rules out `gwsi-tool-screenshooter` on VVD. Locally installed official Inspector created a session. After confirmed game termination/relaunch it returned a 1280×720 window and black captured view while the component was VISIBLE. Subsequent refresh remained pending. GUI UP input received HTTP 200 without verified visible response. Saved pending Inspector UI is diagnostic only. Capture limitation versus actual WebView rendering failure is unresolved. Physical Fire OS execution, full rendered TV gameplay/input/performance/audio/replay, human fun and publication remain unproven.
+
+## October 5 instrumented startup evidence
+
+Scoped diagnostics now prove document load, secure/WebAssembly availability and Godot startup-overlay removal with visible 1280×720 canvas dimensions approximately ten seconds after load. Native debug diagnostic text was inspected; game capture remained flat-coloured. This narrows the unknown to rendering/compositing/capture, but does not prove farm graphics, remote/phone whole-run input, audio, performance or replay on TV. Renderer service declaration is present. Three wrapper/injection tests, lint, TypeScript and Debug/Release builds passed; aarch64 candidate refreshed. No physical Fire OS acceptance or qualifying footage. A direct user observation of the simulator window is pending; no answer is assumed.
+
+Late context recovery is now sampled immediately even after the 45-second polling window ends, so a restored context clears the native failure text. The actual injected-code regression covers this; final three tests, lint and TypeScript passed. Earlier ready-strip inspection remains valid startup evidence; late recovery was regression-tested rather than induced on the simulator.
+
+Final late-recovery builds: Debug and Release completed successfully for aarch64, armv7 and x86_64. The retained aarch64 release candidate includes the recovery fix. Source handoff is refreshed with current diagnostics, tests and scoped inspection evidence; this remains a candidate, not a completed TV acceptance pass.

@@ -25,28 +25,37 @@ func verify() -> void:
 			if target==null: break
 			positions={1:host.world_root.pixel_to_logical(target.position)+Vector2(0,5.5),2:host.animal_incident.GATE}
 			s.update(.1,positions,inputs)
+		s.update(3.1,positions,inputs)
 		check(s.phase=="planning_gate" and s.outcomes.sheep==5,"Sheep success reaches planning")
-		s.update(26,positions,inputs);check(s.phase=="repair","Planning transition")
+		s.update(26,positions,inputs);s.update(3.1,positions,inputs);check(s.phase=="repair","Planning transition")
 		s.handle_action(2,host.repair_incident.BAY) # contextual repair routes are handled by the repair controller
 		host.repair_incident.handle_action(2,host.repair_incident.BAY)
 		host.repair_incident.handle_action(1,host.repair_incident.GASKET_CRATE if host.repair_incident.required_part=="gasket" else host.repair_incident.BELT_CRATE)
 		host.repair_incident.handle_action(1,host.repair_incident.BAY)
 		positions={1:host.repair_incident.BAY,2:host.repair_incident.BAY};inputs[1].action=true
-		s.update(6.1,positions,inputs);check(s.phase=="weather" and s.outcomes.repair,"Repair transition")
+		for tick in range(240):
+			if s.phase!="repair" or s.next_phase!="":break
+			inputs[2].action=host.repair_incident.pressure<.60
+			s.update(.05,positions,inputs)
+		s.update(3.1,positions,inputs);check(s.phase=="weather" and s.outcomes.repair,"Balanced-pressure repair transition")
 		# Work the actual crop through preparation, sowing, timed growth and harvest.
+		inputs[2].action=true
 		var crop=host.world_root.crop_field
-		var storage_clue:String=host.latest_clues[2]
+		var storage_clue:String=host.mission_facts[2]
 		s.update(.016,positions,inputs)
-		check(host.latest_clues[2]==storage_clue,"Crop guidance exposed or replaced the partner storage clue")
+		check(host.mission_facts[2]==storage_clue,"Crop guidance exposed or replaced the partner storage clue")
 		for pass_index in range(2):
+			if pass_index==1:crop.engage_operation()
 			for y in [-50,-42,-34,-26]:
 				for x in [31,45,59,73]: crop.apply_tractor_work(host._logical_to_pixel(Vector2(x,y)))
 		crop._process(11);crop._process(13);crop._process(16)
+		crop.engage_operation()
 		for y in [-50,-42,-34,-26]:
 			for x in [31,45,59,73]:crop.apply_tractor_work(host._logical_to_pixel(Vector2(x,y)))
 		check(crop.stage==6,"Mission harvest lifecycle")
-		s.handle_action(1,s.INTAKE);positions[2]=s.APIARY
-		s.update(6.1,positions,inputs);check(s.phase=="planning_machine" and s.stock==2,"Weather success")
+		positions[1]=s.INTAKE;positions[2]=s.APIARY;s.update(4.1,positions,inputs)
+		s.handle_action(1,s.INTAKE)
+		s.update(6.1,positions,inputs);s.update(3.1,positions,inputs);check(s.phase=="planning_machine" and s.stock==2,"Weather success")
 		s.update(26,positions,inputs);check(s.phase=="dispatch","Dispatch transition")
 		var wrong=s.APIARY if s.required_goods=="barley" else s.INTAKE
 		s.handle_action(1,wrong);s.handle_action(1,s.PACK);check(s.loaded==0,"Wrong order accepted")
@@ -65,10 +74,10 @@ func verify() -> void:
 	check(s.phase=="results" and not s.outcomes.dispatch,"Failure recovery ending")
 	host.admitted_players=1;s.restart(11)
 	check(s.solo,"Solo label missing")
-	s.update(76,positions,inputs);s.update(171,positions,inputs);s.update(26,positions,inputs)
+	s.update(76,positions,inputs);s.update(171,positions,inputs);s.update(3.1,positions,inputs);s.update(26,positions,inputs);s.update(3.1,positions,inputs)
 	check(s.phase=="repair","Solo reaches assisted repair")
 	host.repair_incident.handle_action(1,host.repair_incident.GASKET_CRATE if host.repair_incident.required_part=="gasket" else host.repair_incident.BELT_CRATE);s.update(.1,positions,inputs)
-	host.repair_incident.handle_action(1,host.repair_incident.BAY);positions[1]=host.repair_incident.BAY;inputs[1].action=true;s.update(6.1,positions,inputs)
+	host.repair_incident.handle_action(1,host.repair_incident.BAY);positions[1]=host.repair_incident.BAY;inputs[1].action=true;s.update(6.1,positions,inputs);s.update(3.1,positions,inputs)
 	check(s.phase=="weather","Solo repair solvable")
 	check(host.world_root.crop_field.stage==0 and not s.covered,"Solo bypassed preparation or apple covering")
 	check(s.remaining==210,"Solo lacks full harvest time")
@@ -95,9 +104,10 @@ func verify() -> void:
 		s.variant=fault_variant;s.solo=false;s._enter("repair",210)
 		var repair=host.repair_incident
 		check(repair.required_part==("gasket" if fault_variant==2 else "belt"),"Wrong seeded repair fault")
-		check(repair.required_part.to_upper() in host.latest_clues[2],"Mechanic has no fault diagnosis")
+		check(repair.required_part.to_upper() not in host.latest_clues[2],"Inspection revealed the diagnosis too early")
 		check("DIAGNOSIS" not in host.latest_clues[1],"Runner received mechanic diagnosis")
 		repair.handle_action(2,repair.BAY)
+		check(repair.required_part in host.mission_facts[2],"Inspection failed to reveal the private diagnosis")
 		repair.handle_action(1,repair.BELT_CRATE if repair.required_part=="gasket" else repair.GASKET_CRATE)
 		repair.handle_action(1,repair.BAY);check(not repair.delivered,"Wrong seeded part accepted")
 		repair.handle_action(1,repair.GASKET_CRATE if repair.required_part=="gasket" else repair.BELT_CRATE)

@@ -16,7 +16,7 @@ Sources: [event overview](https://amazonappdev2026.devpost.com/) and [official r
 ## Ready locally
 
 - Browser candidate and signed Fire OS debug APK, original 2D source/runtime art and MIT code. Source archive: `../artifacts/brackenridge-farm-source.zip`; hashes: `../artifacts/release-manifest.json`.
-- A complete arrival → sheep → planning → repair → weather/harvest → planning → dispatch → results/replay sequence.
+- A complete arrival → sheep → planning → repair → weather/harvest → delivery briefing → dispatch → results/replay sequence.
 - Labelled assisted solo weekend, two private phone roles, distinct tractor dashboard, pause/drop/share, reconnect handling.
 - Scripted regression, route clearance, real relay input and native/browser visual evidence.
 - README, run/export instructions and this submission draft.
@@ -58,3 +58,7 @@ Edit actual play footage with cuts and disclose accelerated time if used. Native
 ## Product feedback draft
 
 Godot's shared source/Web/Android exports accelerated local iteration. Scene-filter exports required explicit inclusion of scripts instantiated dynamically, so the exporter now boots the actual packaged PCK to catch omissions. Separate phone controls work well for private information, but quick taps required host-side buffering between network polling and simulation ticks. The official Vega WebView template and SDK 0.24.12112 were used to build/install a wrapper. Simulator startup was confirmed by Godot resource downloads and room creation; rendered gameplay and TV remote controls remain unverified. Do not claim measured device performance or Bedrock usage.
+
+## October 5 platform evidence update
+
+Instrumented Vega Debug launch reached visible 1280×720 Godot canvas/startup readiness approximately ten seconds after document load. Appium showed the native status strip but a flat game surface. Debug/Release builds, lint, TypeScript and three wrapper/injection tests passed; aarch64 release artifact refreshed. These do not establish actual TV gameplay/remote/performance/audio or qualify as demo footage. The browser and signed Fire OS APK game content remain the last tested October 5 build. Full Fire OS execution, human cooperative acceptance and publication are still required.

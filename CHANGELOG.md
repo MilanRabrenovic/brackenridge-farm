@@ -4,6 +4,10 @@ Connected arrival, sheep, planning, repair, weather/crops, buyer/stock dispatch 
 
 # Project changelog
 
+## 2026-09-30 — Mission clarity and engagement audit
+
+Reviewed eight freshly staged cooperative mission screens/private cards and current native solo route captures. Full solo input route and three-route weekend regressions passed. Added reusable mission capture script and documented ineffective late upgrades, missing confirmation/result feedback, uneven partner workload, automatic field switches and lost private facts. No gameplay or art changed. Human fun/pacing remains unverified; mission-experience fixes are the next implementation priority.
+
 ## 2026-09-28 — Upright tractor, dashboard and soil trails
 
 Removed image rotation, added movement-driven suspension bob, tractor-specific phone layout, input gauge and exit transition. Replaced circular work stamps with textured cells. Protected tractor mode from incident UI and restored late-join clues. Four directional sprite candidates generated/tested but withheld from main map pending art approval. Source/relay/export checks pass; authored wheel-spin and boarding animation remain unfinished.
@@ -402,3 +406,47 @@ This file records completed implementation and documentation passes. It is not a
 - Prepared an isolated Git snapshot from the curated source archive; SDK/caches/environment/signing keys remain excluded.
 - Verified GitHub authentication and that the proposed repository does not exist; credential-pattern scan of 122 text files found no matches.
 - Added source-handoff/publication instructions. User visibility decision, remote creation and push are pending.
+
+## 2026-09-30 — mission clarity and participation pass
+
+Replaced ineffective late purchases with delivery briefing; added purchase confirmation/result beats, gate-opening windows, marked crop work/tool handoffs, storage sealing/crate preparation, persistent phone facts and task-based recognition. Repair/crate outcomes affect delivery duration and care successes affect rewards. Full solo input route, cooperative scripted routes and new mission checks pass; native/browser review and refreshed Web/Fire OS packaging verified. Human pacing/fun and physical TV acceptance remain open. Updated affected direction, catalogue, audit, command and state documents.
+
+## 2026-09-30 — sheep personality and motion
+
+Added seeded staggered fence jumps, bounded rushed-approach evasion, simulation-driven leg-pair animation from existing art and grounded hop shadows. Safely returned sheep retain progress. Full solo and three scripted co-op routes pass; focused motion/replay test and native frame review pass. No new raster asset, incident type or human/TV acceptance claim.
+
+## 2026-09-30 — active co-op repair
+
+Mechanic inspection now reveals the private fault; pressure pumping/cooling replaces continuous joint holding. Runner fitting advances only with both nearby and green pressure; mistakes pause rather than erase progress. Added instrument UI and playful feedback, retained solo helper and maintenance benefit, clarified arrival guidance. Solo/co-op scripted routes, repair/mission regressions and native gauge review pass; human fun and TV acceptance remain open.
+
+## 2026-09-30 — adaptive minimap
+
+Added layout-derived schematic chart with farmers and public task targets. Bottom-centre in split view, bottom-right when shared; hides for QR/results and respects solo. Checked camera-layout changes, privacy, van targeting and small-window logical bounds; inspected native shared/split/merge captures and adjusted legend spacing. World simulation/art unchanged; TV/human acceptance remains pending.
+
+## 2026-10-05 — APK game-resource startup gate
+
+Added APK CRC/extracted-resource startup verification to Fire OS export, plus a negative check proving a missing dynamic minimap script is rejected. Existing/refreshed APK resources booted with desktop Godot (257 resources); export, syntax and v2/v3 signature checks passed. Minimap regression passed. Release manifest date now follows packaging time. No connected Fire TV; native Android execution and human cooperative acceptance remain unverified.
+
+## 2026-10-05 — Full cooperative physics route and transition action fix
+
+Added two-slot packet/motor weekend verification without solo helpers or teleporting actors/crop states. The route caught ACTION falling through to tractor boarding during result messages; context actions now pause through those transitions. Seed 1731 passed headless/native with all four jobs, joint delivery, results/replay; solo/mission/2D regressions passed. Inspected actual rendered route, refreshed Web/APK and verified startup/signatures. Human fun and TV acceptance remain pending.
+
+Final variant checks: complete input/physics routes for seeds 1732 and 1733 also passed (358.9 simulated seconds each), covering all three bounded weekend variants. This remains automated evidence, not a human playtest.
+
+# 2026-10-05 — Supported TV inspection investigation
+
+Verified adaptive minimap regression and inspected split gameplay evidence; no runtime changes. Established official local Appium/Kepler/Inspector tools and corrected unsupported VVD framebuffer instructions. Session/window/source access succeeded after a confirmed stopped-component relaunch; captured view was black and subsequent refresh pending. Recorded limitations and next loading/rendering diagnostic in state/commands/platform/audit docs. No TV acceptance or submission-ready claim.
+
+Source packager retains the diagnostic evidence folder. Python syntax, 761-file ZIP CRC/freshness/exclusion checks and four artifact manifest hashes passed.
+
+# 2026-10-05 — Instrumented TV startup and readable failures
+
+Added scoped canvas/startup/context diagnostics and friendly native loading/connection/error text to the Vega wrapper. Actual debug runtime reached visible ready 1280×720 canvas after approximately ten seconds; native debug strip inspected, farm capture still flat-coloured. Three tests/two suites, lint, TypeScript and Debug/Release builds passed after correcting template mocks and SDK-compatible test execution. Refreshed aarch64 release candidate; game simulation/art/browser/APK unchanged. Device graphics/input/performance/audio/replay and human acceptance remain open.
+
+Late context recovery is now sampled immediately even after the 45-second polling window ends, so a restored context clears the native failure text. The actual injected-code regression covers this; final three tests, lint and TypeScript passed. Earlier ready-strip inspection remains valid startup evidence; late recovery was regression-tested rather than induced on the simulator.
+
+Final late-recovery builds: Debug and Release completed successfully for aarch64, armv7 and x86_64. The retained aarch64 release candidate includes the recovery fix. Source handoff is refreshed with current diagnostics, tests and scoped inspection evidence; this remains a candidate, not a completed TV acceptance pass.
+
+## 2026-10-05 — source handoff refresh
+
+Refreshed the isolated submission Git snapshot to the current 765-file candidate, including current cooperative tests, minimap and TV diagnostics. Checked archive integrity, snapshot byte equality and artifact hashes; no publication performed. External acceptance remains pending.

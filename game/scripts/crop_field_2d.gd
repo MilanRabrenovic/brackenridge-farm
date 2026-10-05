@@ -26,11 +26,19 @@ var worked_cells: Dictionary = {}
 var surface: Polygon2D
 var crop_art: Node2D
 var reserved_routes: Array[Dictionary] = []
+var operation_ready := true
+var work_plots: Array[Vector2] = []
+
+func engage_operation() -> void:
+	if stage in [Stage.PREPARED,Stage.MATURE]:operation_ready=true;queue_redraw()
 
 func setup(points: PackedVector2Array) -> void:
 	field_polygon = points
 	field_bounds = _bounds_for(points)
-	z_index = -25
+	# Authored work plots span the productive area, away from the headland.
+	for y in [-50,-42,-34,-26]:
+		for x in [31,45,59,73]:work_plots.append(Vector2(850,600)+Vector2(x,y)*10)
+	z_index = -19
 	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 	surface = Polygon2D.new()
 	surface.name = "FieldSurface"
@@ -71,8 +79,16 @@ func apply_tractor_work(world_point: Vector2) -> bool:
 	if not contains_world_point(world_point): return false
 	if _on_reserved_route(world_point, 0.0): return false
 	if stage not in [Stage.UNPREPARED, Stage.PREPARED, Stage.MATURE]: return false
-	var cell := Vector2i(roundi(world_point.x / 28.0), roundi(world_point.y / 28.0))
-	worked_cells[cell] = Vector2(cell) * 28.0
+	if not operation_ready:return false
+	var cell:=-1;var nearest:=INF
+	for index in range(work_plots.size()):
+		var distance:float=world_point.distance_to(work_plots[index])
+		if distance<nearest:nearest=distance;cell=index
+	if nearest>42 or worked_cells.has(cell):return false
+	worked_cells[cell] = work_plots[cell]
+	if stage==Stage.MATURE:
+		for sprite in crop_art.get_children():
+			if Rect2(work_plots[cell]-Vector2(70,40),Vector2(140,80)).has_point(sprite.position):sprite.hide()
 	queue_redraw()
 	if worked_cells.size() >= WORK_CELLS_REQUIRED:
 		worked_cells.clear()
@@ -89,6 +105,7 @@ func set_stage(next_stage: Stage) -> void:
 	stage = next_stage
 	growth_clock = 0.0
 	worked_cells.clear()
+	operation_ready=stage==Stage.UNPREPARED
 	_update_surface()
 	_rebuild_crop_art()
 	queue_redraw()
@@ -103,12 +120,18 @@ func _draw() -> void:
 	_draw_field_detail()
 	# Contiguous textured work cells, clipped to the field rather than paint circles.
 	for point in worked_cells.values():
-		var tile := PackedVector2Array([point+Vector2(-14,-14),point+Vector2(14,-14),point+Vector2(14,14),point+Vector2(-14,14)])
+		var tile := PackedVector2Array([point+Vector2(-70,-40),point+Vector2(70,-40),point+Vector2(70,40),point+Vector2(-70,40)])
 		for clipped in Geometry2D.intersect_polygons(tile,field_polygon):
 			var uv := PackedVector2Array()
 			for vertex in clipped: uv.append(vertex*TERRAIN_UV_SCALE/Vector2(TERRAIN_FURROWS.get_size()))
 			var tint := Color(.74,.67,.55) if stage == Stage.UNPREPARED else Color(.64,.57,.46)
 			draw_polygon(clipped,PackedColorArray([tint]),uv,TERRAIN_FURROWS)
+	if stage in [Stage.UNPREPARED,Stage.PREPARED,Stage.MATURE]:
+		for index in range(work_plots.size()):
+			if worked_cells.has(index):continue
+			var point:Vector2=work_plots[index]
+			draw_circle(point,7,Color(1,.9,.6,.85),false,2)
+			draw_line(point+Vector2(-14,0),point+Vector2(14,0),Color(1,.9,.6,.7),2)
 
 func _update_surface() -> void:
 	if surface == null: return

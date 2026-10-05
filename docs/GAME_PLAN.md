@@ -4,7 +4,7 @@ Updated 2026-09-30. The active committed implementation and rules are in `../GAM
 
 ## Current slice
 
-Two-player original 2D Brackenridge Farm, one connected map, phone-private clues, adaptive close split cameras. Arrival, animal guide-and-gate, equipment repair/supply, weather/crop protection, market dispatch, two planning choices and results/replay are connected. Seeded bounded timing, belt/gasket repair faults and buyer-order variants supply replay variation. Solo is a full assisted test weekend with normal deadlines and the entire crop lifecycle. Four players and Bedrock are deferred.
+Two-player original 2D Brackenridge Farm, one connected map, phone-private clues, adaptive close split cameras. Arrival, animal guide-and-gate, equipment repair/supply, weather/crop protection, market dispatch, one confirmed planning purchase and a delivery briefing and results/replay are connected. Seeded bounded timing, belt/gasket repair faults and buyer-order variants supply replay variation. Solo is a full assisted test weekend with normal deadlines and the entire crop lifecycle. Four players and Bedrock are deferred.
 
 ## Validation gate
 

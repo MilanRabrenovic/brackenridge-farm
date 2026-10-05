@@ -8,6 +8,7 @@ var simulated_seconds := 0.0
 var open_cells := {}
 var capture_enabled := false
 var input_sequence := 0
+var active_id := 1
 const DT := 1.0 / 60.0
 func _init() -> void: call_deferred("verify")
 func check(ok: bool, message: String) -> void:
@@ -15,7 +16,7 @@ func check(ok: bool, message: String) -> void:
 func step(direction := Vector2.ZERO, hold := false) -> void:
 	await physics_frame
 	input_sequence+=1
-	host._handle({"type":"input","playerId":1,"seq":input_sequence,"x":direction.x,"y":direction.y,"action":hold})
+	host._handle({"type":"input","playerId":active_id,"seq":input_sequence,"x":direction.x,"y":direction.y,"action":hold})
 	host._physics_process(DT)
 	if not session.paused:host.world_root.crop_field._process(DT)
 	simulated_seconds+=DT
@@ -33,7 +34,7 @@ func closest(point: Vector2) -> Vector2i:
 		if distance<best:best=distance;result=cell
 	return result
 func travel(target: Vector2) -> void:
-	var start:=closest(host.logical_positions[1]);var end:=closest(target)
+	var start:=closest(host.logical_positions[active_id]);var end:=closest(target)
 	var queue=[start];var parents={start:start};var cursor:=0
 	while cursor<queue.size() and not parents.has(end):
 		var current:Vector2i=queue[cursor];cursor+=1
@@ -45,13 +46,13 @@ func travel(target: Vector2) -> void:
 	while cell!=start:cell=parents[cell];route.push_front(Vector2(cell))
 	for point in route:
 		for attempt in range(120):
-			var diff:Vector2=point-host.logical_positions[1]
+			var diff:Vector2=point-host.logical_positions[active_id]
 			if diff.length()<.25:break
-			var speed:float=host.SPEED*(1.65 if host.player_modes[1]=="tractor" else 1.0)
+			var speed:float=host.SPEED*(1.65 if host.player_modes[active_id]=="tractor" else 1.0)
 			await step(diff.normalized()*minf(1,diff.length()/(speed*DT)))
-		check(host.logical_positions[1].distance_to(point)<.5,"Motor blocked en route to %s at %s" % [target,host.logical_positions[1]])
+		check(host.logical_positions[active_id].distance_to(point)<.5,"Motor blocked en route to %s at %s" % [target,host.logical_positions[active_id]])
 		if errors>0:return
-	check(host.logical_positions[1].distance_to(target)<2,"Did not reach target %s" % target)
+	check(host.logical_positions[active_id].distance_to(target)<2,"Did not reach target %s" % target)
 func capture_view(label: String) -> void:
 	check(host.animal_incident.incident_panel.get_global_rect().end.x<=root.size.x,"Objective panel runs off the screen")
 	if not capture_enabled:return
@@ -59,11 +60,12 @@ func capture_view(label: String) -> void:
 	await process_frame;await process_frame;await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://../docs/audits/2026-09-30-solo/%s.png" % label)
 func action() -> void:
+	await step() # Release a preceding hold before the next distinct tap.
 	# A real quick tap can arrive down/up in one network poll. Only the normal
 	# host tick may consume it; never invoke the context-action handler directly.
 	for pressed in [true,false]:
 		input_sequence+=1
-		host._handle({"type":"input","playerId":1,"seq":input_sequence,"x":0.0,"y":0.0,"action":pressed})
+		host._handle({"type":"input","playerId":active_id,"seq":input_sequence,"x":0.0,"y":0.0,"action":pressed})
 	await step()
 	await step()
 func hold_for(seconds: float) -> void:
@@ -111,8 +113,9 @@ func verify() -> void:
 		await step(direction)
 	check(session.phase=="planning_gate" and session.outcomes.get("sheep",0)==5,"Motor herding did not return all sheep")
 	session.update(26,host.logical_positions,{1:{"action":false},2:{"action":false}})
+	await hold_for(3.2)
 	await travel(host.repair_incident.GASKET_CRATE if host.repair_incident.required_part=="gasket" else host.repair_incident.BELT_CRATE);await action();await step()
-	await travel(host.repair_incident.BAY);await action();await capture_view("repair");await hold_for(6.2)
+	await travel(host.repair_incident.BAY);await action();await capture_view("repair");await hold_for(9.3)
 	check(session.phase=="weather" and session.outcomes.repair,"Solo motor repair failed")
 	check(host.world_root.crop_field.stage==0,"Solo starts with unprepared ground")
 	check("cultivate" in host.animal_incident.objective_label.text and session.waypoint.text=="BARLEY FIELD","Unprepared soil has no cultivation guidance")
@@ -123,6 +126,7 @@ func verify() -> void:
 	host.world_root.crop_field.stage_changed.connect(func(_label):observed_stages[int(host.world_root.crop_field.stage)]=true)
 	# Drive rows through the real field entrance and work cells, never set crop state.
 	for pass_index in range(2):
+		if pass_index==1:host._handle({"type":"command","playerId":1,"command":"tool"})
 		for y in [-26,-34,-42,-50]:
 			await travel(Vector2(31,y));await travel(Vector2(73,y))
 	print("After sowing route: stage=",host.world_root.crop_field.stage," phase=",session.phase," remaining=",session.remaining)
@@ -131,6 +135,7 @@ func verify() -> void:
 		if host.world_root.crop_field.stage>=5:break
 		await step()
 	check(host.world_root.crop_field.stage in [5,6],"Crop never grew to maturity")
+	host._handle({"type":"command","playerId":1,"command":"tool"})
 	for y in [-50,-42,-34,-26]:
 		await travel(Vector2(73,y));await travel(Vector2(31,y))
 	await capture_view("harvest")
@@ -138,7 +143,7 @@ func verify() -> void:
 	check("EXIT" in host.animal_incident.objective_label.text and session.waypoint.text=="STORE HARVEST","Harvest does not direct safe tractor exit/storage")
 	for stage in range(7):check(observed_stages.has(stage),"Missing natural crop stage %d" % stage)
 	await travel(session.INTAKE+Vector2(4,0));await action();make_grid(8)
-	await travel(session.INTAKE);await action();await travel(session.APIARY);await hold_for(6.2)
+	await travel(session.INTAKE);await hold_for(4.2);await action();await travel(session.APIARY);await hold_for(9.3)
 	print("After cover: phase=",session.phase," stock=",session.stock," covered=",session.covered," remaining=",session.remaining)
 	check(session.phase=="planning_machine" and session.outcomes.weather,"Solo harvest/storage/cover failed")
 	session.update(26,host.logical_positions,{1:{"action":false},2:{"action":false}})

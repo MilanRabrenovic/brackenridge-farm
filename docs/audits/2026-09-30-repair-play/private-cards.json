@@ -1,0 +1,10 @@
+{
+	"facts": {
+		"1": "STORES: Feed-store supplies contain a belt. Workshop parts crate contains a gasket. Ask the mechanic which part is needed. ACTION collects; ACTION at the bay delivers. Then HOLD ACTION to fit while the mechanic balances the green gauge.",
+		"2": "DIAGNOSIS: A belt is needed. Tell your partner. HOLD builds pressure; RELEASE cools it. Keep 40–75% GREEN while your partner fetches and fits."
+	},
+	"hints": {
+		"1": "Part delivered. Runner: HOLD ACTION to fit. Mechanic: balance pressure in GREEN, holding to pump and releasing to cool.",
+		"2": "TEST PRESSURE: HOT. Release ACTION to cool; fitting pauses until green. Progress is safe."
+	}
+}

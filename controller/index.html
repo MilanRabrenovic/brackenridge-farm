@@ -24,11 +24,13 @@
         <div id="connection" class="pill">Connecting</div>
       </header>
       <aside id="privateCard" hidden><strong>Your information</strong><p id="privateText"></p></aside>
+      <p id="taskHint" class="task-hint" role="status" hidden></p>
       <section id="tractorDash" hidden aria-label="Tractor dashboard">
         <div class="dash-top"><span>BRACKEN • FIELDMASTER</span><span class="engine-light">ENGINE READY</span></div>
         <div class="dash-readout"><strong id="driveState">PARKED</strong><span>DRIVE INPUT <b id="drivePower">0%</b></span></div>
         <div class="power-track"><div id="powerFill"></div></div>
-        <p>Drag the wheel toward where you want to drive.<br>Release to stop · field work is automatic.</p>
+        <p>Drive through the gold plot markers.<br>Release to stop. Engage the tool before sowing or harvesting.</p>
+        <button id="fieldTool">Engage field tool</button>
       </section>
       <nav class="utility" aria-label="Farm controls"><button id="pinClue">Share clue on TV</button><button id="dropItem">Drop item</button><button id="pauseGame">Pause / resume</button></nav>
       <div class="controls">

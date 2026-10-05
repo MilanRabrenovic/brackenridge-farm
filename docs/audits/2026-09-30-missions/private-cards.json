@@ -1,0 +1,34 @@
+{
+	"arrival": {
+		"one": "WELCOME: Drag to walk. Tap ACTION beside the tractor to enter; EXIT returns on foot. Reach the animal-care sign to check hay.",
+		"two": "WELCOME: Follow the blue marker. Tap ACTION near equipment; later you will inspect machines and hold gates."
+	},
+	"dispatch": {
+		"one": "STORE REPORT: Barley is dry and ready.",
+		"two": "BUYER: Bring two loads of barley. If barley is spoiled, reserve apples are accepted instead. Inspect at dispatch, pack the safe goods, then hold ACTION together by the van."
+	},
+	"planning_gate": {
+		"one": "TEAM CHOICE: Hold ACTION for three seconds at animal care for rain covers, or repair bay for maintenance. Each costs £20. Wait to save your money.",
+		"two": "TEAM CHOICE: Covers halve apple-covering time; maintenance halves fitting time. Meet at the same place and both hold for three seconds."
+	},
+	"planning_machine": {
+		"one": "STORE REPORT: Rain spoiled the barley. Two salvage apple loads remain. Read your partner's buyer clue, then ACTION at packing when ready.",
+		"two": "BUYER: Two loads of apples. Collect at orchard apiary, pack at the canopy, then meet at the van. ACTION at dispatch when ready."
+	},
+	"repair": {
+		"one": "STORES: Feed-store supplies contain a belt. Workshop parts crate contains a gasket. Ask the mechanic which part is needed. ACTION collects it; ACTION at repair bay delivers it.",
+		"two": "DIAGNOSIS: The packing drive slips and needs a BELT. Inspect the repair bay, then hold ACTION there while your partner delivers and helps fit it."
+	},
+	"results": {
+		"one": "Weekend complete. See the TV results. Choose Play another weekend on the host or press R.",
+		"two": "Weekend complete. See the TV results. Choose Play another weekend on the host or press R."
+	},
+	"sheep": {
+		"one": "FLOCK: Guide five sheep toward the pasture gate. Approach from below to push them north. Ask your partner to refresh the eight-second latch window; deadline 2:40.",
+		"two": "GATE: ACTION at the marked gate opens the latch for eight seconds. Help guide the flock while it is open, then return to refresh it. Holding ACTION also keeps it open."
+	},
+	"weather": {
+		"one": "FORECAST · BEAT THE RAIN: Enter the tractor and cultivate all 16 gold plot markers. Worked plots change colour behind you. Ask your partner about storage readiness.",
+		"two": "STORAGE JOBS: Seal intake: hold ACTION 4s. Cover at apiary: hold ACTION 6s. Prepare packing crates: hold ACTION 4s, then help store the harvest."
+	}
+}

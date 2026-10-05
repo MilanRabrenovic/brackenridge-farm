@@ -1,8 +1,9 @@
 import {WebView} from '@amazon-devices/webview';
 import * as React from 'react';
-import {useEffect, useRef} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {useEffect, useRef, useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import {HOST_URL} from './host-config';
+import {STARTUP_DIAGNOSTICS} from './startup-diagnostics';
 import {
   useHideSplashScreenCallback,
   usePreventHideSplashScreen,
@@ -17,6 +18,8 @@ import {
 
 export const App = () => {
   const webRef = useRef(null);
+  const [startup, setStartup] = useState('Starting the farm…');
+  const [diagnostic, setDiagnostic] = useState('Waiting for the game page');
   const setComponentTimeout = useSetTimeoutCallback();
   useEffect(() => {
     // Phone input does not count as TV remote activity. Allow the full weekend
@@ -42,15 +45,36 @@ export const App = () => {
         javaScriptEnabled
         mediaPlaybackRequiresUserAction={false}
         mixedContentMode="compatibility"
-        onMessage={event => console.info('[Brackenridge startup] ' + event.nativeEvent.data)}
-        injectedJavaScriptBeforeContentLoaded={`
-          window.addEventListener('error', event => window.ReactNativeWebView.postMessage('Error: ' + event.message));
-          window.addEventListener('unhandledrejection', event => window.ReactNativeWebView.postMessage('Rejection: ' + String(event.reason)));
-          window.addEventListener('load', () => {
-            window.ReactNativeWebView.postMessage('Document loaded; WebAssembly=' + !!window.WebAssembly);
-            setTimeout(() => window.ReactNativeWebView.postMessage('Status: ' + (document.querySelector('#status-notice')?.textContent || 'no failure notice')), 15000);
-          }); true;
-        `}
+        testID="farm-webview"
+        onMessage={(event) => {
+          let report;
+          try {
+            report = JSON.parse(event.nativeEvent.data);
+          } catch {
+            return;
+          }
+          if (report.source !== 'farm-startup') {
+            return;
+          }
+          console.info('[Brackenridge startup] ' + event.nativeEvent.data);
+          if (report.kind === 'canvas') {
+            setDiagnostic(
+              `Canvas ${report.canvas}; view ${report.bounds}; ready=${report.ready}; ${report.visibility}`,
+            );
+            if (report.message) {
+              setStartup('The farm could not start. Check the laptop host.');
+            } else if (report.ready === true) {
+              setStartup('');
+            }
+          } else if (
+            report.kind === 'error' ||
+            report.kind === 'context-lost'
+          ) {
+            setStartup('The farm could not start. Check the laptop host.');
+            setDiagnostic(report.kind);
+          }
+        }}
+        injectedJavaScriptBeforeContentLoaded={STARTUP_DIAGNOSTICS}
         // thirdPartyCookiesEnabled
         // userAgent={''}
         source={{
@@ -63,23 +87,40 @@ export const App = () => {
           hideSplashScreenCallback();
         }}
         onLoadStart={(_event: WebViewNavigationEvent) => {
+          setStartup('Starting the farm…');
           console.info('Page loading started...');
         }}
         onError={({
           nativeEvent: {code, url, description},
         }: WebViewErrorEvent) => {
+          hideSplashScreenCallback();
+          setStartup('The farm could not connect. Check the laptop host.');
           console.error(`[onError]: (${code}: ${url}) ${description}`);
         }}
         onHttpError={({
           nativeEvent: {url, statusCode: code, description, isMainFrame},
         }: WebViewHttpErrorEvent) => {
+          if (isMainFrame) {
+            hideSplashScreenCallback();
+            setStartup('The farm could not connect. Check the laptop host.');
+          }
           console.error(`[onHttpError]: (${code}: ${url}) ${description}`);
           console.error(`[onHttpError]: isMainFrame: ${isMainFrame}`);
         }}
         onSslError={({code, url, description}: SslErrorData) => {
+          hideSplashScreenCallback();
+          setStartup(
+            'The farm could not connect securely. Check the host address.',
+          );
           console.error(`[onSslError]: (${code}: ${url}) ${description}`);
         }}
       />
+      {startup || __DEV__ ? (
+        <View pointerEvents="none" style={styles.startup}>
+          {startup ? <Text style={styles.status}>{startup}</Text> : null}
+          {__DEV__ ? <Text style={styles.status}>{diagnostic}</Text> : null}
+        </View>
+      ) : null}
     </View>
   );
 };
@@ -88,4 +129,13 @@ export const App = () => {
 const styles = StyleSheet.create({
   container: {flex: 1},
   webview: {flex: 1, backgroundColor: '#142c22'},
+  startup: {
+    position: 'absolute',
+    bottom: 12,
+    left: 20,
+    right: 20,
+    backgroundColor: '#142c22',
+    padding: 8,
+  },
+  status: {color: '#ffe8aa', fontSize: 18},
 });

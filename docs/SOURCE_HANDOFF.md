@@ -1,6 +1,6 @@
 # Hackathon source handoff
 
-Prepared September 30, 2026. Publication is pending. Baseline local commit `ba36a38` contains 712 tracked files; the initial checkout was clean and had no remote.
+Updated October 5, 2026. Publication is pending. Baseline local commit `ba36a38` contained 712 tracked files; the current curated handoff contains 765. The isolated checkout is refreshed from the current candidate; no remote or upload is added.
 
 ## Prepared source
 
@@ -27,3 +27,7 @@ Use `--private` instead if that is the approved visibility. Verify the resulting
 ## Submission still pending
 
 Repository publication alone does not prove game acceptance. Human cooperative play, qualifying TV execution/remote/performance, an actual under-three-minute public demo and Devpost review/submission remain pending.
+
+## Mission improvement freshness
+
+The October 5 refresh includes current mission, sheep, repair, minimap, cooperative motor-route and Vega diagnostics source/tests, along with their retained evidence. The snapshot is compared byte-for-byte with the curated ZIP. Further source changes require another refresh before publication. No remote/upload was added by this pass.

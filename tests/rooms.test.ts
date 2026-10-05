@@ -31,6 +31,10 @@ test('host admits two players and receives only sequenced, normalized input', as
   const mode=await message(p1); assert.deepEqual(mode,{type:'mode',title:'TRACTOR',actionLabel:'EXIT',hint:'Steer with the movement pad'});
   p1.send(JSON.stringify({type:'command',command:'pin',playerId:2}));
   assert.deepEqual(await message(host),{type:'command',command:'pin',playerId:1});
+  p1.send(JSON.stringify({type:'command',command:'tool',playerId:2}));
+  assert.deepEqual(await message(host),{type:'command',command:'tool',playerId:1});
+  host.send(JSON.stringify({type:'private',playerId:1,text:'Carrying apples. Take to packing.',clue:'BUYER: apples only.'}));
+  assert.deepEqual(await message(p1),{type:'private',text:'Carrying apples. Take to packing.',clue:'BUYER: apples only.'});
   p1.send(JSON.stringify({type:'input',seq:1,x:1,y:1,action:false}));
   const input=await message(host); assert.equal(input.playerId,1); assert.ok(Math.abs(input.x-.7071)<.001);
   p1.send(JSON.stringify({type:'input',seq:1,x:-1,y:0,action:false}));

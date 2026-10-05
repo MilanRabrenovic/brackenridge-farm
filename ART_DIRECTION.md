@@ -27,3 +27,27 @@ No pixel-identical reference claim. Repeated foliage, baked illustration perspec
 Actual accelerated motor-route captures under `docs/audits/2026-09-30-solo/` show repair, harvested field and successful results without teleporting actors into the scenes. Objective status/feedback now stack vertically within the panel, preventing right-edge overflow; the duplicate repair waypoint was removed. Existing art/placement remains unchanged. These are automated local rendered-route frames, not human acceptance or qualifying TV footage.
 
 Farming objectives now use the same green/cream panel for stage-specific instructions and measured cell/growth progress. The existing text marker points to field, intake or apiary according to the job state; no new asset or landscape placement was introduced.
+
+## Mission readability audit
+
+Eight refreshed staged cooperative screens and private cards are under `docs/audits/2026-09-30-missions/`. Purchase confirmation, readable result beats, visible plot targets and local worked patches now supply task feedback. Private facts remain separate from current-action hints; tractor controls were inspected at 390×780. Old completed-event markers are cleared during result/planning. No new art or map placement was introduced. Split-screen offscreen navigation and human/TV readability remain acceptance gaps. See `docs/MISSION_EXPERIENCE_AUDIT.md`.
+
+## Sheep motion pass
+
+Existing approved/integrated sheep images now use `sheep_gait.gdshader` to move diagonal leg pairs independently. Body bob is restrained; jump height changes the sprite relative to the ground shadow rather than rotating the whole image. Four native gameplay frames were inspected under `docs/audits/2026-09-30-sheep/`. No new raster art was generated or approval invented. Grazing/alert silhouettes remain fixed perspectives; bespoke multi-direction animal frames remain a quality limitation.
+
+## Co-op repair instrument
+
+Repair now has a compact deep-green gauge, sage safe band and cream needle in the existing mission panel. Low/green/hot staged native captures were inspected at 1280×720 under `docs/audits/2026-09-30-repair-play/`. No new raster art or machine animation was created. Gauge changes represent test pressure; physical repair and character work poses remain visually simplified.
+
+## Adaptive farm minimap
+
+The minimap is a schematic UI chart built from the authored layout, with sage field shapes, golden tracks, muted building footprints and blue river. Its deep-green frame and cream trim match the mission UI. Farmer colors/shapes match their world identities; public task crosses pulse gently. Bottom-centre placement straddles the split seam; shared view moves it to bottom-right with a short transition. Shared, split and merged native views were inspected at 1280×720. No new raster asset or world placement was generated. The diagram abstracts scenery and gives orientation, not collision-aware route directions or an exact illustrated overview.
+
+## Actual cooperative route review — October 5
+
+Repair, split harvest and results captures in `docs/audits/2026-10-05-coop-route/` were produced during a complete accelerated two-slot input/physics run, rather than staging actors directly. Native frames were inspected with the shared/split minimap and task/result panels. No raster art, world placement or animation direction changed. These establish local rendered-route evidence; user aesthetic approval, human fun and TV rendering remain separate acceptance requirements.
+
+## TV wrapper startup text — October 5
+
+Native loading/error text uses the established deep-green/cream interface palette. No raster asset, world placement or animation changed. The development diagnostic strip was inspected through Appium, but the farm surface was flat-coloured in that capture; no TV art/color-fidelity approval is claimed.

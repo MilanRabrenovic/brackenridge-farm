@@ -1,6 +1,6 @@
 import { mkdir, symlink, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import path from "node:path";
 import process from "node:process";
 
@@ -55,5 +55,12 @@ const child = spawn(
 
 const exitCode = await new Promise((resolve) => child.once("exit", resolve));
 if (exitCode !== 0) process.exit(exitCode ?? 1);
+
+const smoke = spawnSync("python3", [path.join(root, "scripts", "verify-fireos-assets.py"), output], {
+  cwd: root,
+  env: { ...process.env, HOME: toolingHome },
+  stdio: "inherit",
+});
+if (smoke.status !== 0) process.exit(smoke.status ?? 1);
 
 console.log(`Fire OS debug APK: ${output}`);

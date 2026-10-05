@@ -24,6 +24,7 @@ func _init() -> void:
 	for z in [-50.0, -42.0, -34.0, -26.0]:
 		for x in [31.0, 45.0, 59.0, 73.0]: crop.call("apply_tractor_work", host.call("_logical_to_pixel", Vector2(x, z)))
 	if str(crop.call("current_stage_name")) != "PREPARED": _fail("Tractor passes did not prepare unworked land")
+	crop.call("engage_operation")
 	for z in [-50.0, -42.0, -34.0, -26.0]:
 		for x in [31.0, 45.0, 59.0, 73.0]: crop.call("apply_tractor_work", host.call("_logical_to_pixel", Vector2(x, z)))
 	if str(crop.call("current_stage_name")) != "SEEDED": _fail("Second tractor operation did not seed prepared land")
@@ -33,6 +34,7 @@ func _init() -> void:
 	if str(crop.call("current_stage_name")) != "YOUNG CROP": _fail("Seedlings did not grow into young crop")
 	crop.call("_process", 16.0)
 	if str(crop.call("current_stage_name")) != "MATURE": _fail("Young crop did not reach maturity")
+	crop.call("engage_operation")
 	for z in [-50.0, -42.0, -34.0, -26.0]:
 		for x in [31.0, 45.0, 59.0, 73.0]: crop.call("apply_tractor_work", host.call("_logical_to_pixel", Vector2(x, z)))
 	if str(crop.call("current_stage_name")) != "HARVESTED": _fail("Mature crop was not converted to harvested stubble")

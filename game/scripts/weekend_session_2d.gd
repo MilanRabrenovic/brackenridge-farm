@@ -47,6 +47,29 @@ var inventory := {"barley":0,"apples":2}
 var log_events: Array = []
 var hay_checked := {}
 var weather_guidance_key := ""
+var next_phase := ""
+var result_seconds := 0.0
+var planning_progress := 0.0
+var planning_candidate := ""
+var briefing_ready := {}
+var sealed := false
+var seal_progress := 0.0
+var crates_ready := false
+var crate_progress := 0.0
+var task_credits := {}
+
+func _credit(id: int, task: String) -> void:
+	var key:="%d:%s" % [id,task]
+	if not task_credits.has(key):task_credits[key]=true;contributions[id]+=1
+
+func _result_then(next: String, title: String, detail: String) -> void:
+	next_phase=next;result_seconds=3.0;waypoint.hide()
+	host.animal_incident.gate_marker.hide();host.animal_incident.safe_marker.hide()
+	present(title,detail,"NEXT JOB IN 3 SECONDS","Your farm continues even after a missed deadline")
+	for id in ([1] if solo else [1,2]):host._on_incident_private_message(id,detail)
+
+func _goods() -> String:
+	return "barley" if stock>0 and variant!=2 else "apples"
 
 func setup(owner_host: Node) -> void:
 	host = owner_host
@@ -78,6 +101,7 @@ func start(player_count: int, replay_seed: int = 1731) -> void:
 	_enter("arrival",75.0)
 
 func restart(new_seed: int) -> void:
+	next_phase="";result_seconds=0;planning_progress=0;planning_candidate="";briefing_ready.clear();task_credits.clear();sealed=false;seal_progress=0;crates_ready=false;crate_progress=0
 	host.repair_incident.reset();host.animal_incident.state="waiting";host.animal_incident.gate_marker.hide();host.animal_incident.safe_marker.hide()
 	host.cooperative_clues_sent=true
 	phase="waiting";elapsed=0;outcomes.clear();contributions={1:0,2:0};stock=0;covered=false;cover_progress=0;loaded=0;checked=false;cargo={1:"",2:""};load_progress=0;inventory={"barley":stock,"apples":2};improvements={"shelter":false,"maintenance":false};log_events.clear();hay_checked.clear();results_panel.hide();paused=false;money=100;host.world_root.crop_field.set_process(true)
@@ -90,6 +114,9 @@ func restart(new_seed: int) -> void:
 
 func _enter(next: String, duration: float) -> void:
 	phase=next;remaining=duration;phase_clock=0
+	next_phase="";result_seconds=0
+	host.animal_incident.gate_marker.hide();host.animal_incident.safe_marker.hide()
+	host.repair_incident.gauge.hide()
 	if sound_enabled: sound.play()
 	host.world_root.modulate=Color.WHITE
 	log_events.append({"time":snappedf(elapsed,.01),"phase":phase})
@@ -106,24 +133,28 @@ func _enter(next: String, duration: float) -> void:
 	phase_banner.text=("SOLO TEST WEEKEND" if solo else "BRACKENRIDGE WEEKEND")+" · SEED %d" % seed_value
 	match phase:
 		"arrival":
-			clues("WELCOME: Drag to walk. Tap ACTION beside the tractor to enter; EXIT returns on foot. Reach the animal-care sign to check hay.","WELCOME: Follow the blue marker. Tap ACTION near equipment; later you will inspect machines and hold gates.")
+			clues("WELCOME: Drag to walk. Tap ACTION beside the tractor to enter; EXIT returns on foot. Reach the animal-care sign to check hay.","WELCOME: Drag to walk. Meet your partner at CHECK HAY by animal care and tap ACTION. You will open the sheep gate and inspect the faulty machine.")
 		"sheep":
-			host.animal_incident.start_incident();host.animal_incident.time_left=150+variant*10
-			if not solo: host._on_incident_private_message(1,"FLOCK: Guide five sheep toward the pasture gate. Approach from below to push them north. Ask your partner to keep the latch held; deadline %d:%02d." % [int(host.animal_incident.time_left)/60,int(host.animal_incident.time_left)%60])
+			host.animal_incident.escape_variant=variant;host.animal_incident.start_incident();host.animal_incident.time_left=150+variant*10
+			if not solo: host._on_incident_private_message(1,"FLOCK: Guide five sheep toward the pasture gate. Approach from below to push them north. Ask your partner to refresh the eight-second latch window; deadline %d:%02d." % [int(host.animal_incident.time_left)/60,int(host.animal_incident.time_left)%60])
 			if solo: clues("SOLO FLOCK: The gate is held open for you. Approach below the sheep to push them toward the pasture.","")
-		"planning_gate","planning_machine":
-			planning_choice=""
-			clues(("SOLO CHOICE: Hold ACTION at animal care for rain covers, or at repair bay for maintenance. Each costs £20; wait to save." if solo else "TEAM CHOICE: Hold ACTION at animal care to fit rain covers, or at repair bay for preventive maintenance. Both farmers must choose the same place."),"TEAM CHOICE: Rain covers halve the apple-covering effort; maintenance reduces repair effort. Meet your partner at the improvement you want, then both hold ACTION.")
+		"planning_gate":
+			planning_choice="";planning_candidate="";planning_progress=0
+			clues("TEAM CHOICE: Hold ACTION for three seconds at animal care for rain covers, or repair bay for maintenance. Each costs £20. Wait to save your money.","TEAM CHOICE: Covers halve apple-covering time; maintenance halves fitting time. Meet at the same place and both hold for three seconds.")
+		"planning_machine":
+			briefing_ready.clear();required_goods=_goods()
+			clues("STORE REPORT: %s Read your partner's buyer clue, then ACTION at packing when ready." % ("Two dry barley loads are stored." if stock>0 else "Rain spoiled the barley. Two salvage apple loads remain."),"BUYER: Two loads of %s. Collect at %s, pack at the canopy, then meet at the van. ACTION at dispatch when ready." % [required_goods,"grain intake" if required_goods=="barley" else "orchard apiary"])
+			if solo:clues("DELIVERY BRIEFING: Two %s loads are needed. ACTION at packing or dispatch to start, or wait for the briefing to finish." % required_goods,"")
 		"repair":
-			host.repair_incident.solo_assist=solo;host.repair_incident.start_incident("gasket" if variant==2 else "belt");host.repair_incident.marker.hide();host.repair_incident.time_left=180-variant*10
+			host.repair_incident.solo_assist=solo;host.repair_incident.start_incident("gasket" if variant==2 else "belt");host.repair_incident.marker.hide();host.repair_incident.fitting_seconds=3.0 if improvements.maintenance else 6.0;host.repair_incident.time_left=180-variant*10
 			if solo: clues("SOLO REPAIR: Collect the %s at %s, deliver to the repair bay and hold ACTION to fit; diagnosis and helper are provided." % [host.repair_incident.required_part,"workshop parts" if host.repair_incident.required_part=="gasket" else "feed-store supplies"],"")
 		"weather":
-			host.world_root.crop_field.set_stage(0);covered=false;cover_progress=0;stock=0;weather_guidance_key=""
-			clues("FORECAST: Rain reaches the barley field soon. Use the tractor: cultivate, sow, let plants grow, then harvest. Deliver the grain at the intake sign before time runs out.","STORAGE: Two sealed loads fit in the silo. Hold ACTION at the apiary for six seconds to cover reserve apples; ACTION at grain intake stores harvested barley. Split these jobs with your grower.")
-			if solo: clues("SOLO HARVEST: Drive the tractor across 16 different field cells to prepare soil; repeat to sow. Let the crop grow, then harvest 16 cells. EXIT and ACTION at grain intake stores two loads. Hold ACTION at the apiary for six seconds to cover apples before rain.","")
+			host.world_root.crop_field.set_stage(0);covered=false;cover_progress=0;stock=0;weather_guidance_key="";sealed=false;seal_progress=0;crates_ready=false;crate_progress=0
+			clues("FORECAST: Use the tractor to work all 16 marked plots. Engage field tool on your phone before sowing and harvesting. While barley grows, help prepare storage or cover apples.","STORAGE CREW: Hold ACTION at intake for four seconds to seal it, at apiary for six to cover apples, and optionally at packing for four to prepare crates. Prepared crates speed dispatch. Then store the grower's harvest at intake.")
+			if solo: clues("SOLO HARVEST: Work all 16 gold plot markers. Engage field tool before sowing and harvest. While crops grow, EXIT and seal intake (hold 4s) or cover apples (hold 6s). After harvest, ACTION at sealed intake stores grain.","")
 		"dispatch":
 			loaded=0;checked=false;cargo={1:"",2:""};load_progress=0;inventory={"barley":stock,"apples":2}
-			required_goods="barley" if stock>0 and variant!=2 else "apples"
+			required_goods=_goods()
 			clues("STORE REPORT: Barley is dry and ready." if stock>0 else "STORE REPORT: Barley missed the rain deadline. Covered apples are the safe replacement; wet barley will be rejected.","BUYER: Bring two loads of %s. If barley is spoiled, reserve apples are accepted instead. Inspect at dispatch, pack the safe goods, then hold ACTION together by the van." % required_goods)
 			if solo: clues("SOLO DISPATCH: Collect two %s loads at %s, take each to packing, then hold ACTION at dispatch. Inspection and helper are provided." % [required_goods,"grain intake" if required_goods=="barley" else "apiary"],"")
 		"results": _show_results()
@@ -132,44 +163,55 @@ func clues(one: String, two: String) -> void:
 	for id in [1,2]:
 		host._on_incident_private_message(id,one if id==1 else two)
 		if host.player_modes[id]=="tractor":
-			host._on_incident_controller_mode(id,"TRACTOR","EXIT","Drive repeated passes over the field to work it")
+			host._on_incident_controller_mode(id,"TRACTOR","EXIT","Drive through gold plots; engage the tool before sowing or harvesting")
 		else:
 			host._on_incident_controller_mode(id,"FARMHAND" if phase=="arrival" else "GROWER" if id==1 else "ORDERKEEPER","INTERACT","Follow the objective and share your private clue")
 
 func command(id: int, value: String) -> void:
 	match value:
+		"tool":
+			if paused or next_phase!="" or phase!="weather" or host.tractor_driver!=id:return
+			host.world_root.crop_field.engage_operation()
+			_update_weather_guidance(true)
 		"pause":
 			if host.disconnected_pause: return
 			paused=not paused;host.world_root.crop_field.set_process(not paused);phase_banner.text="PAUSED · resume from phone or P" if paused else "BRACKENRIDGE WEEKEND"
 		"pin":
-			shared_clue.text="FARMER %d SHARED: %s" % [id,host.latest_clues.get(id,"")];shared_clue.show();shared_seconds=8;contributions[id]+=1
+			shared_clue.text="FARMER %d SHARED: %s" % [id,host.mission_facts.get(id,host.latest_clues.get(id,""))];shared_clue.show();shared_seconds=8
 		"drop":
 			if phase=="repair" and id==1 and not host.repair_incident.carried.is_empty():
 				host.repair_incident.carried="";cargo_sprites[id].hide();host._on_incident_private_message(id,"Part returned to supplies. Ask the mechanic which one is needed.")
 			if not str(cargo[id]).is_empty(): inventory[cargo[id]]+=1;cargo[id]="";cargo_sprites[id].hide();host._on_incident_private_message(id,"Item returned to its store. Your hands are free.")
 
 func handle_action(id: int, pos: Vector2) -> bool:
-	if phase in ["waiting","results"] or paused: return false
+	if phase in ["waiting","results"] or paused or next_phase!="": return false
 	match phase:
 		"arrival":
 			if pos.distance_to(HAY)<7:
-				if not hay_checked.has(id): contributions[id]+=1;hay_checked[id]=true
+				if not hay_checked.has(id): _credit(id,"hay");hay_checked[id]=true
+				host._on_incident_private_message(id,"Hay checked! The flock has food. Get ready: sheep have slipped out near the meadow.")
 				remaining=minf(remaining,8);return true
+		"planning_machine":
+			if pos.distance_to(PACK)<7 or pos.distance_to(DISPATCH)<7:
+				briefing_ready[id]=true;host._on_incident_private_message(id,"Ready for delivery. Waiting for your partner's briefing.");return true
 		"weather":
 			if pos.distance_to(INTAKE)<7:
-				if host.world_root.crop_field.stage==6: stock=2;contributions[id]+=1
+				if not sealed:host._on_incident_private_message(id,"Hold ACTION here for four seconds to seal the grain intake first.")
+				elif host.world_root.crop_field.stage==6:
+					if stock==0:_credit(id,"store")
+					stock=2;host._on_incident_private_message(id,"Two grain loads stored dry. Good work!")
 				else: host._on_incident_private_message(id,"The silo needs harvested barley. Prepare, sow and harvest the field first.")
 				return true
 		"dispatch":
 			if pos.distance_to(DISPATCH)<7:
-				if not checked: contributions[id]+=1
+				if not checked: _credit(id,"buyer")
 				checked=true;return true
 			if pos.distance_to(PACK)<7 and not str(cargo[id]).is_empty():
 				if cargo[id]==required_goods and loaded<2:
-					loaded+=1;contributions[id]+=1;host._on_incident_private_message(id,"Packed %d of 2 loads. Take another, then meet at dispatch." % loaded)
+					loaded+=1;_credit(id,"pack%d" % loaded);host._on_incident_private_message(id,"Packed %d/2. %s" % [loaded,"Both loads ready: meet at the van." if loaded==2 else "One load still needed. Coordinate with your partner."])
 				else:
 					inventory[cargo[id]]+=1
-					host._on_incident_private_message(id,"That load fails the buyer's condition check. Ask your partner about dry stock.")
+					host._on_incident_private_message(id,"Load returned: buyer requested %s. Check your partner's buyer clue." % required_goods)
 				cargo[id]="";cargo_sprites[id].hide();return true
 			if cargo[id]=="":
 				if pos.distance_to(INTAKE)<7 and inventory.barley>0: cargo[id]="barley"
@@ -183,11 +225,16 @@ func update(delta: float, positions: Dictionary, packets: Dictionary) -> void:
 		shared_seconds-=delta
 		if shared_seconds<=0: shared_clue.hide()
 	if phase in ["waiting","results"] or paused: return
+	if next_phase!="":
+		elapsed+=delta;result_seconds-=delta
+		host.animal_incident.progress_label.text="NEXT JOB IN %d SECONDS" % ceili(maxf(0,result_seconds))
+		if result_seconds<=0:_enter(next_phase,25 if next_phase in ["planning_gate","planning_machine"] else 210)
+		return
 	elapsed+=delta;phase_clock+=delta;remaining=maxf(0,remaining-delta)
 	if phase=="arrival" and host.admitted_players>=2: solo=false;host.players[2].show()
 	match phase:
 		"arrival":
-			present("ARRIVAL · LEARN THE FARM","Walk to animal care and check the hay. Try entering and exiting the tractor.","ACTION beside equipment","Two farmers recommended" if not solo else "Full weekend · second-farmer assistance")
+			present("WELCOME · SAVE THE WEEKEND","Keep the flock safe, fix the machine and deliver a dry harvest. First: ACTION at CHECK HAY; try the tractor.","HAY CHECKED · ESCAPE COMING" if not hay_checked.is_empty() else "FIRST JOB: CHECK HAY","Use your phones to share what only you know")
 			if remaining<=0: _enter("sheep",150)
 		"sheep":
 			var effective := packets.duplicate(true)
@@ -197,44 +244,62 @@ func update(delta: float, positions: Dictionary, packets: Dictionary) -> void:
 			host.animal_incident.update_incident(delta,loc,effective)
 			if host.animal_incident.state in ["success","failure"]:
 				outcomes.sheep=host.animal_incident.returned_count();contributions[1]+=int(outcomes.sheep);contributions[2]+=int(outcomes.sheep) if not solo else 0
-				_enter("planning_gate",25)
-		"planning_gate","planning_machine":
+				_result_then("planning_gate","FLOCK SAFE" if outcomes.sheep==5 else "FLOCK RESCUED: %d/5" % outcomes.sheep,"%d sheep made it home. Next: choose one improvement before repair and rain." % outcomes.sheep)
+		"planning_gate":
+			var candidate:=""
 			for option in ["shelter","maintenance"]:
 				var spot: Vector2=HAY if option=="shelter" else host.repair_incident.BAY
 				var agreement:=true
 				for id in ([1] if solo else [1,2]): agreement=agreement and positions[id].distance_to(spot)<7 and bool(packets[id].action)
-				if agreement: planning_choice=option
-			present("TEAM PLANNING",("Hold ACTION at animal care for rain covers, or repair bay for maintenance. Wait to save £20." if solo else "Meet at animal care for rain covers, or repair bay for maintenance. Hold ACTION together to choose."),planning_choice.to_upper() if planning_choice!="" else "CHOICE PENDING","£20 upgrade · £%d available · default saves" % money)
+				if agreement and not improvements[option] and money>=20:candidate=option
+			if candidate!=planning_candidate:planning_progress=0;planning_candidate=candidate
+			planning_progress=planning_progress+delta if candidate!="" else 0
+			if planning_progress>=3:planning_choice=candidate
+			present("ONE FARM IMPROVEMENT","Rain covers at animal care: half covering time. Maintenance at repair bay: half fitting time. Hold together for 3s, or wait to save.","%s · CONFIRM %d%%" % [planning_candidate.to_upper(),mini(100,int(planning_progress/3*100))] if candidate!="" else "CHOOSE TOGETHER · HOLD TO CONFIRM","£20 upgrade · £%d available · timeout saves" % money)
 			if remaining<=0 or planning_choice!="":
 				if planning_choice!="" and money>=20: improvements[planning_choice]=true;money-=20
-				_enter("repair" if phase=="planning_gate" else "dispatch",210)
+				_result_then("repair","IMPROVEMENT CONFIRMED" if planning_choice!="" else "MONEY SAVED","%s Next: inspect the faulty packing machine." % ("%s fitted for £20." % planning_choice.capitalize() if planning_choice!="" else "£20 kept for the farm."))
+		"planning_machine":
+			present("DELIVERY BRIEFING","Two loads are needed. Read your private buyer and stock clues. ACTION at packing or dispatch marks you ready.","%d/%d FARMERS READY" % [briefing_ready.size(),1 if solo else 2],"Tell your partner what only your phone knows")
+			if remaining<=0 or briefing_ready.size()>=(1 if solo else 2):_enter("dispatch",210)
 		"repair":
 			cargo_sprites[1].visible=not host.repair_incident.carried.is_empty()
 			var loc:=positions.duplicate();var effective:=packets.duplicate(true)
 			if solo: host.repair_incident.diagnosis=true;loc[2]=host.repair_incident.BAY;effective[2]={"action":true}
-			if improvements.maintenance and host.repair_incident.progress>=3: host.repair_incident.progress=6
 			host.repair_incident.update_incident(delta,loc,effective)
 			if host.repair_incident.state in ["success","failure"]:
 				cargo_sprites[1].hide();outcomes.repair=host.repair_incident.state=="success";contributions[1]+=1 if outcomes.repair else 0;contributions[2]+=1 if outcomes.repair and not solo else 0
-				_enter("weather",210)
+				_result_then("weather","MACHINE REPAIRED" if outcomes.repair else "MANUAL PACKING NEEDED","Next: beat the rain. %s" % ("No more kettle noises! The repaired machine makes loading faster." if outcomes.repair else "You can still deliver, but hand loading will take longer."))
 		"weather":
+			if host.world_root.crop_field.stage==6:_credit(host.tractor_driver if host.tractor_driver>0 else 1,"harvest")
 			rain_material.set_shader_parameter("strength",clampf(1-remaining/70.0,0,1))
 			host.world_root.modulate=Color.WHITE.lerp(Color(.80,.88,.94),clampf(1-remaining/70.0,0,1))
 			for id in ([1] if solo else [1,2]):
-				if positions[id].distance_to(APIARY)<7 and bool(packets[id].action): cover_progress+=delta;contributions[id]+=1 if not covered and cover_progress>=6 else 0
-			if cover_progress>=(3 if improvements.shelter else 6): covered=true
+				if bool(packets[id].action) and host.player_modes[id]=="foot":
+					if positions[id].distance_to(APIARY)<7 and not covered:
+						cover_progress+=delta
+						if cover_progress>=(3 if improvements.shelter else 6):covered=true;_credit(id,"cover")
+					if positions[id].distance_to(INTAKE)<7 and not sealed:
+						seal_progress+=delta
+						if seal_progress>=4:sealed=true;_credit(id,"seal")
+					if positions[id].distance_to(PACK)<7 and not crates_ready:
+						crate_progress+=delta
+						if crate_progress>=4:crates_ready=true;_credit(id,"crates")
 			_update_weather_guidance()
 			if (stock==2 and covered) or remaining<=0:
 				outcomes.weather=stock==2 and covered
 				if stock==0: host.world_root.crop_field.set_stage(7)
 				# A modest salvage load keeps failure recoverable, never a softlock.
-				covered=true;_enter("planning_machine",25)
+				_result_then("planning_machine","HARVEST PROTECTED" if outcomes.weather else "RAIN RECOVERY","%s Next: read the buyer's order and deliver together." % ("Dry grain and covered apples are ready." if outcomes.weather else "Two salvage apple loads keep delivery possible; recovery earns a smaller bonus."))
 		"dispatch":
 			var together:=loaded==2 and (checked or solo)
 			for id in ([1] if solo else [1,2]): together=together and positions[id].distance_to(DISPATCH)<7 and bool(packets[id].action)
 			if together: load_progress+=delta
-			present("SUNDAY · FINAL DISPATCH",("Carry two %s loads to packing, then hold ACTION by the dispatch van. A helper assists loading." % required_goods if solo else "Share the stock and buyer clues. Carry two correct loads to packing, then hold ACTION together at dispatch."),"PACKED %d/2 · LOAD %d%%" % [loaded,mini(100,int(load_progress/6*100))],"Buyer checked" if checked else ("Helper checked the buyer" if solo else "Inspect the buyer at dispatch"))
-			if load_progress>=6 or remaining<=0: outcomes.dispatch=load_progress>=6;_enter("results",0)
+			var load_time:float=(6 if outcomes.get("repair",false) else 10)-(2 if crates_ready else 0)
+			waypoint.position=host._logical_to_pixel(DISPATCH if loaded==2 else PACK)+Vector2(-45,-115)
+			waypoint.text="MEET AT VAN" if loaded==2 else "PACK CARRIED LOAD" if cargo[1]!="" or cargo[2]!="" else "READ BUYER CLUE";waypoint.show()
+			present("SUNDAY · FINAL DISPATCH","Ask which goods the buyer wants. Barley: grain intake; apples: apiary. ACTION collects and packs. Hold together at the van.","PACKED %d/2 · LOAD %d%%" % [loaded,mini(100,int(load_progress/load_time*100))],"Loading takes %ds · %s" % [int(load_time),"buyer checked" if checked or solo else "ACTION at dispatch to inspect buyer"])
+			if load_progress>=load_time or remaining<=0: outcomes.dispatch=load_progress>=load_time;_enter("results",0)
 
 func _update_weather_guidance(force_phone := false) -> void:
 	var crop=host.world_root.crop_field
@@ -245,20 +310,20 @@ func _update_weather_guidance(force_phone := false) -> void:
 	var progress:String=crop.current_stage_name()
 	match stage:
 		0:
-			objective="Enter the tractor and cultivate the barley field. Drive across different soil cells to prepare it."
+			objective="Enter the tractor and cultivate all 16 gold plot markers. Worked plots change colour behind you."
 			progress="CULTIVATE %d/16" % crop.worked_cells.size()
 		1:
-			objective="Soil is ready. Drive another pass across different field cells to sow barley."
+			objective="Sowing tool engaged. Drive through all gold plot markers to sow barley." if crop.operation_ready else "Soil is ready. Tap ENGAGE FIELD TOOL on your phone, then drive through the gold markers to sow."
 			progress="SOW %d/16" % crop.worked_cells.size()
 		2,3,4:
 			var growth_left:float=(10.0 if stage==2 else 12.0 if stage==3 else 15.0)-crop.growth_clock
-			objective="Barley is growing. Keep the headland clear; harvest when the crop turns golden."
+			objective="Barley is growing. Park and EXIT to help seal intake or cover apples; return when the crop is golden."
 			progress="%s · next growth in %ds" % [crop.current_stage_name(),ceili(maxf(0,growth_left))]
 		5:
-			objective="Barley is ripe. Drive the tractor across different crop cells to harvest it."
+			objective="Harvest tool engaged. Drive through all gold plot markers to harvest barley." if crop.operation_ready else "Barley is ripe. ENGAGE FIELD TOOL on your phone, then harvest the 16 marked plots."
 			progress="HARVEST %d/16" % crop.worked_cells.size()
 		6:
-			objective="Harvest complete. Drive back to grain intake, EXIT the tractor, then tap ACTION to store two loads."
+			objective="Harvest complete. Return to grain intake and EXIT. Seal it (hold ACTION 4s), then tap ACTION to store two loads." if not sealed else "Harvest complete. Drive to the sealed grain intake, EXIT, then ACTION stores two dry loads."
 			target=INTAKE;task_label="STORE HARVEST";progress="HARVEST COMPLETE"
 		_:
 			objective="The harvest window is closed. Reserve apples keep the farm going."
@@ -268,14 +333,14 @@ func _update_weather_guidance(force_phone := false) -> void:
 		progress="APPLE COVER %d%%" % mini(100,int(cover_progress/(3 if improvements.shelter else 6)*100))
 	waypoint.position=host._logical_to_pixel(target)+Vector2(-45,-115)
 	waypoint.text=task_label;waypoint.show()
-	present("SATURDAY · BEAT THE RAIN",objective,progress,"GRAIN %d/2 · APPLES %s" % [stock,"COVERED" if covered else "EXPOSED"])
-	var next_key:="%d:%d:%s" % [stage,stock,str(covered)]
+	present("SATURDAY · BEAT THE RAIN",objective,progress,"SEAL %d%% · COVER %d%% · CRATES %d%% · GRAIN %d/2" % [mini(100,int(seal_progress/4*100)),mini(100,int(cover_progress/(3 if improvements.shelter else 6)*100)),mini(100,int(crate_progress/4*100)),stock])
+	var next_key:="%d:%d:%s:%s:%s:%s" % [stage,stock,str(covered),str(sealed),str(crates_ready),str(crop.operation_ready)]
 	if force_phone or next_key!=weather_guidance_key:
 		weather_guidance_key=next_key
 		var detail:=objective
-		if stage in [0,1,5] and stock==0:detail+=" Work 16 different cells; staying still does not count."
-		detail+=" " + ("Also hold ACTION at the apiary for six seconds to cover apples." if solo and stock<2 else "Ask your partner to protect the reserve apples." if not solo else "")
+		detail+=" " + ("Also cover apples at apiary (hold ACTION 6s)." if solo and not covered else "Ask your partner about storage readiness." if not solo else "")
 		host._on_incident_private_message(1,"FORECAST · BEAT THE RAIN: "+detail.strip_edges())
+		if not solo:host._on_incident_private_message(2,"STORAGE JOBS: %s %s %s" % ["Intake sealed." if sealed else "Seal intake: hold ACTION 4s.","Apples covered." if covered else "Cover at apiary: hold ACTION 6s.","Crates ready: loading is faster." if crates_ready else "Prepare packing crates: hold ACTION 4s, then help store the harvest."])
 
 func present(title: String, objective: String, progress: String, feedback: String) -> void:
 	var ui=host.animal_incident
@@ -283,9 +348,12 @@ func present(title: String, objective: String, progress: String, feedback: Strin
 
 func _show_results() -> void:
 	host.animal_incident.incident_panel.hide();waypoint.hide();results_panel.show();replay_button.grab_focus()
-	var grade := "A flourishing weekend" if outcomes.get("dispatch",false) else "A weekend of useful lessons"
-	money+=80 if outcomes.get("dispatch",false) else 20
-	summary.text="WEEKEND COMPLETE\n%s\n\nSheep safe: %d / 5\nEquipment: %s\nHarvest: %s\nDelivery: %s\n\nGrower contributions: %d · Mechanic: %d\nBalance £%d · Seed %d · %d:%02d elapsed" % [grade,outcomes.get("sheep",0),"repaired" if outcomes.get("repair",false) else "workaround used","stored dry" if stock>0 else "reserve apples salvaged","on time" if outcomes.get("dispatch",false) else "buyer delayed",contributions[1],contributions[2],money,seed_value,int(elapsed)/60,int(elapsed)%60]
+	var perfect:bool=outcomes.get("sheep",0)==5 and outcomes.get("repair",false) and outcomes.get("weather",false) and outcomes.get("dispatch",false)
+	var grade := "A flourishing weekend — together!" if perfect else "Delivery saved — the farm carries on!" if outcomes.get("dispatch",false) else "A tough weekend — try a new plan"
+	var bonus:int=int(outcomes.get("sheep",0))*2+(10 if outcomes.get("repair",false) else 0)+(20 if outcomes.get("weather",false) else 0)
+	money+=(80 if outcomes.get("dispatch",false) else 20)+bonus
+	var recognition:String="You completed %d farm tasks · helper assisted" % contributions[1] if solo else "Farm tasks: Grower %d · Mechanic %d" % [contributions[1],contributions[2]]
+	summary.text="WEEKEND COMPLETE\n%s\n\nSheep safe: %d / 5\nEquipment: %s\nHarvest: %s\nDelivery: %s\n\n%s\nCare bonus £%d · Balance £%d\nSeed %d · %d:%02d elapsed" % [grade,outcomes.get("sheep",0),"repaired" if outcomes.get("repair",false) else "manual loading used","stored dry" if stock>0 else "salvage apples used","on time" if outcomes.get("dispatch",false) else "buyer delayed",recognition,bonus,money,seed_value,int(elapsed)/60,int(elapsed)%60]
 	var file=FileAccess.open("user://last_weekend.json",FileAccess.WRITE)
 	if file: file.store_string(JSON.stringify({"seed":seed_value,"outcomes":outcomes,"contributions":contributions,"seconds":elapsed,"events":log_events}))
 	for id in [1,2]: host._on_incident_private_message(id,"Weekend complete. See the TV results. Choose Play another weekend on the host or press R.")

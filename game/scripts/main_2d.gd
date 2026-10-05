@@ -76,6 +76,7 @@ var repair_incident: RepairIncident2D
 var event_transition := 0.0
 var weekend: WeekendSession2D
 var tick := 0
+var minimap: Control
 
 static func neutral_input() -> Dictionary:
 	return {"seq": -1, "x": 0.0, "y": 0.0, "action": false, "seen": 0}
@@ -86,6 +87,8 @@ func _ready() -> void:
 	_build_render_views()
 	_build_ui()
 	weekend=preload("res://scripts/weekend_session_2d.gd").new();add_child(weekend);weekend.setup(self)
+	var map_layer:=CanvasLayer.new();map_layer.layer=9;add_child(map_layer)
+	minimap=preload("res://scripts/farm_minimap.gd").new();map_layer.add_child(minimap);minimap.setup(self)
 	if relay_url.is_empty():
 		var error := discovery.bind(41234)
 		status_label.text = "Looking for the farm relay on this network…"
@@ -164,6 +167,10 @@ func _move_player(id: int, movement: Vector2, delta: float) -> void:
 	_update_walk_animation(id, movement)
 
 func _try_context_action(id: int) -> void:
+	# Result messages are a transition, not an invitation to board nearby gear.
+	# Otherwise a new hold after storing grain can enter the parked tractor while
+	# the mission ignores input, and the next job's first ACTION becomes EXIT.
+	if weekend and weekend.next_phase != "": return
 	if weekend and weekend.handle_action(id,logical_positions[id]): return
 	if repair_incident and repair_incident.handle_action(id,logical_positions[id]): return
 	if animal_incident and animal_incident.handles_context_action(id,players[id].position): return
@@ -173,9 +180,9 @@ func _try_context_action(id: int) -> void:
 		players[id].visible = false
 		players[id].collision_layer=0
 		logical_positions[id] = _tractor_logical()
-		_send({"type":"mode", "playerId":id, "title":"TRACTOR", "actionLabel":"EXIT", "hint":"Drive repeated passes over the field to work it"})
+		_send({"type":"mode", "playerId":id, "title":"TRACTOR", "actionLabel":"EXIT", "hint":"Drive through gold plots; engage the tool before sowing or harvesting"})
 		if weekend and weekend.phase=="weather" and id==1: weekend._update_weather_guidance(true)
-		else: _send({"type":"private", "playerId":id, "text":"FIELD WORK: drive across unprepared soil to cultivate it. Further passes seed it; mature crops can be harvested."})
+		else: _send({"type":"private", "playerId":id, "text":"FIELD WORK: Drive through gold plot markers. Engage field tool before sowing or harvesting. EXIT returns on foot."})
 		return
 	var destination: Dictionary = world_root.call("nearest_destination", players[id].position, 8.0)
 	if not destination.is_empty():
@@ -267,9 +274,12 @@ func _build_world() -> void:
 	repair_incident.private_message.connect(_on_incident_private_message)
 	repair_incident.controller_mode.connect(_on_incident_controller_mode)
 
+var mission_facts := {}
 func _on_incident_private_message(player_id: int, text_value: String) -> void:
+	for prefix in ["WELCOME:","FLOCK:","GATE:","TEAM CHOICE:","DIAGNOSIS:","STORES:","FORECAST:","STORAGE CREW:","STORE REPORT:","BUYER:","SOLO ","DELIVERY BRIEFING:"]:
+		if text_value.begins_with(prefix):mission_facts[player_id]=text_value;break
 	latest_clues[player_id] = text_value
-	_send({"type":"private","playerId":player_id,"text":text_value})
+	_send({"type":"private","playerId":player_id,"text":text_value,"clue":mission_facts.get(player_id,text_value)})
 
 func _on_incident_controller_mode(player_id: int, title_value: String, action_label: String, hint_value: String) -> void:
 	latest_modes[player_id]={"type":"mode","playerId":player_id,"title":title_value,"actionLabel":action_label,"hint":hint_value}
@@ -443,7 +453,7 @@ func _handle(message) -> void:
 				weekend.start(admitted_players)
 			for player in message.players:
 				if player.connected and player.admission == "admitted" and latest_clues.has(int(player.id)):
-					_send({"type":"private","playerId":int(player.id),"text":latest_clues[int(player.id)]})
+					_send({"type":"private","playerId":int(player.id),"text":latest_clues[int(player.id)],"clue":mission_facts.get(int(player.id),latest_clues[int(player.id)])})
 					if player_modes.get(int(player.id),"foot")=="tractor": _send({"type":"mode","playerId":int(player.id),"title":"TRACTOR","actionLabel":"EXIT","hint":"Drag to drive; release to stop"})
 					elif latest_modes.has(int(player.id)): _send(latest_modes[int(player.id)])
 		"command":
@@ -478,6 +488,10 @@ func _admit(id: int) -> void:
 	_send({"type":"private", "playerId":id, "text":"FARM RADIO: Joining the farm. Events start with the first farmer for solo testing."})
 
 func _send(message: Dictionary) -> void:
+	if message.get("type")=="private":
+		var id:int=int(message.get("playerId",0))
+		message.text=str(message.get("text","")).left(300)
+		message.clue=str(message.get("clue",mission_facts.get(id,message.text))).left(300)
 	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN: socket.send_text(JSON.stringify(message))
 
 func _load_room_qr() -> void:

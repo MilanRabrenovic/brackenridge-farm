@@ -24,7 +24,12 @@
     "assets:buildings": "node scripts/build-reference-buildings.mjs",
     "test:repair": "godot --headless --path game --script res://tests/test_repair_incident.gd",
     "test:solo": "godot --headless --path game --script res://tests/test_solo_playthrough.gd",
-    "test:weekend": "godot --headless --path game --script res://tests/test_weekend.gd"
+    "test:weekend": "godot --headless --path game --script res://tests/test_weekend.gd",
+    "test:missions": "godot --headless --path game --script res://tests/test_mission_experience.gd",
+    "test:sheep": "godot --headless --path game --script res://tests/test_sheep_motion.gd",
+    "test:minimap": "godot --headless --path game --script res://tests/test_minimap.gd",
+    "test:fireos-assets": "python3 scripts/verify-fireos-assets.py artifacts/countryside-coop-debug.apk --check-detector",
+    "test:coop-route": "godot --headless --path game --script res://tests/test_coop_playthrough.gd"
   },
   "dependencies": {
     "qrcode": "^1.5.4",

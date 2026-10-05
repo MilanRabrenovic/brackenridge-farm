@@ -35,7 +35,7 @@ export class Rooms {
     if (packet.type === 'ping') return send(socket, { type: 'pong', nonce: packet.nonce });
     if (player) {
       if (player.admission !== 'admitted') return;
-      if (packet.type === 'command' && ['pause','pin','drop'].includes(String(packet.command))) {
+      if (packet.type === 'command' && ['pause','pin','drop','tool'].includes(String(packet.command))) {
         const now = this.now();
         if (now - player.windowAt >= 1000) { player.windowAt = now; player.count = 0; }
         if (++player.count > 90) return;
@@ -71,7 +71,7 @@ export class Rooms {
       send(target.socket, { type: 'frame_ack', seq: packet.seq, phase: packet.phase, position: packet.position });
     } else if (packet.type === 'private') {
       if (typeof packet.text === 'string' && packet.text.length <= 300)
-        send(room.players.get(Number(packet.playerId))?.socket ?? null, { type: 'private', text: packet.text });
+        send(room.players.get(Number(packet.playerId))?.socket ?? null, { type: 'private', text: packet.text, clue: typeof packet.clue === 'string' ? packet.clue.slice(0, 300) : undefined });
     } else if (packet.type === 'mode') {
       if (typeof packet.title === 'string' && packet.title.length <= 40 &&
           typeof packet.actionLabel === 'string' && packet.actionLabel.length <= 30)
