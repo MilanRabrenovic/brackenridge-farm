@@ -227,3 +227,5 @@ vega exec npm run build:release
 ```
 
 Lint/TypeScript, three tests in two suites and all three configured architectures' builds passed. `--watchman=false` avoids the external Watchman cache and passed in the restricted shell. Fresh Debug install/launch reported visible ready 1280×720 canvas in scoped logs and native diagnostic strip. This is startup evidence only: Inspector still showed a flat game surface. See `platform/vega/README.md` and `docs/audits/2026-10-05-tv-inspection/`. Native errors expose friendly messages; development detail is not a release gameplay feature.
+
+Source snapshot freshness: after packaging, extract the curated ZIP into `artifacts/submission-source/`, compare every entry against the archive, then stage/commit in its isolated Git checkout. October 5: 765 files compared; sanitized startup evidence has an explicit `.gitignore` exception. Check `git status --short` and `git remote -v` there before any approved publication.

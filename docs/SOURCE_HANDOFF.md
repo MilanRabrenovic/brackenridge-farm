@@ -31,3 +31,5 @@ Repository publication alone does not prove game acceptance. Human cooperative p
 ## Mission improvement freshness
 
 The October 5 refresh includes current mission, sheep, repair, minimap, cooperative motor-route and Vega diagnostics source/tests, along with their retained evidence. The snapshot is compared byte-for-byte with the curated ZIP. Further source changes require another refresh before publication. No remote/upload was added by this pass.
+
+Snapshot verification also caught the general `*.log` ignore excluding the sanitized startup evidence from Git. Added a specific exception for that retained evidence; unrelated logs remain ignored. Archive/snapshot comparison passed for 765 files, four manifest hashes matched, and a credential-pattern scan passed for 137 text files (a scoped scan, not a universal secrets guarantee). The local checkout has no remote.

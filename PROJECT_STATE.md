@@ -219,3 +219,5 @@ Final handoff verification: 765-file source ZIP passed CRC, current edited sourc
 Refreshed the isolated publishing checkout from the current 765-file curated candidate, retaining its local Git history. The previous 712-file snapshot had no obsolete tracked files and no local edits. Current source/docs/evidence are compared against the ZIP, whose CRC and four manifest hashes are checked. No remote or upload is added. This closes source handoff freshness only; human/browser whole-run and TV visual/runtime acceptance, recording and publication remain open.
 
 **Single recommended next task:** establish a usable actual TV view/device and run the complete two-phone acceptance route; the simulator-view observation question remains unanswered.
+
+Snapshot verification also caught the general `*.log` ignore excluding the sanitized startup evidence from Git. Added a specific exception for that retained evidence; unrelated logs remain ignored. Archive/snapshot comparison passed for 765 files, four manifest hashes matched, and a credential-pattern scan passed for 137 text files (a scoped scan, not a universal secrets guarantee). The local checkout has no remote.
