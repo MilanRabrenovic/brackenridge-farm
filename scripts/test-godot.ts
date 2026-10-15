@@ -36,7 +36,7 @@ const gateCluePromise=waitForMessage(playerTwo,m=>m.type==='private'&&String(m.t
 playerTwo.send(JSON.stringify({type:'join',room,version:PROTOCOL}));
 await playerTwoAdmission;
 const [flockClue,gateClue]=await Promise.all([flockCluePromise,gateCluePromise]);
-if(flockClue.text===gateClue.text || !String(flockClue.text).includes('tractor') || !String(gateClue.text).includes('hold gates'))
+if(flockClue.text===gateClue.text || !String(flockClue.text).includes('tractor') || !String(gateClue.text).includes('sheep gate') || !String(gateClue.text).includes('inspect'))
   throw new Error(`Private cooperative clues were incomplete: ${JSON.stringify({flockClue,gateClue})}`);
 const started=performance.now(); player.send(JSON.stringify({type:'input',seq:1,x:1,y:0,action:false}));
 const ack=await new Promise<any>((resolve,reject)=>{

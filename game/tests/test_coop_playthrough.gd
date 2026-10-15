@@ -22,13 +22,13 @@ func capture_view(label: String) -> void:
 	if not capture_enabled:return
 	host._update_camera(100);host.minimap._process(100)
 	await process_frame;await process_frame;await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://../docs/audits/2026-10-05-coop-route/%s.png" % label)
+	root.get_texture().get_image().save_png("res://../docs/audits/2026-10-15-finish/coop-%s.png" % label)
 
 func verify() -> void:
 	capture_enabled="--capture" in OS.get_cmdline_user_args()
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--seed="):route_seed=arg.trim_prefix("--seed=").to_int()
-	DirAccess.make_dir_recursive_absolute("res://../docs/audits/2026-10-05-coop-route")
+	DirAccess.make_dir_recursive_absolute("res://../docs/audits/2026-10-15-finish")
 	root.size=Vector2i(1280,720)
 	Engine.max_fps=0;Engine.physics_ticks_per_second=600;Engine.time_scale=10
 	host=load("res://main.tscn").instantiate();root.add_child(host);await process_frame;await physics_frame

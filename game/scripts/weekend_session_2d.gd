@@ -57,6 +57,8 @@ var seal_progress := 0.0
 var crates_ready := false
 var crate_progress := 0.0
 var task_credits := {}
+var replay_votes := {}
+var replay_status: Label
 
 func _credit(id: int, task: String) -> void:
 	var key:="%d:%s" % [id,task]
@@ -83,13 +85,15 @@ func setup(owner_host: Node) -> void:
 	waypoint=Label.new();waypoint.z_index=80;waypoint.add_theme_font_size_override("font_size",16);waypoint.add_theme_color_override("font_outline_color",Color("#173329"));waypoint.add_theme_constant_override("outline_size",6);host.world_root.add_child(waypoint)
 	var layer := CanvasLayer.new(); layer.layer = 30; add_child(layer)
 	rain=ColorRect.new();rain.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);rain.mouse_filter=Control.MOUSE_FILTER_IGNORE;rain_material=ShaderMaterial.new();rain_material.shader=preload("res://shaders/rain_overlay.gdshader");rain.material=rain_material;layer.add_child(rain)
-	shared_clue=Label.new();shared_clue.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE);shared_clue.offset_top=-105;shared_clue.offset_left=40;shared_clue.offset_right=-40;shared_clue.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;shared_clue.add_theme_font_size_override("font_size",20);shared_clue.add_theme_color_override("font_outline_color",Color("#173329"));shared_clue.add_theme_constant_override("outline_size",7);layer.add_child(shared_clue);shared_clue.hide()
+	shared_clue=Label.new();shared_clue.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE);shared_clue.offset_top=-145;shared_clue.offset_left=40;shared_clue.offset_right=-40;shared_clue.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;shared_clue.add_theme_font_size_override("font_size",20);shared_clue.add_theme_color_override("font_outline_color",Color("#173329"));shared_clue.add_theme_constant_override("outline_size",7);layer.add_child(shared_clue);shared_clue.hide()
 	phase_banner = Label.new(); phase_banner.position = Vector2(20,12); phase_banner.add_theme_font_size_override("font_size",20); phase_banner.add_theme_color_override("font_outline_color",Color("#18372b")); phase_banner.add_theme_constant_override("outline_size",6); layer.add_child(phase_banner)
 	results_panel = PanelContainer.new(); results_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER); results_panel.position=Vector2(-285,-190); results_panel.custom_minimum_size=Vector2(570,380); layer.add_child(results_panel)
 	var style := StyleBoxFlat.new(); style.bg_color=Color("#173329"); style.border_color=Color("#e6ce88"); style.set_border_width_all(3); style.set_corner_radius_all(18); style.content_margin_left=26;style.content_margin_right=26;style.content_margin_top=24;style.content_margin_bottom=24; results_panel.add_theme_stylebox_override("panel",style)
 	var box := VBoxContainer.new(); box.add_theme_constant_override("separation",16); results_panel.add_child(box)
 	summary=Label.new();summary.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;summary.custom_minimum_size=Vector2(510,230);summary.add_theme_font_size_override("font_size",22); box.add_child(summary)
+	replay_status=Label.new();replay_status.add_theme_font_size_override("font_size",16);box.add_child(replay_status)
 	replay_button=Button.new(); replay_button.text="PLAY ANOTHER WEEKEND";replay_button.custom_minimum_size.y=48;box.add_child(replay_button);replay_button.pressed.connect(func(): restart(seed_value+1))
+	results_panel.resized.connect(func(): results_panel.position=(host.get_viewport().get_visible_rect().size-results_panel.size)*.5)
 	results_panel.hide()
 	for id in [1,2]:
 		var sprite := Sprite2D.new();sprite.texture=preload("res://assets/2d/production/produce_crates.png");sprite.scale=Vector2(.065,.065);sprite.position=Vector2(0,-21);sprite.hide();host.players[id].add_child(sprite);cargo_sprites[id]=sprite
@@ -101,6 +105,7 @@ func start(player_count: int, replay_seed: int = 1731) -> void:
 	_enter("arrival",75.0)
 
 func restart(new_seed: int) -> void:
+	replay_votes.clear()
 	next_phase="";result_seconds=0;planning_progress=0;planning_candidate="";briefing_ready.clear();task_credits.clear();sealed=false;seal_progress=0;crates_ready=false;crate_progress=0
 	host.repair_incident.reset();host.animal_incident.state="waiting";host.animal_incident.gate_marker.hide();host.animal_incident.safe_marker.hide()
 	host.cooperative_clues_sent=true
@@ -169,6 +174,12 @@ func clues(one: String, two: String) -> void:
 
 func command(id: int, value: String) -> void:
 	match value:
+		"replay":
+			if phase!="results" or id not in ([1] if solo else [1,2]): return
+			if replay_votes.has(id): replay_votes.erase(id)
+			else: replay_votes[id]=true
+			_update_replay_status()
+			if replay_votes.size()>=(1 if solo else 2) and host.admitted_players>=(1 if solo else 2): restart(seed_value+1)
 		"tool":
 			if paused or next_phase!="" or phase!="weather" or host.tractor_driver!=id:return
 			host.world_root.crop_field.engage_operation()
@@ -346,8 +357,14 @@ func present(title: String, objective: String, progress: String, feedback: Strin
 	var ui=host.animal_incident
 	ui.title_label.text=title;ui.objective_label.text=objective;ui.progress_label.text=progress;ui.feedback_label.text=feedback;ui.timer_label.text="%d:%02d" % [int(remaining)/60,int(remaining)%60]
 
+func _update_replay_status() -> void:
+	replay_status.text="PHONE READY %d/%d · host button also starts next seed" % [replay_votes.size(),1 if solo else 2]
+	for id in ([1] if solo else [1,2]):
+		host._on_incident_private_message(id,"WEEKEND COMPLETE: %s" % ("Ready for another weekend! Waiting for your partner. Tap again to cancel." if replay_votes.has(id) else "Your farm report is on screen. Tap Ready for another weekend on your phone; both farmers must agree." if not solo else "Your farm report is on screen. Tap Ready for another weekend to try a new seed."))
+
 func _show_results() -> void:
 	host.animal_incident.incident_panel.hide();waypoint.hide();results_panel.show();replay_button.grab_focus()
+	for id in [1,2]:host._update_walk_animation(id,Vector2.ZERO)
 	var perfect:bool=outcomes.get("sheep",0)==5 and outcomes.get("repair",false) and outcomes.get("weather",false) and outcomes.get("dispatch",false)
 	var grade := "A flourishing weekend — together!" if perfect else "Delivery saved — the farm carries on!" if outcomes.get("dispatch",false) else "A tough weekend — try a new plan"
 	var bonus:int=int(outcomes.get("sheep",0))*2+(10 if outcomes.get("repair",false) else 0)+(20 if outcomes.get("weather",false) else 0)
@@ -356,4 +373,9 @@ func _show_results() -> void:
 	summary.text="WEEKEND COMPLETE\n%s\n\nSheep safe: %d / 5\nEquipment: %s\nHarvest: %s\nDelivery: %s\n\n%s\nCare bonus £%d · Balance £%d\nSeed %d · %d:%02d elapsed" % [grade,outcomes.get("sheep",0),"repaired" if outcomes.get("repair",false) else "manual loading used","stored dry" if stock>0 else "salvage apples used","on time" if outcomes.get("dispatch",false) else "buyer delayed",recognition,bonus,money,seed_value,int(elapsed)/60,int(elapsed)%60]
 	var file=FileAccess.open("user://last_weekend.json",FileAccess.WRITE)
 	if file: file.store_string(JSON.stringify({"seed":seed_value,"outcomes":outcomes,"contributions":contributions,"seconds":elapsed,"events":log_events}))
-	for id in [1,2]: host._on_incident_private_message(id,"Weekend complete. See the TV results. Choose Play another weekend on the host or press R.")
+	replay_votes.clear()
+	_update_replay_status()
+	for id in [1,2]:
+		var mode={"type":"mode","playerId":id,"title":"RESULTS","actionLabel":"READY","hint":"Choose another weekend on your phone"}
+		host.latest_modes[id]=mode
+		host._send(mode)

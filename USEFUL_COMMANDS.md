@@ -231,3 +231,19 @@ Lint/TypeScript, three tests in two suites and all three configured architecture
 Source snapshot freshness: after packaging, extract the curated ZIP into `artifacts/submission-source/`, compare every entry against the archive, then stage/commit in its isolated Git checkout. October 5: 765 files compared; sanitized startup evidence has an explicit `.gitignore` exception. Check `git status --short` and `git remote -v` there before any approved publication.
 
 The same exact-file exception also retains the earlier path/status-only `vega-startup-http.log`; inspected content contains local LAN URLs and HTTP statuses, with no queries or phone tokens. Both retained log files are part of the 765-file snapshot.
+
+Simulator lifetime revalidated October 5: a launch shell alone does not prove QEMU/device liveness. Check current `vega device list`/`vda shell vlcm list`; keep the successful simulator launcher terminal open. A plain launch returned ready and then disconnected; a retained terminal restored connection. Inspector can retain stale frames after disconnect; require a fresh successful capture. Latest inspection requests failed despite VISIBLE game/READY renderer.
+
+## October 15 laptop finishing checks
+
+```sh
+npm run test:finish
+godot --path game --script res://tests/test_finish_pass.gd -- --capture
+node --import tsx scripts/review-controller.ts
+```
+
+`test:finish` covers public guidance/privacy/routing/bounds, results freeze, replay consent/cancellation/disconnection/solo. The native option writes staged shared/split/results review frames. `review-controller.ts` starts an isolated localhost:8789 presentation fixture, prints its room URL, and displays a labelled development results card; its ready button restores walking controls. It does not run Godot or prove mission completion. Stop its terminal with Ctrl-C after review.
+
+The full native co-op capture command now writes `coop-repair.png`, `coop-harvest.png`, `coop-results.png` into `docs/audits/2026-10-15-finish/`, preserving earlier evidence. Phone results now support next-seed replay: both co-op players ready (tap again cancels), one in solo. Disconnect removes consent. The phone header displays its current room; compare with the host if it appears to control an old session.
+
+October 15 admission clarity: a connected pending phone now explicitly says to press Enter/Select on the host; the host roster shows waiting phones and the same admission action. Admission authority is unchanged. The hint hides after admission. The finishing regression checks the host prompt. Final exports/package are refreshed after this change.

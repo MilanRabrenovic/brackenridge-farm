@@ -35,3 +35,9 @@ The October 5 refresh includes current mission, sheep, repair, minimap, cooperat
 Snapshot verification also caught the general `*.log` ignore excluding the sanitized startup evidence from Git. Added a specific exception for that retained evidence; unrelated logs remain ignored. Archive/snapshot comparison passed for 765 files, four manifest hashes matched, and a credential-pattern scan passed for 137 text files (a scoped scan, not a universal secrets guarantee). The local checkout has no remote.
 
 The same exact-file exception also retains the earlier path/status-only `vega-startup-http.log`; inspected content contains local LAN URLs and HTTP statuses, with no queries or phone tokens. Both retained log files are part of the 765-file snapshot.
+
+## October 15 local candidate
+
+Current source now includes role-aware navigation, phone replay/room UI, finishing regression and labelled controller fixture. Refresh the curated ZIP and isolated Git snapshot after the final exports/documentation in this pass. Prior 765-file count is historical; current count is recorded by packaging. Publication/visibility remain unapproved and no push is performed.
+
+Final October 15 source handoff: 783-file ZIP passed CRC, excluded-tool/credential-file checks, byte-for-byte comparison of the isolated publishing snapshot and all four artifact SHA-256 checks. Latest signatures verified v2/v3. The source snapshot remains local; no remote/publication was added. This evidence supports the laptop candidate and final-playtest handoff, not completed Fire TV/human acceptance.

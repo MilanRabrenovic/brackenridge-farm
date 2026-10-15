@@ -33,6 +33,8 @@ test('host admits two players and receives only sequenced, normalized input', as
   assert.deepEqual(await message(host),{type:'command',command:'pin',playerId:1});
   p1.send(JSON.stringify({type:'command',command:'tool',playerId:2}));
   assert.deepEqual(await message(host),{type:'command',command:'tool',playerId:1});
+  p1.send(JSON.stringify({type:'command',command:'replay',playerId:2}));
+  assert.deepEqual(await message(host),{type:'command',command:'replay',playerId:1});
   host.send(JSON.stringify({type:'private',playerId:1,text:'Carrying apples. Take to packing.',clue:'BUYER: apples only.'}));
   assert.deepEqual(await message(p1),{type:'private',text:'Carrying apples. Take to packing.',clue:'BUYER: apples only.'});
   p1.send(JSON.stringify({type:'input',seq:1,x:1,y:1,action:false}));

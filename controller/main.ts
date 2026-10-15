@@ -29,14 +29,18 @@ function connect() {
       playerId = message.playerId; localStorage.setItem(`farm-token:${room}`, message.token);
       join.hidden = true; controller.hidden = false;
       $('playerNumber').textContent = String(playerId);
+      $('activeRoom').textContent = room;
       $('role').textContent = playerId === 1 ? 'Grower' : 'Mechanic';
-      admitted = message.admission === 'admitted'; setState(admitted ? 'Connected' : 'Waiting for TV');
-    } else if (message.type === 'admitted') { admitted = true; setState('Connected'); }
+      admitted = message.admission === 'admitted'; $('admissionHint').hidden = admitted; setState(admitted ? 'Connected' : 'Waiting for host');
+    } else if (message.type === 'admitted') { admitted = true; $('admissionHint').hidden = true; setState('Connected'); }
     else if (message.type === 'private') {
       $('privateText').textContent = message.clue || message.text; $('privateCard').hidden = false;
       $('taskHint').textContent = message.text; $('taskHint').hidden = !message.clue || message.clue === message.text;
     }
     else if (message.type === 'mode') {
+      const resultsMode = message.title === 'RESULTS';
+      $('weekendResults').hidden = !resultsMode;
+      controller.classList.toggle('results-mode', resultsMode);
       tractorMode = message.title === 'TRACTOR';
       controller.classList.toggle('tractor-mode', tractorMode);
       $('tractorDash').hidden = !tractorMode;
@@ -92,6 +96,6 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)resetInput(
 setInterval(()=>{ if(admitted) sendInput(); }, 100);
 if (queryRoom) requestAnimationFrame(connect);
 
-for (const [id,command] of [['pinClue','pin'],['dropItem','drop'],['pauseGame','pause'],['fieldTool','tool']]) {
+for (const [id,command] of [['pinClue','pin'],['dropItem','drop'],['pauseGame','pause'],['fieldTool','tool'],['replayWeekend','replay']]) {
   $(id).addEventListener('click',()=>{resetInput();if(admitted&&socket?.readyState===WebSocket.OPEN)socket.send(JSON.stringify({type:'command',command}));});
 }

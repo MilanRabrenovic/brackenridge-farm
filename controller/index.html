@@ -20,9 +20,10 @@
 
     <section id="controller" hidden>
       <header>
-        <div><p class="eyebrow">PLAYER <span id="playerNumber">–</span></p><h1 id="role">Farmhand</h1></div>
+        <div><p class="eyebrow">PLAYER <span id="playerNumber">–</span> · ROOM <span id="activeRoom">–</span></p><h1 id="role">Farmhand</h1></div>
         <div id="connection" class="pill">Connecting</div>
       </header>
+      <p id="admissionHint" class="task-hint" role="status" hidden>Phone connected. Press Enter/Select on the laptop or TV host to admit your farmer. For co-op, admit both phones during arrival.</p>
       <aside id="privateCard" hidden><strong>Your information</strong><p id="privateText"></p></aside>
       <p id="taskHint" class="task-hint" role="status" hidden></p>
       <section id="tractorDash" hidden aria-label="Tractor dashboard">
@@ -32,6 +33,7 @@
         <p>Drive through the gold plot markers.<br>Release to stop. Engage the tool before sowing or harvesting.</p>
         <button id="fieldTool">Engage field tool</button>
       </section>
+      <section id="weekendResults" hidden><h2>Weekend complete!</h2><p>See your farm report on the big screen. In co-op, both farmers choose ready; in solo, your tap starts the next weekend. Tap again to cancel a waiting vote.</p><button id="replayWeekend">Ready for another weekend</button></section>
       <nav class="utility" aria-label="Farm controls"><button id="pinClue">Share clue on TV</button><button id="dropItem">Drop item</button><button id="pauseGame">Pause / resume</button></nav>
       <div class="controls">
         <div id="stick" class="stick" aria-label="Movement control"><div id="knob"></div><span class="wheel-hub" aria-hidden="true">B</span></div>

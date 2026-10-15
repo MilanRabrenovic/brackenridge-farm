@@ -22,3 +22,5 @@ Updated 2026-09-30. See `ART_DIRECTION.md` for integration/approval distinctions
 | Weather/audio | Rain shader/overcast tint; original synthesized objective bell; mute key V | `rain_overlay.gdshader`, session-generated waveform |
 
 Expansion-only: additional farmhouses/shelters, corn/wheat chains, drivable combine, implements, bespoke interiors, more farmers, animal gait sheets and authored work animations. Previous 3D characters/buildings remain legacy, not active release assets or finished art.
+
+October 15 UI update: per-farmer contextual cards/offscreen compass, centred results and phone replay voting/room badge are implemented as code-native UI. No new raster asset or map integration approval required or claimed. Existing animation limitations remain unchanged. Evidence: `docs/audits/2026-10-15-finish/`.

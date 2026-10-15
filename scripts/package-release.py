@@ -10,7 +10,7 @@ output = root / 'artifacts' / 'brackenridge-farm-source.zip'
 selected = list(root.glob('*.md')) + [root / name for name in ('package.json', 'package-lock.json', 'tsconfig.json', 'LICENSE', '.gitignore')]
 for directory in ('game', 'controller', 'server', 'shared', 'scripts', 'tests', 'source_assets', 'platform'):
     selected.extend((root / directory).rglob('*'))
-selected.extend(p for p in (root / 'docs').rglob('*') if p.suffix in ('.md', '.svg') or '2026-09-30-release' in p.parts or '2026-09-30-solo' in p.parts or '2026-09-30-missions' in p.parts or '2026-09-30-sheep' in p.parts or '2026-09-30-repair-play' in p.parts or '2026-09-30-minimap' in p.parts or '2026-10-05-coop-route' in p.parts or '2026-10-05-tv-inspection' in p.parts)
+selected.extend(p for p in (root / 'docs').rglob('*') if p.suffix in ('.md', '.svg') or '2026-09-30-release' in p.parts or '2026-09-30-solo' in p.parts or '2026-09-30-missions' in p.parts or '2026-09-30-sheep' in p.parts or '2026-09-30-repair-play' in p.parts or '2026-09-30-minimap' in p.parts or '2026-10-05-coop-route' in p.parts or '2026-10-05-tv-inspection' in p.parts or '2026-10-15-finish' in p.parts)
 excluded = {'.godot', '.git', 'node_modules', '__pycache__', '.DS_Store', 'build', 'dist'}
 output.parent.mkdir(exist_ok=True)
 count = 0

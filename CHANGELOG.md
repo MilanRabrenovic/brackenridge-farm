@@ -454,3 +454,9 @@ Refreshed the isolated submission Git snapshot to the current 765-file candidate
 Snapshot verification also caught the general `*.log` ignore excluding the sanitized startup evidence from Git. Added a specific exception for that retained evidence; unrelated logs remain ignored. Archive/snapshot comparison passed for 765 files, four manifest hashes matched, and a credential-pattern scan passed for 137 text files (a scoped scan, not a universal secrets guarantee). The local checkout has no remote.
 
 The same exact-file exception also retains the earlier path/status-only `vega-startup-http.log`; inspected content contains local LAN URLs and HTTP statuses, with no queries or phone tokens. Both retained log files are part of the 765-file snapshot.
+
+## 2026-10-15 — laptop mission navigation and replay completion
+
+Added private-fact-safe per-player task cards/offscreen direction pointers; phone room badge and results/replay voting, cancellation and disconnected-player consent reset. Froze actors at results and centred the expanded report after a failed native bounds check. Added focused finishing tests and a labelled isolated phone-results fixture. Solo/co-op motor routes, mission/map/repair/sheep/minimap/relay checks passed; refreshed native and browser review evidence. Updated welcome assertion in the relay→Godot test. Fire TV and human playtesting remain final deferred acceptance. Export/package final results are recorded in PROJECT_STATE.
+
+October 15 admission clarity: a connected pending phone now explicitly says to press Enter/Select on the host; the host roster shows waiting phones and the same admission action. Admission authority is unchanged. The hint hides after admission. The finishing regression checks the host prompt. Final exports/package are refreshed after this change.

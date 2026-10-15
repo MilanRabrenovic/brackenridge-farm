@@ -51,3 +51,7 @@ Repair, split harvest and results captures in `docs/audits/2026-10-05-coop-route
 ## TV wrapper startup text — October 5
 
 Native loading/error text uses the established deep-green/cream interface palette. No raster asset, world placement or animation changed. The development diagnostic strip was inspected through Appium, but the farm surface was flat-coloured in that capture; no TV art/color-fidelity approval is claimed.
+
+## October 15 laptop presentation pass
+
+Added deep-green/cream, farmer-coloured bottom action cards and small matching compass pointers. They avoid the shared/split minimap and hide for lobby/results. The shared clue sits above them. The expanded result report is centred within 1280×720; phone results use a compact green/cream card with a large ready button. Native shared/split/results and actual co-op route frames were inspected under `docs/audits/2026-10-15-finish/`. No new raster assets or placement changes; no new asset approval is asserted. Phone fixture captures are labelled development review, not gameplay footage.

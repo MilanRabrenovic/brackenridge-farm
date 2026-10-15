@@ -72,3 +72,9 @@ Layout-derived minimap added for shared/split play, showing both farmers and pub
 ## October 5 cooperative route follow-up
 
 A complete two-slot packet/motor route now passes all four successful outcomes and replay for seeds 1731–1733, without solo assistance, actor teleporting or crop-stage assignment. It exposed accidental tractor boarding when ACTION was pressed during a result message; context actions now ignore those transitions. Actual native repair, split harvest and results frames were inspected. The route verifies physical access and required joint inputs; it cannot verify whether first-time players discover the solution, communicate effectively, enjoy it or remain engaged. Human co-op acceptance is still required.
+
+## October 15 laptop follow-up
+
+Added per-player current action/destination cards and offscreen compass cues around the minimap. They preserve private diagnosis/order facts; nearest supply is a public landmark, not an answer. Phone results/replay removes the need to reach the laptop between rounds; joint consent/cancellation/disconnect guards and solo replay are tested. The current room is visible on phones. Expanded results initially clipped, then passed centring/bounds recapture. Native co-op route again completed all four jobs/results/replay; updated actual route frames are in `audits/2026-10-15-finish/`.
+
+Per the user's October 15 instruction, complete laptop checks first and defer human/TV acceptance to the final step. The new UI addresses navigation/replay friction; it does not establish first-time understanding or fun. Existing four events remain the scope; no new incident family was added.

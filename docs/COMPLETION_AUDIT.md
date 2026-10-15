@@ -67,3 +67,21 @@ Scoped diagnostics now prove document load, secure/WebAssembly availability and 
 Late context recovery is now sampled immediately even after the 45-second polling window ends, so a restored context clears the native failure text. The actual injected-code regression covers this; final three tests, lint and TypeScript passed. Earlier ready-strip inspection remains valid startup evidence; late recovery was regression-tested rather than induced on the simulator.
 
 Final late-recovery builds: Debug and Release completed successfully for aarch64, armv7 and x86_64. The retained aarch64 release candidate includes the recovery fix. Source handoff is refreshed with current diagnostics, tests and scoped inspection evidence; this remains a candidate, not a completed TV acceptance pass.
+
+## October 5 — current simulator revalidation
+
+ADB with normal local socket access reported no connected Fire OS devices. VDA/SDK initially reported no devices; process inventory showed the previous launch shell still existed but its QEMU process did not. Inspector refresh failed, confirming its retained flat view was stale. A plain simulator start returned ready but was absent on the subsequent inventory; starting with the documented retained terminal restored connection. Latest Debug installed/launched successfully; current component listing showed game PID 3325 VISIBLE and renderer PID 3418 READY. The simulator terminal is retained as session 62993. A fresh GUI Inspector session was created; screenshot/window/source requests returned driver errors while its UI remained gathering initial source. No rendered TV gameplay is verified, and no pending observation was treated as success. Relay health remained OK. Source/game binaries unchanged; these newer diagnostic notes require packaging refresh before publication.
+
+**Single recommended next task:** obtain direct observation of the actual simulator display or a physical Fire TV, then perform the complete two-phone acceptance route. The user observation question remains unanswered.
+
+## October 5 — current acceptance blocker
+
+Final revalidation: current VDA component listing still shows game PID 3325 VISIBLE and renderer PID 3418 READY, while the fresh supported Inspector session remains without source/screenshot. No farm pixels or whole TV run are verified. The same usable-device/view and human acceptance gap has persisted across the instrumented-startup, source-handoff and simulator-revalidation goal turns; these made local progress but did not remove that external gate. No direct simulator observation answer, physical Fire OS connection, normal-speed two-human acceptance or qualifying footage is available. Further repeated packaging/startup checks cannot prove those requirements. The finish goal is blocked, not complete.
+
+**Single recommended next task:** provide a usable actual simulator/Fire TV view and perform a normal-speed two-phone weekend, including results/replay, failure recovery and reconnect. Resume implementation against any observed defects. Curated source and isolated Git snapshot predate these latest diagnostic notes; refresh them before approved publication.
+
+## October 15 — local finish authorization and evidence
+
+The user explicitly deferred human playtesting and Fire TV verification until after laptop implementation. They no longer block this local pass. Current local work added public task/compass guidance, phone room/result/replay UI with joint consent, actor/results freeze and centred report layout. Complete solo/headless/native co-op routes, focused event/map/navigation and nine relay tests passed. Native actual-route and staged UI/phone fixture evidence is labelled under `audits/2026-10-15-finish/`. Real relay→Godot input/mode integration passed at 32.9 ms frame acknowledgement. Web/PCK and APK/resource exports passed; physical runtime remains unverified. Latest final checks/package results are in PROJECT_STATE.
+
+No complete real-browser/network weekend, human clarity/fun/typical duration, Fire TV runtime or submitted entry is inferred. Next acceptance follows `LAPTOP_PLAYTEST.md`, then Fire TV. Do not repeatedly block laptop work on those explicitly deferred tests.

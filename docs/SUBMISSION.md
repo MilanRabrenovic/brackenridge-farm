@@ -62,3 +62,7 @@ Godot's shared source/Web/Android exports accelerated local iteration. Scene-fil
 ## October 5 platform evidence update
 
 Instrumented Vega Debug launch reached visible 1280×720 Godot canvas/startup readiness approximately ten seconds after document load. Appium showed the native status strip but a flat game surface. Debug/Release builds, lint, TypeScript and three wrapper/injection tests passed; aarch64 release artifact refreshed. These do not establish actual TV gameplay/remote/performance/audio or qualify as demo footage. The browser and signed Fire OS APK game content remain the last tested October 5 build. Full Fire OS execution, human cooperative acceptance and publication are still required.
+
+## October 15 candidate update
+
+Laptop UI now includes per-farmer action/destination cards and public compass cues, phone room badge, and phone next-weekend ready voting (both connected co-op farmers; one in solo). Expanded results are centred and freeze actor movement/animation. Existing four incident families and the asymmetric diagnosis/buyer clues remain the implemented scope. Local checks and evidence are in PROJECT_STATE and `audits/2026-10-15-finish/`; final human/Fire TV acceptance is deferred, not passed. Use `LAPTOP_PLAYTEST.md` for the last playtest. No new publication or eligibility claim is made by this update.

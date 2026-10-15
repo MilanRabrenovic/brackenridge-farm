@@ -35,7 +35,7 @@ export class Rooms {
     if (packet.type === 'ping') return send(socket, { type: 'pong', nonce: packet.nonce });
     if (player) {
       if (player.admission !== 'admitted') return;
-      if (packet.type === 'command' && ['pause','pin','drop','tool'].includes(String(packet.command))) {
+      if (packet.type === 'command' && ['pause','pin','drop','tool','replay'].includes(String(packet.command))) {
         const now = this.now();
         if (now - player.windowAt >= 1000) { player.windowAt = now; player.count = 0; }
         if (++player.count > 90) return;

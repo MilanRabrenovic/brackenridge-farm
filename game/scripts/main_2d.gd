@@ -77,6 +77,7 @@ var event_transition := 0.0
 var weekend: WeekendSession2D
 var tick := 0
 var minimap: Control
+var guidance: Control
 
 static func neutral_input() -> Dictionary:
 	return {"seq": -1, "x": 0.0, "y": 0.0, "action": false, "seen": 0}
@@ -89,6 +90,7 @@ func _ready() -> void:
 	weekend=preload("res://scripts/weekend_session_2d.gd").new();add_child(weekend);weekend.setup(self)
 	var map_layer:=CanvasLayer.new();map_layer.layer=9;add_child(map_layer)
 	minimap=preload("res://scripts/farm_minimap.gd").new();map_layer.add_child(minimap);minimap.setup(self)
+	guidance=preload("res://scripts/farm_guidance.gd").new();map_layer.add_child(guidance);guidance.setup(self)
 	if relay_url.is_empty():
 		var error := discovery.bind(41234)
 		status_label.text = "Looking for the farm relay on this network…"
@@ -130,7 +132,7 @@ func _process(_delta: float) -> void:
 		status_label.text = "Relay disconnected. Restart this host to create a new room."
 
 func _physics_process(delta: float) -> void:
-	if weekend and weekend.paused: return
+	if weekend and (weekend.paused or weekend.phase=="results"): return
 	tick += 1
 	var now := Time.get_ticks_msec()
 	for id in [1, 2]:
@@ -276,7 +278,7 @@ func _build_world() -> void:
 
 var mission_facts := {}
 func _on_incident_private_message(player_id: int, text_value: String) -> void:
-	for prefix in ["WELCOME:","FLOCK:","GATE:","TEAM CHOICE:","DIAGNOSIS:","STORES:","FORECAST:","STORAGE CREW:","STORE REPORT:","BUYER:","SOLO ","DELIVERY BRIEFING:"]:
+	for prefix in ["WELCOME:","FLOCK:","GATE:","TEAM CHOICE:","DIAGNOSIS:","STORES:","FORECAST:","STORAGE CREW:","STORE REPORT:","BUYER:","SOLO ","DELIVERY BRIEFING:","WEEKEND COMPLETE:"]:
 		if text_value.begins_with(prefix):mission_facts[player_id]=text_value;break
 	latest_clues[player_id] = text_value
 	_send({"type":"private","playerId":player_id,"text":text_value,"clue":mission_facts.get(player_id,text_value)})
@@ -429,8 +431,10 @@ func _handle(message) -> void:
 			room = str(message.room); room_label.text = room; status_label.text = "Scan the QR code or enter this room code"; _load_room_qr(); print("PROBE_ROOM=%s" % room)
 		"roster":
 			admitted_players = 0
+			var pending_count := 0
 			for player in message.players:
 				if player.admission == "admitted" and player.connected: admitted_players += 1
+				elif player.admission == "pending" and player.connected: pending_count += 1
 			if weekend and weekend.phase not in ["waiting","results"]:
 				var required_players:=1 if weekend.solo else 2
 				if admitted_players<required_players:
@@ -441,7 +445,7 @@ func _handle(message) -> void:
 					world_root.crop_field.set_process(not weekend.paused)
 					weekend.phase_banner.text="PAUSED · resume from phone or P" if weekend.paused else "SOLO TEST WEEKEND" if weekend.solo else "BRACKENRIDGE WEEKEND"
 			if weekend and weekend.phase=="arrival" and admitted_players>=2: weekend.solo=false;players[2].show()
-			roster_label.text = "%d of 2 farmers joined" % admitted_players
+			roster_label.text = "%d phone(s) ready · Enter/Select admits" % pending_count if pending_count > 0 else "%d of 2 farmers joined" % admitted_players
 			# One admitted phone is enough for a full assisted solo test weekend.
 			# The second phone can still join with the room code it already scanned.
 			_set_lobby_visible(admitted_players == 0)
@@ -454,7 +458,8 @@ func _handle(message) -> void:
 			for player in message.players:
 				if player.connected and player.admission == "admitted" and latest_clues.has(int(player.id)):
 					_send({"type":"private","playerId":int(player.id),"text":latest_clues[int(player.id)],"clue":mission_facts.get(int(player.id),latest_clues[int(player.id)])})
-					if player_modes.get(int(player.id),"foot")=="tractor": _send({"type":"mode","playerId":int(player.id),"title":"TRACTOR","actionLabel":"EXIT","hint":"Drag to drive; release to stop"})
+					if weekend.phase=="results": _send({"type":"mode","playerId":int(player.id),"title":"RESULTS","actionLabel":"READY","hint":"Choose another weekend on your phone"})
+					elif player_modes.get(int(player.id),"foot")=="tractor": _send({"type":"mode","playerId":int(player.id),"title":"TRACTOR","actionLabel":"EXIT","hint":"Drag to drive; release to stop"})
 					elif latest_modes.has(int(player.id)): _send(latest_modes[int(player.id)])
 		"command":
 			if weekend: weekend.command(int(message.playerId),str(message.command))
@@ -465,6 +470,8 @@ func _handle(message) -> void:
 			inputs[id] = {"seq":int(message.seq), "x":float(message.x), "y":float(message.y), "action":bool(message.action), "seen":Time.get_ticks_msec()}
 		"reset_input":
 			var id := int(message.playerId); inputs[id] = neutral_input(); pending_actions[id]=false;last_acked[id] = -1
+			if weekend and weekend.phase=="results":
+				weekend.replay_votes.erase(id);weekend._update_replay_status()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
