@@ -28,4 +28,4 @@ Scope: the 16 open GitHub alerts on `platform/vega/package-lock.json`, inspected
 
 The application does not accept player-supplied glob patterns or format strings. Nevertheless, keep build/test configuration trusted and retain both open alerts. Removing all these paths requires upstream tool replacements or maintained patches, not a guessed version override. Do not suppress alerts or claim this toolchain is fully vulnerability-free. Check for upstream fixes before release-toolchain upgrades.
 
-The 14 patchable GitHub findings are addressed in the lockfile, including both critical alerts; remote rescan/published artifact verification is recorded in PROJECT_STATE. Human/Fire TV acceptance remains deferred.
+The 14 patchable GitHub findings are addressed in the lockfile, including both critical alerts; GitHub rescan confirmed only alerts 15 and 16 remain open. No alerts were dismissed. Release v0.9.1-candidate targets fix commit 554232d3d5a5f8dcf016eb4cef89876d4cf9ced4; all four remote asset sizes/SHA-256 digests match local files. Full publication verification is recorded in PROJECT_STATE. Human/Fire TV acceptance remains deferred.

@@ -19,3 +19,5 @@ October 19 verification: all 783 files in the previous source candidate matched 
 The published prerelease includes a Web bundle, signed Fire OS debug APK, Vega aarch64 wrapper and SHA-256 checksums. GitHub automatically provides the curated tracked source archives from the release commit. The separate local source ZIP remains a handoff artifact. GitHub reported all four uploaded assets complete and its SHA-256 digests matched local files. Web bundle extraction creates `build/web/`; the laptop Node relay is still required. GitHub source publication does not deploy a live game backend.
 
 Human cooperative acceptance, physical Fire TV execution/performance/audio/remote, qualifying video and Devpost submission remain pending. Publishing the repository does not establish those gates.
+
+Dependency follow-up: v0.9.1-candidate targets `554232d3d5a5f8dcf016eb4cef89876d4cf9ced4`. GitHub confirmed 14/16 alerts fixed, retaining two unpatched upstream advisories. All four uploaded asset sizes/SHA-256 digests matched local files; source candidate is now 784 files and passed CRC/exclusions/exact snapshot checks. Final documentation-only follow-up preserves the tagged build.
