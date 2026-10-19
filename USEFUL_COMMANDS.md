@@ -148,7 +148,7 @@ Captures eight staged cooperative screens and current private cards under `docs/
 
 ## Source publication handoff details
 
-Read `docs/SOURCE_HANDOFF.md`. The prepared Git snapshot is under `artifacts/submission-source/brackenridge-farm/`; it is separate from the main development workspace. Public/private visibility and creation/push have not yet been approved or performed. Refresh this snapshot from the curated source ZIP after further changes.
+Read `docs/SOURCE_HANDOFF.md`. The prepared Git snapshot is under `artifacts/submission-source/brackenridge-farm/`; it is separate from the main development workspace. Public GitHub publication was approved and completed October 19 at https://github.com/MilanRabrenovic/brackenridge-farm . Refresh the snapshot from the curated source ZIP after further changes before committing/pushing.
 
 ## Mission clarity regression
 
@@ -251,3 +251,5 @@ October 15 admission clarity: a connected pending phone now explicitly says to p
 ## GitHub publication — October 19
 
 Public destination authorized by the user: `MilanRabrenovic/brackenridge-farm`. Use the isolated checkout `artifacts/submission-source/brackenridge-farm/` for `git status`, commits and `git push origin main`. The development root is not a Git checkout. Candidate Web ZIP extracts to `build/web/` in a cloned repository; then `npm ci` and `npm run dev` serve it without rebuilding through Godot. Publication outcome is recorded in PROJECT_STATE.
+
+Verified publication commands: `gh repo view MilanRabrenovic/brackenridge-farm --json visibility,defaultBranchRef`, `gh api repos/MilanRabrenovic/brackenridge-farm/commits/main --jq .sha`, and release metadata at `repos/MilanRabrenovic/brackenridge-farm/releases/tags/v0.9.0-candidate`. Initial main SHA matched local; all four uploaded file sizes and GitHub asset SHA-256 digests matched. The release is public and explicitly a prerelease.

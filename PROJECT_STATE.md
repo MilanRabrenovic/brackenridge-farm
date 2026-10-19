@@ -48,7 +48,7 @@ Current pass evidence: `docs/audits/2026-10-15-finish/`. `coop-*` are actual acc
 
 1. User and two-person normal-speed laptop playtests: clarity, participation, pacing, visual approval and replay interest. Explicitly deferred until local completion.
 2. Fire TV graphics, remote/phone controls, audio, sustained performance, reconnect and replay. APK/Vega builds are candidates. Simulator startup/ready canvas never proved rendered gameplay; previous inspection failed. Do not resume repeated unsupported capture attempts instead of laptop work.
-3. Public GitHub source publication authorized October 19 and in progress; qualifying demo video and Devpost submission remain pending.
+3. Public GitHub source and candidate downloads published October 19; qualifying demo video and Devpost submission remain pending.
 
 Four players, drivable combine/trailer, attachments/spraying, extensive interiors, authored carry/repair/boarding and full directional sheep sheets, Bedrock and internet matchmaking remain deferred expansion. Do not add them to the committed four-incident slice or claim they exist.
 
@@ -73,3 +73,5 @@ Final October 15 source handoff: 783-file ZIP passed CRC, excluded-tool/credenti
 ## October 19 — GitHub publication
 
 The user requested committing/publishing the game and explicitly selected public visibility. Verified GitHub account MilanRabrenovic and created https://github.com/MilanRabrenovic/brackenridge-farm. Existing 783-file source candidate matched workspace/prepared checkout; credential-pattern scan passed for 143 text files and excluded keys/environment/tools were absent. Updated the public README with an actual gameplay frame, source/build instructions and separate candidate-download guidance. Push/release verification follows. No gameplay or art changed; human/Fire TV acceptance remains pending.
+
+Publication verified: https://github.com/MilanRabrenovic/brackenridge-farm is PUBLIC with default branch main. Initial pushed commit matched local b76d4959fa9b1398dfcbe57e4f85958a6e32c6f1. Public prerelease https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.0-candidate contains Web ZIP (32,967,286 bytes), signed Fire OS debug APK (80,256,286 bytes), Vega aarch64 wrapper (155,572 bytes) and checksum text (287 bytes); GitHub uploaded-state/size/SHA-256 digests matched all four local files. Web archive CRC passed and extracts to build/web; source excludes signing/environment/toolchain files. GitHub automatic source archives retain the curated release commit. Publishing source/downloads does not host the relay or complete Devpost. Docs/curated local handoff are refreshed and pushed following this verification. No runtime code changed, so existing October 15 game-test evidence remains the recorded behavior evidence; no new human/Fire TV claim.

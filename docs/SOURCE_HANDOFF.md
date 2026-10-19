@@ -4,7 +4,7 @@ Updated October 19, 2026. The user explicitly authorized GitHub publication and 
 
 ## Repository
 
-[Brackenridge Farm](https://github.com/MilanRabrenovic/brackenridge-farm) was created under the verified `MilanRabrenovic` account. Source push and release verification are in progress in this publication pass; the final outcome is recorded in PROJECT_STATE.
+[Brackenridge Farm](https://github.com/MilanRabrenovic/brackenridge-farm) was created under the verified `MilanRabrenovic` account. The source was pushed to `main`; GitHub commit verification matched local initial publication commit `b76d4959fa9b1398dfcbe57e4f85958a6e32c6f1`. The public prerelease is [v0.9.0-candidate](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.0-candidate). Subsequent documentation commits record publication results; game code is unchanged.
 
 The main development workspace has no Git checkout. Its curated publishing checkout is `artifacts/submission-source/brackenridge-farm/`, retaining the previous local commits. Update it from `artifacts/brackenridge-farm-source.zip` after changes, compare every archive file, then commit and push `main` from that checkout. Do not publish the surrounding development directory or toolchain caches.
 
@@ -16,6 +16,6 @@ October 19 verification: all 783 files in the previous source candidate matched 
 
 ## Candidate downloads
 
-The release candidate will include a Web bundle, signed Fire OS debug APK, Vega aarch64 wrapper, curated source ZIP and SHA-256 checksums. Web bundle extraction creates `build/web/`; the laptop Node relay is still required. GitHub source publication does not deploy a live game backend.
+The published prerelease includes a Web bundle, signed Fire OS debug APK, Vega aarch64 wrapper and SHA-256 checksums. GitHub automatically provides the curated tracked source archives from the release commit. The separate local source ZIP remains a handoff artifact. GitHub reported all four uploaded assets complete and its SHA-256 digests matched local files. Web bundle extraction creates `build/web/`; the laptop Node relay is still required. GitHub source publication does not deploy a live game backend.
 
 Human cooperative acceptance, physical Fire TV execution/performance/audio/remote, qualifying video and Devpost submission remain pending. Publishing the repository does not establish those gates.

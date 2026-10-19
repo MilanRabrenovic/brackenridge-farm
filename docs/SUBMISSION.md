@@ -1,6 +1,6 @@
 # Hackathon submission preparation
 
-Prepared September 30, 2026. This is a draft package, not a submitted entry.
+Updated October 19, 2026. Source and candidate downloads are public. This is a draft package, not a submitted entry.
 
 ## Verified official requirements
 
@@ -11,7 +11,7 @@ Sources: [event overview](https://amazonappdev2026.devpost.com/) and [official r
 - Public English YouTube/Vimeo demo shorter than three minutes.
 - GitHub source/assets/instructions with public licensing or private reviewer access.
 - Provide product feedback about tools/APIs used. Complete the entry fields and eligibility requirements yourself.
-- Deadline currently October 23, 2026, 12 pm Pacific; verify rules before submission.
+- At the September 30 rules check, the deadline was October 23, 2026, 12 pm Pacific; recheck the official rules before submission.
 
 ## Ready locally
 
@@ -25,8 +25,8 @@ Sources: [event overview](https://amazonappdev2026.devpost.com/) and [official r
 
 1. Sideload and play on qualifying Fire TV: QR/admission, remote selection, two-phone full successful run and failed run, reconnect, crop performance, split camera, audio, results/replay. Record frame rate/loading on that device. No physical Fire TV was connected. A Vega simulator connected and a WebView package installed/launched. Loopback/reverse forwarding enabled Godot PCK/WASM downloads and room creation, but gameplay was not visually confirmed; packaging and simulation startup do not establish a full gameplay pass.
 2. Tune deadlines from a real two-human playtest. Confirm art at television distance. Current scripted tests do not establish fun, 12–15 minute typical duration or final visual approval.
-3. Put the source on GitHub with appropriate licence/reviewer access. The main workspace has no Git remote; a clean local publishing snapshot is prepared under `artifacts/submission-source/brackenridge-farm/`. GitHub authentication works; intended `MilanRabrenovic/brackenridge-farm` is absent. Visibility/publication is pending; see `SOURCE_HANDOFF.md`. No upload has been performed.
-4. Record the qualifying demo, upload to YouTube/Vimeo, add links and feedback to Devpost, review and submit. No external upload/submission was performed.
+3. **Source publication complete:** [public repository](https://github.com/MilanRabrenovic/brackenridge-farm) and [candidate downloads](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.0-candidate). Submit the actual repository URL in the entry. Public source retains LICENSE and THIRD_PARTY_NOTICES; see SOURCE_HANDOFF.md.
+4. Record the qualifying demo, upload to YouTube/Vimeo, add links and feedback to Devpost, review and submit. No demo upload or Devpost submission has been performed.
 
 ## Suggested title and short description
 
@@ -69,4 +69,4 @@ Laptop UI now includes per-farmer action/destination cards and public compass cu
 
 ## October 19 source destination
 
-Public repository created and user-authorized: https://github.com/MilanRabrenovic/brackenridge-farm . Candidate downloads: https://github.com/MilanRabrenovic/brackenridge-farm/releases . Source push/release contents are verified separately in PROJECT_STATE; these links do not imply a hosted backend, tested Fire TV run or submitted Devpost entry.
+Public repository created and user-authorized: https://github.com/MilanRabrenovic/brackenridge-farm . Candidate downloads: https://github.com/MilanRabrenovic/brackenridge-farm/releases . Source push and all four release asset digests were verified; see PROJECT_STATE. These links do not imply a hosted backend, tested Fire TV run or submitted Devpost entry.
