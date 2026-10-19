@@ -466,3 +466,5 @@ October 15 admission clarity: a connected pending phone now explicitly says to p
 User authorized public GitHub publication. Created the repository, verified current curated source and scoped credential exclusions, and prepared judge-facing README/build-download instructions. No gameplay/art change; runtime/human acceptance is unchanged. Commit, push and release verification are recorded in PROJECT_STATE.
 
 October 19 publication result: source pushed to public main and candidate prerelease published with Web/Fire OS/Vega downloads and checksums. Remote commit and all four asset digests verified. GitHub supplies source archives; no live backend, video or Devpost entry was deployed.
+
+Post-publication check: GitHub reported 16 open dependency alerts, all in the Vega wrapper lockfile, including two critical handlebars findings. Recorded scope without force-upgrading the SDK or changing gameplay; remediation requires compatibility testing.
