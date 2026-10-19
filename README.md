@@ -6,7 +6,7 @@ An original illustrated 2D asymmetric couch-cooperative farming game for the Ama
 
 ## For judges: run the browser build
 
-Use the [candidate downloads](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.0-candidate) for the Web build, Fire OS debug APK, Vega wrapper and curated source. This repository contains source; it is not a hosted game service.
+Use the [candidate downloads](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.1-candidate) for the Web build, Fire OS debug APK, Vega wrapper and curated source. This repository contains source; it is not a hosted game service.
 
 To run without installing Godot, download `brackenridge-farm-web.zip` into the repository root, then:
 

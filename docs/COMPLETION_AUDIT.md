@@ -89,3 +89,7 @@ No complete real-browser/network weekend, human clarity/fun/typical duration, Fi
 ## October 19 public source/downloads gate
 
 The user authorized public GitHub publication. Source pushed to https://github.com/MilanRabrenovic/brackenridge-farm (PUBLIC/main); initial remote commit matched local b76d4959fa9b1398dfcbe57e4f85958a6e32c6f1. Public prerelease https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.0-candidate provides Web, Fire OS debug APK, Vega wrapper and checksums. GitHub sizes/upload states and SHA-256 digests matched all four local files. Automatic source archives are supplied by GitHub. This completes source publication/candidate-download availability, not human fun, qualifying TV gameplay/performance, demo footage, hosted backend deployment or Devpost submission.
+
+## October 19 — Dependency remediation
+
+Fourteen patchable GitHub findings fixed in the Vega lockfile; clean install, lint, TypeScript, three wrapper tests and six architecture/configuration builds passed. Both critical alerts are covered. braces/sprintf-js advisories have no published fixes and remain open; see `audits/2026-10-19-dependencies/README.md`. v0.9.1-candidate carries the rebuilt wrapper; unchanged game Web/APK candidates retain previous evidence. This is not a human/TV acceptance pass.

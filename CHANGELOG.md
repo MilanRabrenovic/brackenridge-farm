@@ -468,3 +468,7 @@ User authorized public GitHub publication. Created the repository, verified curr
 October 19 publication result: source pushed to public main and candidate prerelease published with Web/Fire OS/Vega downloads and checksums. Remote commit and all four asset digests verified. GitHub supplies source archives; no live backend, video or Devpost entry was deployed.
 
 Post-publication check: GitHub reported 16 open dependency alerts, all in the Vega wrapper lockfile, including two critical handlebars findings. Recorded scope without force-upgrading the SDK or changing gameplay; remediation requires compatibility testing.
+
+## 2026-10-19 — Vega dependency remediation
+
+Patched 14 reported dependency findings with CLI 20.2.0 and scoped overrides, including both critical Handlebars alerts. Rebuilt Debug/Release for all three architectures after clean installation, lint, TypeScript and three tests passed. Preserved two unpatched upstream alerts (braces/sprintf-js), documented npm's propagated counts and updated the candidate wrapper/source/checksums. Game art and gameplay remain unchanged; human/TV tests remain outstanding.

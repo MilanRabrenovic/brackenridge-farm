@@ -4,7 +4,7 @@ Updated October 19, 2026. The user explicitly authorized GitHub publication and 
 
 ## Repository
 
-[Brackenridge Farm](https://github.com/MilanRabrenovic/brackenridge-farm) was created under the verified `MilanRabrenovic` account. The source was pushed to `main`; GitHub commit verification matched local initial publication commit `b76d4959fa9b1398dfcbe57e4f85958a6e32c6f1`. The public prerelease is [v0.9.0-candidate](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.0-candidate). Subsequent documentation commits record publication results; game code is unchanged.
+[Brackenridge Farm](https://github.com/MilanRabrenovic/brackenridge-farm) was created under the verified `MilanRabrenovic` account. The source was pushed to `main`; GitHub commit verification matched local initial publication commit `b76d4959fa9b1398dfcbe57e4f85958a6e32c6f1`. The dependency-fix candidate is [v0.9.1-candidate](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.1-candidate). It replaces the initial v0.9.0 candidate with a patched Vega dependency tree and rebuilt wrapper; game source/Web/APK behavior is unchanged. Publication verification is recorded in PROJECT_STATE.
 
 The main development workspace has no Git checkout. Its curated publishing checkout is `artifacts/submission-source/brackenridge-farm/`, retaining the previous local commits. Update it from `artifacts/brackenridge-farm-source.zip` after changes, compare every archive file, then commit and push `main` from that checkout. Do not publish the surrounding development directory or toolchain caches.
 

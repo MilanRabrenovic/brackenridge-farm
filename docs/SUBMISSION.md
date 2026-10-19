@@ -25,7 +25,7 @@ Sources: [event overview](https://amazonappdev2026.devpost.com/) and [official r
 
 1. Sideload and play on qualifying Fire TV: QR/admission, remote selection, two-phone full successful run and failed run, reconnect, crop performance, split camera, audio, results/replay. Record frame rate/loading on that device. No physical Fire TV was connected. A Vega simulator connected and a WebView package installed/launched. Loopback/reverse forwarding enabled Godot PCK/WASM downloads and room creation, but gameplay was not visually confirmed; packaging and simulation startup do not establish a full gameplay pass.
 2. Tune deadlines from a real two-human playtest. Confirm art at television distance. Current scripted tests do not establish fun, 12–15 minute typical duration or final visual approval.
-3. **Source publication complete:** [public repository](https://github.com/MilanRabrenovic/brackenridge-farm) and [candidate downloads](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.0-candidate). Submit the actual repository URL in the entry. Public source retains LICENSE and THIRD_PARTY_NOTICES; see SOURCE_HANDOFF.md.
+3. **Source publication complete:** [public repository](https://github.com/MilanRabrenovic/brackenridge-farm) and [candidate downloads](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.1-candidate). Submit the actual repository URL in the entry. Public source retains LICENSE and THIRD_PARTY_NOTICES; see SOURCE_HANDOFF.md.
 4. Record the qualifying demo, upload to YouTube/Vimeo, add links and feedback to Devpost, review and submit. No demo upload or Devpost submission has been performed.
 
 ## Suggested title and short description
