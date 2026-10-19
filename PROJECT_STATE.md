@@ -48,7 +48,7 @@ Current pass evidence: `docs/audits/2026-10-15-finish/`. `coop-*` are actual acc
 
 1. User and two-person normal-speed laptop playtests: clarity, participation, pacing, visual approval and replay interest. Explicitly deferred until local completion.
 2. Fire TV graphics, remote/phone controls, audio, sustained performance, reconnect and replay. APK/Vega builds are candidates. Simulator startup/ready canvas never proved rendered gameplay; previous inspection failed. Do not resume repeated unsupported capture attempts instead of laptop work.
-3. Approved reviewer-accessible source publication, qualifying demo video and Devpost submission. Nothing has been published. Isolated Git/source ZIP require refresh after this pass.
+3. Public GitHub source publication authorized October 19 and in progress; qualifying demo video and Devpost submission remain pending.
 
 Four players, drivable combine/trailer, attachments/spraying, extensive interiors, authored carry/repair/boarding and full directional sheep sheets, Bedrock and internet matchmaking remain deferred expansion. Do not add them to the committed four-incident slice or claim they exist.
 
@@ -69,3 +69,7 @@ October 15 admission clarity: a connected pending phone now explicitly says to p
 Admission follow-up was inspected through the real rebuilt browser/relay: the pending phone showed the explicit host instruction, host showed a waiting-phone count/Enter prompt, and Enter admitted the farmer and hid the phone hint. Captures `host-pending.png` and `phone-pending.png` retain that evidence. The temporary controller was closed and the final host reset to a clean QR lobby for the user. Finishing regression and TypeScript passed after this last code change; final Web/PCK and APK/resource exports also passed.
 
 Final October 15 source handoff: 783-file ZIP passed CRC, excluded-tool/credential-file checks, byte-for-byte comparison of the isolated publishing snapshot and all four artifact SHA-256 checks. Latest signatures verified v2/v3. The source snapshot remains local; no remote/publication was added. This evidence supports the laptop candidate and final-playtest handoff, not completed Fire TV/human acceptance.
+
+## October 19 — GitHub publication
+
+The user requested committing/publishing the game and explicitly selected public visibility. Verified GitHub account MilanRabrenovic and created https://github.com/MilanRabrenovic/brackenridge-farm. Existing 783-file source candidate matched workspace/prepared checkout; credential-pattern scan passed for 143 text files and excluded keys/environment/tools were absent. Updated the public README with an actual gameplay frame, source/build instructions and separate candidate-download guidance. Push/release verification follows. No gameplay or art changed; human/Fire TV acceptance remains pending.

@@ -66,3 +66,7 @@ Instrumented Vega Debug launch reached visible 1280×720 Godot canvas/startup re
 ## October 15 candidate update
 
 Laptop UI now includes per-farmer action/destination cards and public compass cues, phone room badge, and phone next-weekend ready voting (both connected co-op farmers; one in solo). Expanded results are centred and freeze actor movement/animation. Existing four incident families and the asymmetric diagnosis/buyer clues remain the implemented scope. Local checks and evidence are in PROJECT_STATE and `audits/2026-10-15-finish/`; final human/Fire TV acceptance is deferred, not passed. Use `LAPTOP_PLAYTEST.md` for the last playtest. No new publication or eligibility claim is made by this update.
+
+## October 19 source destination
+
+Public repository created and user-authorized: https://github.com/MilanRabrenovic/brackenridge-farm . Candidate downloads: https://github.com/MilanRabrenovic/brackenridge-farm/releases . Source push/release contents are verified separately in PROJECT_STATE; these links do not imply a hosted backend, tested Fire TV run or submitted Devpost entry.

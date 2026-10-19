@@ -1,43 +1,21 @@
 # Hackathon source handoff
 
-Updated October 5, 2026. Publication is pending. Baseline local commit `ba36a38` contained 712 tracked files; the current curated handoff contains 765. The isolated checkout is refreshed from the current candidate; no remote or upload is added.
+Updated October 19, 2026. The user explicitly authorized GitHub publication and selected **public** visibility.
 
-## Prepared source
+## Repository
 
-The curated source ZIP is `artifacts/brackenridge-farm-source.zip`. An isolated Git checkout is prepared under `artifacts/submission-source/brackenridge-farm/` for publishing. The main working directory remains the development workspace; the publishing checkout is a snapshot. Refresh the ZIP/snapshot after further implementation before pushing it.
+[Brackenridge Farm](https://github.com/MilanRabrenovic/brackenridge-farm) was created under the verified `MilanRabrenovic` account. Source push and release verification are in progress in this publication pass; the final outcome is recorded in PROJECT_STATE.
 
-Source includes Godot game/runtime art, original retained art, controller/relay/protocol, tests/scripts, Vega wrapper and project/run/submission/provenance documents. Toolchains, dependencies, generated exports, environment files and signing keys are excluded. Original code is MIT; preserve `THIRD_PARTY_NOTICES.md` and bundled licence files for other material. The largest retained file is approximately 8.1 MB.
+The main development workspace has no Git checkout. Its curated publishing checkout is `artifacts/submission-source/brackenridge-farm/`, retaining the previous local commits. Update it from `artifacts/brackenridge-farm-source.zip` after changes, compare every archive file, then commit and push `main` from that checkout. Do not publish the surrounding development directory or toolchain caches.
 
-On September 30 a scan of 122 text source/doc files found no matches for AWS access keys, GitHub token strings, OpenAI key strings or private-key headers. This records the scan's scope, not a universal secrets guarantee.
+## Included material
 
-## Proposed destination
+Godot game/runtime art, retained original art, controller/relay/protocol, tests/scripts, Vega wrapper and run/submission/provenance documentation. Toolchains, installed dependencies, generated builds, environment files and signing keys are excluded. Code is MIT; retain `THIRD_PARTY_NOTICES.md` and third-party licences. The active art is original generated/edited project work; disclose AI assistance where required.
 
-`MilanRabrenovic/brackenridge-farm` on GitHub. GitHub authentication was verified using normal network access and the intended repository was absent. No remote or published URL exists yet.
+October 19 verification: all 783 files in the previous source candidate matched the workspace and prepared checkout. A credential-pattern scan passed for 143 text source/document files; signing-key/environment/toolchain exclusions were checked. This is a scoped scan, not a universal secrets guarantee. Publication documentation updates increase the final source set only if new files are added.
 
-Choose public source with the included licences, or private source with explicit reviewer access. Public publication exposes the complete curated source and art to everyone; this choice remains the user's.
+## Candidate downloads
 
-After approval, from the prepared publishing checkout:
+The release candidate will include a Web bundle, signed Fire OS debug APK, Vega aarch64 wrapper, curated source ZIP and SHA-256 checksums. Web bundle extraction creates `build/web/`; the laptop Node relay is still required. GitHub source publication does not deploy a live game backend.
 
-```sh
-gh repo create MilanRabrenovic/brackenridge-farm --public --source . --remote origin --push
-```
-
-Use `--private` instead if that is the approved visibility. Verify the resulting remote/branch and repository files before adding its actual URL to `docs/SUBMISSION.md`. Do not invent a repository link before creation.
-
-## Submission still pending
-
-Repository publication alone does not prove game acceptance. Human cooperative play, qualifying TV execution/remote/performance, an actual under-three-minute public demo and Devpost review/submission remain pending.
-
-## Mission improvement freshness
-
-The October 5 refresh includes current mission, sheep, repair, minimap, cooperative motor-route and Vega diagnostics source/tests, along with their retained evidence. The snapshot is compared byte-for-byte with the curated ZIP. Further source changes require another refresh before publication. No remote/upload was added by this pass.
-
-Snapshot verification also caught the general `*.log` ignore excluding the sanitized startup evidence from Git. Added a specific exception for that retained evidence; unrelated logs remain ignored. Archive/snapshot comparison passed for 765 files, four manifest hashes matched, and a credential-pattern scan passed for 137 text files (a scoped scan, not a universal secrets guarantee). The local checkout has no remote.
-
-The same exact-file exception also retains the earlier path/status-only `vega-startup-http.log`; inspected content contains local LAN URLs and HTTP statuses, with no queries or phone tokens. Both retained log files are part of the 765-file snapshot.
-
-## October 15 local candidate
-
-Current source now includes role-aware navigation, phone replay/room UI, finishing regression and labelled controller fixture. Refresh the curated ZIP and isolated Git snapshot after the final exports/documentation in this pass. Prior 765-file count is historical; current count is recorded by packaging. Publication/visibility remain unapproved and no push is performed.
-
-Final October 15 source handoff: 783-file ZIP passed CRC, excluded-tool/credential-file checks, byte-for-byte comparison of the isolated publishing snapshot and all four artifact SHA-256 checks. Latest signatures verified v2/v3. The source snapshot remains local; no remote/publication was added. This evidence supports the laptop candidate and final-playtest handoff, not completed Fire TV/human acceptance.
+Human cooperative acceptance, physical Fire TV execution/performance/audio/remote, qualifying video and Devpost submission remain pending. Publishing the repository does not establish those gates.

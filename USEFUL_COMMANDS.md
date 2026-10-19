@@ -247,3 +247,7 @@ node --import tsx scripts/review-controller.ts
 The full native co-op capture command now writes `coop-repair.png`, `coop-harvest.png`, `coop-results.png` into `docs/audits/2026-10-15-finish/`, preserving earlier evidence. Phone results now support next-seed replay: both co-op players ready (tap again cancels), one in solo. Disconnect removes consent. The phone header displays its current room; compare with the host if it appears to control an old session.
 
 October 15 admission clarity: a connected pending phone now explicitly says to press Enter/Select on the host; the host roster shows waiting phones and the same admission action. Admission authority is unchanged. The hint hides after admission. The finishing regression checks the host prompt. Final exports/package are refreshed after this change.
+
+## GitHub publication — October 19
+
+Public destination authorized by the user: `MilanRabrenovic/brackenridge-farm`. Use the isolated checkout `artifacts/submission-source/brackenridge-farm/` for `git status`, commits and `git push origin main`. The development root is not a Git checkout. Candidate Web ZIP extracts to `build/web/` in a cloned repository; then `npm ci` and `npm run dev` serve it without rebuilding through Godot. Publication outcome is recorded in PROJECT_STATE.

@@ -460,3 +460,7 @@ The same exact-file exception also retains the earlier path/status-only `vega-st
 Added private-fact-safe per-player task cards/offscreen direction pointers; phone room badge and results/replay voting, cancellation and disconnected-player consent reset. Froze actors at results and centred the expanded report after a failed native bounds check. Added focused finishing tests and a labelled isolated phone-results fixture. Solo/co-op motor routes, mission/map/repair/sheep/minimap/relay checks passed; refreshed native and browser review evidence. Updated welcome assertion in the relay→Godot test. Fire TV and human playtesting remain final deferred acceptance. Export/package final results are recorded in PROJECT_STATE.
 
 October 15 admission clarity: a connected pending phone now explicitly says to press Enter/Select on the host; the host roster shows waiting phones and the same admission action. Admission authority is unchanged. The hint hides after admission. The finishing regression checks the host prompt. Final exports/package are refreshed after this change.
+
+## 2026-10-19 — public source publication preparation
+
+User authorized public GitHub publication. Created the repository, verified current curated source and scoped credential exclusions, and prepared judge-facing README/build-download instructions. No gameplay/art change; runtime/human acceptance is unchanged. Commit, push and release verification are recorded in PROJECT_STATE.
