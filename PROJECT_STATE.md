@@ -2,9 +2,21 @@
 
 Updated October 20, 2026. Active game: **Brackenridge Farm**, an original illustrated 2D asymmetric cooperative farming weekend. The user explicitly requested finishing and testing everything possible on the laptop, with **human playtesting and Fire TV verification deferred until the end**. Those acceptance steps must not block local implementation or be described as passed.
 
+## October 20 — publication and submission correction complete
+
+Published the correct narration-free Vega recording in the user-approved Mozilla window: **https://youtu.be/EOK7y4zPDx4**. YouTube confirmed “Video published”; copyright checks reported no issues; Public visibility and the user's confirmed general-audience / not-made-for-kids setting were applied. Actual playback showed the Vega banner and gameplay; YouTube displays 1:51 on the watch page (Studio rounds the thumbnail to 1:52). Quiet CC0 ambience, English captions, no narration. The earlier `tZvLwZQ3Q_8` link was verified as the old narrated Mac preview and was not used for the final correction.
+
+Saved the correct link and updated story on **https://devpost.com/software/brackenridge-farm**. Public DOM inspection confirmed `youtube.com/embed/EOK7y4zPDx4`, current guest execution details, family fun/two players/future four-player scope and v0.9.2 testing link. Entry remained **SUBMITTED / 5 of 5 steps done**; no new terms acceptance was required. The prior pass also saved judge setup instructions and technical feedback. Final story is retained in `docs/SUBMISSION_STORY.md`.
+
+Public source commit `fc55d150ebf70124884a10d03bc2fddad0dc779c` and prerelease **https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.2-vega-candidate** contain the repeatable Vega port, ordinary game package, Web bundle and checksums. GitHub reported all three assets uploaded; package/Web SHA-256 digests matched local files. Package is 156,102 bytes; Web ZIP is 34,299,533 bytes. This is a developer candidate requiring the laptop relay/static server, not an offline package.
+
+Proof: `artifacts/demo-vega/published-vega-player.png` (player only) and `published-devpost.png` (public project only). The stalled in-app-browser upload did not produce a verified public video; Mozilla upload succeeded. Automatic review initially blocked broad Firefox metadata access, then allowed it after the user explicitly approved seeing other tab titles. A full-window screenshot was not retained; evidence excludes unrelated browser tabs. No runtime/game art changed in this publication pass; checks were publication confirmation, actual playback, public embed/story inspection and documentation consistency.
+
+**Single recommended next task:** conduct the normal-speed two-person family playtest and record acceptance results. Organizer eligibility approval, physical Fire TV acceptance and longer-session stability remain unverified; submission correction is not an organizer decision.
+
 ## October 20 — genuine Vega demo recorded
 
-The user authorized a genuine Vega gameplay recording, English captions and quiet ambience without narration. OBS 32.2.2 from the official Homebrew cask now has user-approved macOS Screen Recording permission. Capture source is only `[vega-virtual-device] Vega Virtual Device`; cursor is hidden, microphone and source audio are muted, no camera source exists. The isolated normal-speed automated two-player route completed inside the official guest: 355.783333 simulated seconds / 364.0233 wall seconds, zero reported errors, all four outcomes and replay checks passed. This is not a two-human playtest. Final 111.0-second video exists; YouTube is uploaded as a draft, audience declaration awaits the user, and Devpost correction remains pending.
+The user authorized a genuine Vega gameplay recording, English captions and quiet ambience without narration. OBS 32.2.2 from the official Homebrew cask now has user-approved macOS Screen Recording permission. Capture source is only `[vega-virtual-device] Vega Virtual Device`; cursor is hidden, microphone and source audio are muted, no camera source exists. The isolated normal-speed automated two-player route completed inside the official guest: 355.783333 simulated seconds / 364.0233 wall seconds, zero reported errors, all four outcomes and replay checks passed. This is not a two-human playtest. Final 111.0-second video exists and is now public at https://youtu.be/EOK7y4zPDx4; the Devpost video/story correction is saved and publicly verified, as recorded above.
 
 `scripts/vega-recording.py prepare` creates disposable recording routes from the maintained GLES2 port; `serve` collects local timing/result markers on 8790. `scripts/vega-recorder.js` does not capture pixels. `scripts/render-vega-demo.py` edits completed OBS footage and refuses missing/failed guest results. Native validation of the isolated route passed all four outcomes/replay at 355.8 simulated seconds. Python compilation/JavaScript syntax checks passed. The ordinary `/host/vega-gles2/index.html` configuration was restored, all three Release builds passed, its aarch64 package was refreshed locally, reinstalled and restarted; the genuine guest QR lobby was visually verified. Recording route is isolated and is not the submitted package.
 
@@ -34,7 +46,7 @@ An orphaned older SDK simulator was found conflicting on port 5555; both images 
 
 Current local `artifacts/vega-gles2/` contains the 156,118-byte aarch64 Release package, 34,299,533-byte optimized Web ZIP, included licence notices, extraction/setup note and SHA-256 manifest. CRC/hash and Python compilation checks passed. These supersede the earlier local port files and are not published.
 
-**Single recommended next task:** finish the user-confirmed YouTube audience/publication step, then refresh the public candidate and Devpost video/platform explanation. Keep normal-speed human co-op acceptance separate; a screenshot/build alone does not close the organizer warning.
+The recording, public candidate and Devpost correction are now complete as recorded above. Human acceptance and the organizer’s decision remain separate.
 
 ## Implemented laptop experience
 

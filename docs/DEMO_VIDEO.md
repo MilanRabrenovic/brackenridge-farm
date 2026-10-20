@@ -3,7 +3,11 @@
 - **Current replacement:** `artifacts/demo-vega/brackenridge-farm-vega-demo.mp4`, 111.0 seconds, H.264 1280×720/30 fps, AAC, 29,042,710 bytes.
 - Silent alternative: `artifacts/demo-vega/brackenridge-farm-vega-silent.mp4`; English on-screen captions and sidecar `brackenridge-farm-vega-demo.en.srt`.
 - SHA-256: `7bb607e667c2ae582c52834da497eaa25d5ead822a27b4d0a81eae1aae3dd21a`.
-- YouTube draft uploaded through an isolated signed-in tab. Audience declaration/publication await the user. No new public link or Devpost update claimed yet.
+- Published through the user-approved Mozilla window: https://youtu.be/EOK7y4zPDx4. Public visibility/YouTube publication confirmation and actual playback verified. The user confirmed general audience (not made for kids). Devpost embeds this exact ID; its story was updated and entry remains submitted.
+
+## Publication verification
+
+YouTube copyright checks reported no issues. Watch-page player shows 1:51, genuine Vega gameplay/banner and current captioned edit. Public Devpost iframe uses `EOK7y4zPDx4`; project story is retained in `SUBMISSION_STORY.md`. Evidence: `artifacts/demo-vega/published-vega-player.png` and `published-devpost.png`. Older Mac videos remain historical and are not the submitted platform proof.
 
 ## Provenance and checks
 

@@ -2,6 +2,12 @@
 
 Updated October 19, 2026. The user explicitly authorized GitHub publication and selected **public** visibility.
 
+## October 20 Vega release
+
+Current prerelease: [v0.9.2-vega-candidate](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.2-vega-candidate), targeting verified public source commit `fc55d150ebf70124884a10d03bc2fddad0dc779c`. All three assets reported uploaded and SHA-256 matched local files. It includes the 156,102-byte ordinary Vega package, 34,299,533-byte WebGL1 bundle and checksums. Original Godot 4 source remains authoritative; maintained compatibility adapter is `platform/vega-gles2/`. No toolchain/cache/signing keys were published. Scoped credential-pattern scan passed for 166 text files in the 834-file source snapshot.
+
+Actual full automated guest weekend passed and is shown in the public demo https://youtu.be/EOK7y4zPDx4; Devpost embeds that ID. Current publication follow-up updates documentation only. Older v0.9.1 notes below describe a superseded candidate. Physical TV/human acceptance and longer-session stability remain open.
+
 ## Repository
 
 [Brackenridge Farm](https://github.com/MilanRabrenovic/brackenridge-farm) was created under the verified `MilanRabrenovic` account. The source was pushed to `main`; GitHub commit verification matched local initial publication commit `b76d4959fa9b1398dfcbe57e4f85958a6e32c6f1`. The dependency-fix candidate is [v0.9.1-candidate](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.1-candidate). It replaces the initial v0.9.0 candidate with a patched Vega dependency tree and rebuilt wrapper; game source/Web/APK behavior is unchanged. Publication verification is recorded in PROJECT_STATE.

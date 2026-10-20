@@ -1,10 +1,10 @@
 # Hackathon submission preparation
 
-Updated October 20, 2026. Source and candidate downloads are public. The user reports that the entry is submitted and received an organizer warning about Fire TV eligibility. Actual local Vega gameplay/input is now evidenced, but responsive sustained operation and a qualifying public video/submission correction remain pending; see [TV eligibility correction](TV_ELIGIBILITY.md).
+Updated October 20, 2026. The existing entry remains **submitted**. The correct Vega demo is public at https://youtu.be/EOK7y4zPDx4, and Devpost’s actual embedded video, story, setup instructions and candidate link were corrected. Public embed/story verification passed. The current Vega candidate is https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.2-vega-candidate. Organizer eligibility approval is not known; human acceptance/physical Fire TV testing/longer stability remain open.
 
 ## October 20 replacement demo
 
-A real official Vega guest automated co-op weekend completed all four outcomes/replay, zero reported errors. The checked 111-second replacement video uses actual OBS simulator-window footage, English captions and quiet CC0 ambience. YouTube draft awaits user audience/publication confirmation; Devpost correction is not yet done. See `DEMO_VIDEO.md`. Physical TV and human acceptance remain open.
+A real official Vega guest automated co-op weekend completed all four outcomes/replay, zero reported errors. The checked 111-second replacement video uses actual OBS simulator-window footage, English captions and quiet CC0 ambience. The new video is public and Devpost embeds the verified ID `EOK7y4zPDx4`. See `DEMO_VIDEO.md`. Physical TV and human acceptance remain open.
 
 ## Latest October 20 responsiveness result
 

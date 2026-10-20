@@ -1,6 +1,6 @@
 # Fire TV eligibility correction
 
-Updated October 20, 2026. **The organizer warning remains unresolved.** The user reports that Devpost is submitted and the music-only preview is uploaded. Those publication steps were not independently verified in this pass.
+Updated October 20, 2026. **The platform evidence correction is saved; the organizer’s eligibility decision remains unknown.** The public Devpost entry now embeds the genuine Vega demo, includes current setup/testing details and links the WebGL1 candidate. Entry remains submitted.
 
 ## Latest October 20 responsiveness result
 
@@ -21,7 +21,7 @@ No replacement qualifying video or Devpost correction was made. Existing public 
 
 ## October 20 genuine guest weekend and video
 
-The actual Vega automated two-player route completed all four outcomes/results/replay with zero reported errors in 364.0233 elapsed seconds. A 111-second OBS simulator-window demo is rendered and checked; YouTube draft awaits user audience/publication confirmation. Source/candidate refresh and the actual Devpost correction are still required. This does not guarantee eligibility or physical TV acceptance. See `DEMO_VIDEO.md` for exact provenance and later host-mode simulator crash caveat. Ordinary package URL was restored and QR lobby verified.
+The actual Vega automated two-player route completed all four outcomes/results/replay with zero reported errors in 364.0233 elapsed seconds. A 111-second OBS simulator-window demo is rendered and checked; YouTube is public at https://youtu.be/EOK7y4zPDx4. Source/candidate refresh and the actual Devpost story, video and testing correction were saved and verified. This does not guarantee eligibility or physical TV acceptance. See `DEMO_VIDEO.md` for exact provenance and later host-mode simulator crash caveat. Ordinary package URL was restored and QR lobby verified.
 
 ## Run this candidate
 
@@ -40,7 +40,7 @@ Record the real display, not a Mac gameplay window framed to look like a simulat
 
 Use the new CC0 quiet ambience and English captions; no synthetic narration. Disclose any accelerated or automated inputs. Full sustained performance and a human playtest must not be inferred from a short edited demo.
 
-## Devpost correction text — use only AFTER the new footage exists
+## Devpost correction wording — historical preparation template
 
 Replace the bracketed fields with verified facts; do not paste this as a completed claim before recording.
 

@@ -1,5 +1,12 @@
 # Brackenridge Farm
 
+## Current Vega candidate and demo — October 20
+
+- [Actual Vega simulator gameplay demo](https://youtu.be/EOK7y4zPDx4) — English captions, quiet ambience, no narration. Automated two-player inputs are disclosed.
+- [Vega WebGL1 candidate downloads](https://github.com/MilanRabrenovic/brackenridge-farm/releases/tag/v0.9.2-vega-candidate) and [setup instructions](platform/vega-gles2/README.md). The laptop relay/static server is required; simulation/rendering execute in Vega.
+- [Submitted Devpost project](https://devpost.com/software/brackenridge-farm). Two-player family co-op is current; four-player expansion is planned. Human/physical-TV acceptance and sustained stability are still open.
+
+
 An original illustrated 2D asymmetric couch-cooperative farming game for the Amazon Fire TV hackathon track. Two farmers share one screen and receive different facts on their phones: herd sheep, fix equipment, beat the rain and get the right goods to the buyer.
 
 ## Latest October 20 responsiveness result
