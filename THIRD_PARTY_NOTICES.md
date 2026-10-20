@@ -16,3 +16,11 @@ The active 2D farm, farmers, tractor and original atlases were generated/edited 
 ## Vega wrapper candidate
 
 `platform/vega/` was generated from Amazon's official `vegaWebview` SDK template and adapted for this project. Amazon SDK/runtime materials are subject to the [Program Materials License](https://developer.amazon.com/support/legal/pml) and applicable dependency terms. The SDK, simulator and installed dependencies are not included in the source archive. `platform/vega/package-lock.json` records the wrapper dependencies; retain their notices when redistributing. React/React Native and the official Amazon WebView/Kepler runtime are separate from project-authored gameplay code. The root `LICENSE` does not relicense Amazon materials.
+
+## Vega WebGL1 port
+
+The isolated compatibility runtime uses Godot 3.6.3 (MIT). Its official engine and bundled-library notices are preserved in `platform/vega-gles2/licenses/` and copied into the WebGL1 export. The port's scalable Noto Sans Regular font comes from the official [Noto font repository](https://github.com/notofonts/noto-fonts/tree/main/hinted/ttf/NotoSans), under the SIL Open Font License 1.1; copyright and full terms are in `platform/vega-gles2/fonts/OFL.txt` and the exported `licenses/NotoSans-OFL.txt`. This dependency does not change the provenance of the original world/character art.
+
+## Demo-only ambience
+
+“Forest Ambience” by TinyWorlds, CC0 1.0. Source: https://opengameart.org/content/forest-ambience . Retained under `source_assets/audio/demo/`, with attribution/provenance beside the MP3. Used only in promotional video, not game runtime.

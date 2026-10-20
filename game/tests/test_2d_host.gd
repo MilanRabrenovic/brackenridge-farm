@@ -15,6 +15,7 @@ func _init() -> void:
 	if host.weekend.phase != "arrival": _fail("First phone did not start weekend")
 	host.animal_incident.time_left = 70.0
 	host.call("_handle", {"type":"roster", "players":[{"id":1,"connected":true,"admission":"admitted"},{"id":2,"connected":true,"admission":"admitted"}]})
+	if host.weekend.solo or host.weekend.phase_banner.text != "BRACKENRIDGE WEEKEND": _fail("Second farmer did not switch arrival to the cooperative banner")
 	if host.animal_incident.time_left != 70.0: _fail("Second phone restarted active event")
 	var world := host.get_node_or_null("BrackenridgeFarm2D") as Node2D
 	if world == null: _fail("2D farm world was not created")

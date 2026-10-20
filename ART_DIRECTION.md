@@ -55,3 +55,23 @@ Native loading/error text uses the established deep-green/cream interface palett
 ## October 15 laptop presentation pass
 
 Added deep-green/cream, farmer-coloured bottom action cards and small matching compass pointers. They avoid the shared/split minimap and hide for lobby/results. The shared clue sits above them. The expanded result report is centred within 1280×720; phone results use a compact green/cream card with a large ready button. Native shared/split/results and actual co-op route frames were inspected under `docs/audits/2026-10-15-finish/`. No new raster assets or placement changes; no new asset approval is asserted. Phone fixture captures are labelled development review, not gameplay footage.
+
+## October 19 — Promotional cover
+
+Devpost cover v1 follows the original illustrated characters and honey-stone/slate/olive/golden palette. It is a composed illustration, not a gameplay screenshot or new runtime art. Large cream/gold title on a green timber sign remains readable at gallery-card scale. Source and generation prompt: `source_assets/2d/marketing/`. Generated/final JPEG inspected; user approval pending.
+
+## October 19 — Submission gallery
+
+Four promotional gallery layouts use actual native-route screenshots, established deep green/cream/gold typography and labelled reproduced private clues. No generated replacement gameplay or new runtime assets. Full viewport preserved; reviewed contact sheet and validated 3:2 JPEG sizes. Files/provenance are under `source_assets/2d/marketing/gallery-v1/` and `artifacts/submission/gallery-v1/`. User aesthetic approval pending.
+
+## October 20 — renderer compatibility
+
+The Vega WebGL1 port reuses the existing approved 2D art; no new world asset or visual approval is introduced. Godot 3 RGBA/ARGB colour conversion preserves translucent guidance colours; scalable Noto Sans (SIL-OFL) supplies TV text. Actual guest farm/UI/tractor frames are in `docs/audits/2026-10-20-vega-port/`. Rendering evidence is not final visual approval or sustained performance acceptance.
+
+## Vega static presentation caching — October 20
+
+The compatibility build derives terrain and six building cleanup textures from the existing shaders/art, preserving their authored placement and colours. This is an optimization of existing integrated art, not a new art direction or approval. Buildings/actors/collision/cutaway layers remain separate; animated water is clipped to the authored channel bounds. Derived files live in the generated build and are recreated from maintained source, not copied into the Godot 4 art tree. Isolated baked barn and actual host-backend gameplay were inspected. See `docs/audits/2026-10-20-vega-performance/`.
+
+## October 20 — demo media only
+
+Genuine Vega gameplay video uses existing runtime art, simple editorial captions and a labelled reproduction of actual private clues; no new runtime asset or approval state changed. CC0 TinyWorlds Forest Ambience is demo-only audio; provenance is `source_assets/audio/demo/ATTRIBUTION.md`. Video/check scope: `docs/DEMO_VIDEO.md`.

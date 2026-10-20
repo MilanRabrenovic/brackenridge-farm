@@ -1,6 +1,19 @@
 # Vega wrapper candidate
 
-Amazon's official `vegaWebview` template hosts the exported Godot game inside a Vega TV WebView. The laptop relay remains required; this is not an offline standalone package.
+Amazon's official `vegaWebview` template hosts the generated GLES2/WebGL1 game inside a Vega TV WebView. **Current route/limits:** see `../vega-gles2/README.md`; the historical investigation below is superseded by its actual guest rendering/input evidence. Sustained responsive play is not accepted. The laptop relay remains required; this is not an offline standalone package.
+
+## Latest October 20 responsiveness result
+
+The static-presentation optimized WebGL1 build now runs on the official emulator's host OpenGL backend with observed controller medians mostly 35–78 ms; startup frame samples showed 44–53.1 fps. These are scoped samples, not a full-game performance guarantee. Two private controllers, split/merge, cutaways and tractor driving were inspected in the guest. Use `--gpu host` (new launcher default); the earlier software-slowness/Metal-crash notes remain historical results for those different backends. Full strict Mac GLES2 routes and five wrapper tests/all Debug/Release targets passed. Evidence and exact limits: `docs/audits/2026-10-20-vega-performance/README.md` from project root. Genuine qualifying public footage, public candidate refresh and Devpost correction remain next.
+
+
+## Start the simulator separately
+
+From the project root, keep this terminal open. Do not run it alongside another instance:
+
+```sh
+python3 scripts/start-vega-simulator.py --sdk-root .tools/vega-sdk/vega-sdk/main/0.24.12112 --gpu host
+```
 
 ## Build
 
@@ -9,8 +22,8 @@ Install the official Vega SDK (tested SDK 0.24.12112) and activate its environme
 ```sh
 npm install
 npm run build:controller
-npm run export:web
-node scripts/configure-vega.mjs http://127.0.0.1:8787/host/
+npm run export:vega-gles2
+node scripts/configure-vega.mjs http://127.0.0.1:8787/host/vega-gles2/index.html
 npm run dev
 ```
 
@@ -21,9 +34,8 @@ cd platform/vega
 vega exec npm install
 vega exec npm run lint
 vega exec npx tsc --noEmit
-vega exec npm test -- --runInBand
+vega exec npm test -- --runInBand --watchman=false
 vega exec npm run build:release
-vega virtual-device start --display-res 1280,720
 vega exec vda reverse tcp:8787 tcp:8787
 vega run-app build/aarch64-release/brackenridgefarm_aarch64.vpkg
 ```
@@ -42,7 +54,7 @@ The SDK and simulator are developer tools under Amazon's Program Materials terms
 
 ## Deployment distinction
 
-The packaged candidate uses `http://127.0.0.1:8787/host/` and requires reverse forwarding plus the laptop relay. This is a developer/simulator route, not a standalone Vega release. A production remote host must use trusted HTTPS/WSS; LAN HTTP is not a viable Godot host origin. Phones still receive the laptop LAN QR URL from the relay.
+The packaged candidate uses `http://127.0.0.1:8787/host/vega-gles2/index.html` and requires reverse forwarding plus the laptop relay. This is a developer/simulator route, not a standalone Vega release. A production remote host must use trusted HTTPS/WSS; LAN HTTP is not a viable Godot host origin. Phones still receive the laptop LAN QR URL from the relay.
 
 Optional file-request tracing: `FARM_HTTP_DIAGNOSTICS=1 npm run dev` prints host resource paths/status only, without request queries or phone tokens.
 
@@ -88,7 +100,7 @@ Fresh debug launch logs reached a visible 1280×720 ready canvas approximately t
 Lint, TypeScript, three tests/two suites and Debug/Release builds for aarch64/armv7/x86_64 passed. The aarch64 release candidate in `artifacts/` is refreshed. The temporary log collector ended. For tests without Watchman's outside-workspace cache:
 
 ```sh
-vega exec npm test -- --runInBand --watchman=false
+vega exec npm test -- --runInBand --watchman=false --watchman=false
 ```
 
 The actual injected script is regression-tested against zero canvas bounds and lost/restored contexts. Startup error states are component-tested; only the debug ready strip was visually inspected on the simulator inspection surface. Full TV acceptance remains open.
@@ -96,3 +108,27 @@ The actual injected script is regression-tested against zero canvas bounds and l
 Late context recovery is now sampled immediately even after the 45-second polling window ends, so a restored context clears the native failure text. The actual injected-code regression covers this; final three tests, lint and TypeScript passed. Earlier ready-strip inspection remains valid startup evidence; late recovery was regression-tested rather than induced on the simulator.
 
 Final late-recovery builds: Debug and Release completed successfully for aarch64, armv7 and x86_64. The retained aarch64 release candidate includes the recovery fix. Source handoff is refreshed with current diagnostics, tests and scoped inspection evidence; this remains a candidate, not a completed TV acceptance pass.
+
+## October 20 eligibility investigation
+
+The user reports an organizer warning after submission. Existing Mac preview footage is insufficient under the current rules. The official SDK is still latest (0.24.12112). Release install/launch and VISIBLE/renderer READY were confirmed again with normal local device permissions; sandboxed device listing falsely returned empty. Amazon's official Vega Studio 0.24.1 extension was installed and its GUI start path also booted the simulator, but desktop-control tools still could not inspect its separate window. Fresh emulator logs contain GLSL 310 / atomic_uint shader compilation errors and texture validation errors; attribution to Godot is unproven. No qualifying capture or working graphics fix resulted. Do not substitute status/logs for visible game evidence.
+
+See [investigation](../../docs/audits/2026-10-20-tv-eligibility/README.md) and [correction guide](../../docs/TV_ELIGIBILITY.md). Single next step: obtain a directly visible simulator/device display, verify play, then record and update the submission.
+
+User-supplied screenshot now confirms the actual simulator window exists but its display is black. Amazon home was launched for isolation; lifecycle reports home VISIBLE and farm NOT_VISIBLE, but the home screen's visual result is pending. This is not yet evidence of whether the game or system rendering is responsible.
+
+## Local graphics isolation — later October 20
+
+The supported Appium Inspector now produces successful fresh screenshots when the emulator is launched with bundled alternative backends. Native launcher and game HTML loading page render. The actual Godot game still fails WebGL2 availability. Retained evidence: `docs/audits/2026-10-20-tv-eligibility/webgl2-error-inspector.png`, `webgl2-message-fixed.png`, and `graphics-probe-swangle.png` (paths relative to repository root). These are failure/diagnostic images, not qualifying gameplay.
+
+The isolated `graphics-probe.html` reports secure context true, Chromium 144, WebGL1 true and WebGL2 false with `BindToCurrentSequence failed` on Mesa/virgl. Direct host EGL probes measured bundled ANGLE Metal GLES 3.0 / shader 3.00 and bundled Vulkan/SwiftShader GLES 3.1 / shader 3.10. Host capabilities did not establish guest capabilities. Tested SwiftShader, ANGLE Metal, SwANGLE, explicit Vulkan selection and dynamic GLES negotiation did not produce a working game. The original simulator config.ini was restored; process-local driver-selection experiments are diagnostic tools only.
+
+The wrapper now identifies the specific missing-WebGL2 failure instead of blaming the laptop. Lint, TypeScript, four Jest tests/two suites and all three Release builds passed, and the corrected message was inspected. Use the full npm build command to rebundle changed JavaScript; direct native `vega build` reused stale JS in the first attempt. Stop the current app before relaunching an updated package to ensure it loads the new bundle/URL.
+
+The user explicitly requires hardware-free execution entirely inside Vega; borrowing hardware and a streamed Mac backend are not the agreed solution. Side-by-side official SDK 0.24.9914 installation is underway while 0.24.12112 remains active. Older-image behavior is not yet known. No qualifying footage, public release update or Devpost correction resulted yet.
+
+## Current WebGL1 result — supersedes earlier startup/failure notes
+
+The maintained adapter now runs the actual farm locally inside Vega SDK 0.24.12112. Two-controller private admission, walking, sheep event and tractor boarding/dashboard/drive were inspected. Wrapper readiness now accepts Godot 3's explicit engine-started signal while retaining dimension/context-loss guards; it does not infer visual/performance acceptance. Lint, TypeScript, four Jest tests/two suites and all three Release targets passed. Direct native-only builds may retain stale JS: use the complete npm build.
+
+Software backends are slow; faster Metal ANGLE later host-crashed. No sustained/full guest weekend, revised public demo or Devpost correction is claimed. The original Godot 4 browser host still requires WebGL2. Local candidate packages: `artifacts/vega-gles2/`. Evidence: `docs/audits/2026-10-20-vega-port/` from root. Use the new single-instance launcher; no VS Code requirement.

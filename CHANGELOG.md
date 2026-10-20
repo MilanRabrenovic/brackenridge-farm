@@ -472,3 +472,52 @@ Post-publication check: GitHub reported 16 open dependency alerts, all in the Ve
 ## 2026-10-19 — Vega dependency remediation
 
 Patched 14 reported dependency findings with CLI 20.2.0 and scoped overrides, including both critical Handlebars alerts. Rebuilt Debug/Release for all three architectures after clean installation, lint, TypeScript and three tests passed. Preserved two unpatched upstream alerts (braces/sprintf-js), documented npm's propagated counts and updated the candidate wrapper/source/checksums. Game art and gameplay remain unchanged; human/TV tests remain outstanding.
+
+## 2026-10-19 — English gameplay preview
+
+Added a reproducible native recording harness and deterministic video editor. Captured a passing actual two-player motor route and rendered a 1:55 English-narrated 1080p preview with captions and source/provenance manifest. Full decode and sampled visual/audio checks passed. Video explicitly identifies Mac/automated inputs; no TV or human acceptance is inferred. YouTube publication status is retained in the demo document and PROJECT_STATE.
+
+User preference correction in the same demo pass: replaced robotic narration with an original quiet instrumental; retained English on-screen explanations, added explanatory captions and a completely silent alternative. No voice is mixed into the current audio. Narrated YouTube upload kept as an unpublished private draft; revised public upload verification follows.
+
+## 2026-10-19 — Devpost thumbnail
+
+Generated one promotional cover based on actual environment/character references, retained source/prompt and exported a 1536×1024 3:2 JPEG (1.16 MB). Final art/text/decode/dimensions/upload-size checks passed. Runtime art unchanged; user approval pending.
+
+## 2026-10-19 — Devpost gameplay gallery
+
+Composed four 3:2 gallery images from real native gameplay, highlighting family teamwork, private repair facts, farming/split cameras and shared results. Four-player expansion is labelled planned. All JPEGs passed decode/dimension/size checks and contact-sheet visual review; provided a four-image ZIP. No runtime art or gameplay changes.
+
+## 2026-10-20 — Fire TV eligibility investigation and correction guide
+
+Rechecked rules after user-reported submission/organizer warning. Revalidated official Vega connection/install/component startup; installed official Vega Studio and tried its GUI launch. Captured scoped version/component/shader-error evidence; no rendered gameplay or qualifying video established. Added TV_ELIGIBILITY correction/recording guide and corrected stale draft-only submission docs. No runtime/art changes or new acceptance claims.
+
+## 2026-10-20 — Black simulator display isolation
+
+User screenshot confirms the actual Vega window is entirely black. Switched to Amazon's built-in home component and verified lifecycle foreground/background status; waiting for direct visual confirmation of home rendering. Updated platform/investigation/state docs. No game code change or successful runtime claim.
+
+## 2026-10-20 — Graphics isolation and precise Vega startup error
+
+Added regression-tested missing-WebGL2 wording to the wrapper, replacing the misleading laptop-host blame for that specific failure. Lint, TypeScript, four tests/two suites and all three Release builds passed; actual corrected failure text was inspected. A direct native-only build first reused old JavaScript; the established npm build rebundled correctly. Isolated WebView probe confirms WebGL1 support/WebGL2 context failure on tested simulator backends; no playable Vega fix. User requires hardware-free execution entirely inside Vega; older official SDK installation is underway, current SDK retained.
+
+## 2026-10-20 — isolated Vega WebGL1 port (ongoing)
+
+- Added repeatable Godot 3 compatibility generation, control/physics/socket aliases, GLES2 shader conversion and licensed scalable font. Original Godot 4 game stays intact.
+- Official Godot 3.6.3 editor/templates passed SHA-512 verification. Full map/QR lobby visually inspected inside confirmed newer Vega simulator; evidence retained.
+- Initial strict mission/2D regressions and export passed. Real motor-route/admission testing exposed font lifetime/runtime stability issues; corrections under validation. No complete playable Vega acceptance or replacement public release claimed.
+- Removed conflicting orphaned older simulator; ambiguous intermediate SDK observations are excluded.
+
+## 2026-10-20 — local Vega WebGL1 compatibility port
+
+Implemented repeatable source generation, explicit GLES2/physics/socket/UI/shader adapters and licensed font/engine notices. Preserved original Godot 4 source; fixed stale solo banner on co-op arrival. Four strict GLES2 suites including full solo/co-op motor routes and WebGL1 export passed; original 2D/Web export and wrapper lint/TS/four tests/all Release architectures passed. Actual official newer Vega farm, TV admission, two private controllers, walking/sheep event and upright tractor/dashboard were inspected. Metal backend later host-crashed; software backends remain slow. No sustained full guest acceptance or qualifying public demo/release/Devpost update claimed. Added safe single-instance launcher, evidence and reproduction/limitation docs.
+
+## 2026-10-20 — responsive local Vega rendering
+
+Cached static terrain and six existing building cleanup effects, retained independent animated river/collision/cutaways/actors, and added source-digest invalidation. Tested bundled host OpenGL backend with much lower observed controller latency and actual two-player shared/split/tractor gameplay. Added bounded local startup timing/Debug display and a readiness regression; five wrapper tests, lint/TS, all Debug/Release architectures and four strict full-route GLES2 suites/export passed. Corrected timing-node alias and incomplete image-import failures found during development. No original Godot 4 art/gameplay change; no revised public video/submission claimed.
+
+## 2026-10-20 — Isolated Vega recording preparation
+
+Added normal-speed automated guest route preparation, local timing/result markers and a truthful OBS-footage editor. Native route validation passed all jobs/replay at 355.8 simulated seconds; Python/JavaScript syntax checks passed. User-approved OBS screen permission enabled; source restricted to Vega window with muted audio/camera absent. Recording remains in progress. Rejected in-page captures and later unproven-cause host emulator signal 11 are recorded in PROJECT_STATE. Added CC0 demo ambience provenance; no runtime art/gameplay changed.
+
+## 2026-10-20 — Genuine Vega demo and ordinary package restoration
+
+Recorded a complete normal-speed automated two-player weekend inside official Vega: zero errors, all outcomes/results/replay, 355.783333 simulated / 364.0233 elapsed seconds. Rendered 111-second English-captioned demo and silent alternative using only simulator-window footage, with labelled private-clue reconstruction and CC0 quiet ambience. Full video decode/stream checks and six-frame visual review passed; audio mean −29.6 / peak −6.9 dBFS. Uploaded YouTube draft; publication awaits user audience declaration. Restored ordinary game URL, passed three Release builds, refreshed aarch64 package/hashes and visually verified restarted guest QR lobby. Public release/Devpost correction remain pending.

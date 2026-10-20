@@ -57,7 +57,26 @@ export const App = () => {
             return;
           }
           console.info('[Brackenridge startup] ' + event.nativeEvent.data);
-          if (report.kind === 'canvas') {
+          if (
+            typeof report.message === 'string' &&
+            /webgl2/i.test(report.message)
+          ) {
+            setStartup(
+              'This graphics environment cannot start the farm: WebGL2 is unavailable.',
+            );
+            setDiagnostic('WebGL2 unavailable');
+            return;
+          }
+          if (
+            report.kind === 'performance' &&
+            Number.isFinite(report.fps) &&
+            Number.isFinite(report.frame_p95_ms)
+          ) {
+            // Numeric, bounded local startup samples; visible in Debug only.
+            setDiagnostic(
+              `Startup sample ${report.fps} fps; frame p95 ${report.frame_p95_ms} ms`,
+            );
+          } else if (report.kind === 'canvas') {
             setDiagnostic(
               `Canvas ${report.canvas}; view ${report.bounds}; ready=${report.ready}; ${report.visibility}`,
             );

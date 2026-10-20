@@ -444,7 +444,9 @@ func _handle(message) -> void:
 					weekend.paused=disconnected_was_paused;disconnected_pause=false
 					world_root.crop_field.set_process(not weekend.paused)
 					weekend.phase_banner.text="PAUSED · resume from phone or P" if weekend.paused else "SOLO TEST WEEKEND" if weekend.solo else "BRACKENRIDGE WEEKEND"
-			if weekend and weekend.phase=="arrival" and admitted_players>=2: weekend.solo=false;players[2].show()
+			if weekend and weekend.phase=="arrival" and admitted_players>=2:
+				weekend.solo=false;players[2].show()
+				weekend.phase_banner.text="PAUSED · resume from phone or P" if weekend.paused else "BRACKENRIDGE WEEKEND"
 			roster_label.text = "%d phone(s) ready · Enter/Select admits" % pending_count if pending_count > 0 else "%d of 2 farmers joined" % admitted_players
 			# One admitted phone is enough for a full assisted solo test weekend.
 			# The second phone can still join with the room code it already scanned.

@@ -72,3 +72,11 @@ The user explicitly wants the laptop implementation finished first; human co-op 
 At results, players stop moving/animating. Phones show the farm-report/replay screen: each co-op farmer votes ready, tapping again cancels, and disconnect clears that farmer's vote. Both connected farmers must agree; solo uses one vote. The TV button can also start the next seed. Room code is visible on phones. These are locally tested behavior improvements; enjoyment remains a final human test.
 
 October 15 admission clarity: a connected pending phone now explicitly says to press Enter/Select on the host; the host roster shows waiting phones and the same admission action. Admission authority is unchanged. The hint hides after admission. The finishing regression checks the host prompt. Final exports/package are refreshed after this change.
+
+## October 20 — Vega execution route
+
+The committed two-player weekend and four-player future scope are unchanged. A generated GLES2/WebGL1 compatibility runtime executes the same simulation inside Vega. Actual two-controller/private-fact admission, movement, sheep event and tractor controls were inspected in the guest. Full automated mission routes passed on Mac GLES2; guest performance/stability and human fun acceptance remain open. Joining player two during arrival now clears the stale solo banner in both source/runtime routes. See `PROJECT_STATE.md` and the October 20 port audit.
+
+## Vega responsiveness follow-up — October 20
+
+The local WebGL1 route now uses cached static presentation with separately animated water/buildings/actors. Gameplay/private facts/physics remain unchanged. Actual two-controller split/merge, cutaway and tractor behavior were inspected on the host OpenGL simulator backend; complete automated Mac GLES2 routes passed again. Current next step is genuine platform footage, with human enjoyment acceptance still separate.

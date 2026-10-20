@@ -30,7 +30,9 @@
     "test:minimap": "godot --headless --path game --script res://tests/test_minimap.gd",
     "test:fireos-assets": "python3 scripts/verify-fireos-assets.py artifacts/countryside-coop-debug.apk --check-detector",
     "test:coop-route": "godot --headless --path game --script res://tests/test_coop_playthrough.gd",
-    "test:finish": "godot --headless --path game --script res://tests/test_finish_pass.gd"
+    "test:finish": "godot --headless --path game --script res://tests/test_finish_pass.gd",
+    "test:vega-gles2": "python3 platform/vega-gles2/build.py --test",
+    "export:vega-gles2": "python3 platform/vega-gles2/build.py --export"
   },
   "dependencies": {
     "qrcode": "^1.5.4",

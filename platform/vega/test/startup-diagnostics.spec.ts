@@ -13,6 +13,7 @@ it('does not declare startup ready for a zero-size canvas or lost context', () =
   const timers: Array<() => void> = [];
   let status: object | null = {};
   let visibleWidth = 0;
+  let engineStarted = false;
   const canvas = {
     width: 1280,
     height: 720,
@@ -23,6 +24,7 @@ it('does not declare startup ready for a zero-size canvas or lost context', () =
   };
   executeDiagnostics(STARTUP_DIAGNOSTICS, {
     window: {
+      get __brackenridgeStarted() { return engineStarted; },
       ReactNativeWebView: {
         postMessage: (raw: string) => reports.push(JSON.parse(raw)),
       },
@@ -49,6 +51,16 @@ it('does not declare startup ready for a zero-size canvas or lost context', () =
   timers.shift()?.();
   expect(reports.at(-1)?.ready).toBe(false);
   visibleWidth = 1280;
+  // Godot 3 retains its hidden status DOM; only an engine-origin ready flag
+  // may override its presence. Size/context guards still apply.
+  status = {};
+  engineStarted = true;
+  timers.shift()?.();
+  expect(reports.at(-1)?.ready).toBe(true);
+  engineStarted = false;
+  timers.shift()?.();
+  expect(reports.at(-1)?.ready).toBe(false);
+  status = null;
   timers.shift()?.();
   expect(reports.at(-1)?.ready).toBe(true);
   events.webglcontextlost();

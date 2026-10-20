@@ -19,7 +19,8 @@ export const STARTUP_DIAGNOSTICS = `(() => {
       const notice = document.querySelector('#status-notice');
       const message = notice ? notice.textContent.trim().slice(0, 300) : '';
       const ready = !contextLost && !!canvas && canvas.width > 0 && canvas.height > 0 &&
-        bounds.width > 0 && bounds.height > 0 && !status;
+        bounds.width > 0 && bounds.height > 0 && !message &&
+        (!status || window.__brackenridgeStarted === true);
       const state = {ready, canvas: canvas ? [canvas.width, canvas.height] : null,
         bounds: [Math.round(bounds.width), Math.round(bounds.height)],
         visibility: document.visibilityState, secure: window.isSecureContext,

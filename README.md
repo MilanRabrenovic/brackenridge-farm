@@ -2,6 +2,11 @@
 
 An original illustrated 2D asymmetric couch-cooperative farming game for the Amazon Fire TV hackathon track. Two farmers share one screen and receive different facts on their phones: herd sheep, fix equipment, beat the rain and get the right goods to the buyer.
 
+## Latest October 20 responsiveness result
+
+The static-presentation optimized WebGL1 build now runs on the official emulator's host OpenGL backend with observed controller medians mostly 35–78 ms; startup frame samples showed 44–53.1 fps. These are scoped samples, not a full-game performance guarantee. Two private controllers, split/merge, cutaways and tractor driving were inspected in the guest. Use `--gpu host` (new launcher default); the earlier software-slowness/Metal-crash notes remain historical results for those different backends. Full strict Mac GLES2 routes and five wrapper tests/all Debug/Release targets passed. Evidence and exact limits: `docs/audits/2026-10-20-vega-performance/README.md` from project root. Genuine qualifying public footage, public candidate refresh and Devpost correction remain next.
+
+
 ![Split-screen farming](docs/audits/2026-10-15-finish/coop-harvest.png)
 
 ## For judges: run the browser build
@@ -45,3 +50,7 @@ This is a complete scripted weekend candidate, **not yet verified as a hackathon
 Read `AGENTS.md`, then `PROJECT_STATE.md`, `GAME_DIRECTION.md`, `ART_DIRECTION.md`, `ASSET_CATALOG.md` and `USEFUL_COMMANDS.md` in order. Source art stays under `source_assets/`, optimized art under `game/assets/2d/`. Legacy 3D is retained as history and excluded from the active runtime. Code is MIT; see `LICENSE` and `THIRD_PARTY_NOTICES.md` for dependency/asset provenance.
 
 A separate Vega WebView wrapper candidate and its setup are in [platform/vega/README.md](platform/vega/README.md). The local aarch64 package is `artifacts/brackenridge-farm-vega-aarch64.vpkg`; the release download is a separate candidate.
+
+## Hardware-free Vega WebGL1 candidate
+
+The compatibility runtime now renders/accepts phone input entirely inside the official Vega simulator. See [build instructions](platform/vega-gles2/README.md) and [actual evidence/limits](docs/audits/2026-10-20-vega-port/README.md). Software graphics remain slow; the faster Metal emulator later crashed. This local candidate is not sustained-performance accepted or a replacement qualifying public demo. Normal laptop/browser development remains Godot 4.

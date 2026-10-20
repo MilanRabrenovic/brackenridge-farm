@@ -257,3 +257,83 @@ Verified publication commands: `gh repo view MilanRabrenovic/brackenridge-farm -
 ## Vega dependency maintenance — October 19
 
 In `platform/vega`, activate Node >=22.14.0 (clean install verified with 24.19.0), then `npm ci --no-audit`. Run `npm audit --json` separately; exit 1 is currently expected from two unpatched upstream advisories. Use the lint, TypeScript, Jest `--watchman=false`, Debug and Release commands above after dependency changes. Never run `npm audit fix --force` across the Amazon compatibility constraints. See `docs/audits/2026-10-19-dependencies/README.md` for precise overrides and remaining paths. The isolated Git checkout and source package must both receive the updated package/lock files before publication.
+
+## English demo recording — October 19
+
+`godot --path game --script res://tests/record_demo.gd --write-movie ../artifacts/demo/raw/co-op-native.avi --fixed-fps 30 --disable-vsync` records the actual automated co-op route on the Mac; create `artifacts/demo/raw` first. `python3 scripts/render-demo.py` edits/narrates it with Pillow, ffmpeg/ffprobe, macOS Daniel and Avenir Next. The local bundled Python with Pillow is `/Users/milanrabrenovic/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`. Recording and speech need desktop service access. Outputs stay under `artifacts/demo` and are not included in source packaging. This route does not produce qualifying TV footage. See `docs/DEMO_VIDEO.md` for provenance, checks and publication status.
+
+Current audio preference: after rendering, run the bundled Python on `scripts/score-demo.py` (requires NumPy). It synthesizes the original quiet instrumental, remuxes `brackenridge-farm-demo-music.mp4` without any voice, and creates `brackenridge-farm-demo-silent.mp4`. Music/explanatory caption provenance and checksums are in `artifacts/demo/music-manifest.json`. The narrated intermediate is superseded; do not publish it.
+
+## Devpost gallery
+
+Run the bundled Pillow Python on `scripts/build-submission-gallery.py` after recording `artifacts/demo/raw/co-op-native.avi`. Uses ffmpeg and Avenir Next. Writes retained actual screenshot sources under `source_assets/2d/marketing/gallery-v1/` and four checked 3:2 JPEG cards under `artifacts/submission/gallery-v1/`. The review contact sheet is for QA, not an extra upload image.
+
+## October 20 — Eligibility investigation / local device permissions
+
+Official Marketplace extension `amazon-devices.kepler-studio` 0.24.1 was installed. Vega Studio → Devices → Start simulator successfully booted the existing SDK's VVD. Normal local permissions confirmed a connected aarch64 device, successful package launch, farm VISIBLE and renderer READY. Sandboxed `vega device list` returned no devices despite the live emulator; use a normal terminal/device socket permission before concluding the device is absent. Neither result establishes rendered gameplay.
+
+See `docs/TV_ELIGIBILITY.md` for restart/run steps and the actual-platform recording requirements. `vega sdk list-remote` confirmed 0.24.12112 remains latest. Fresh graphics logs contain GLSL 310 compile failures; no fallback or runtime repair is verified. No unsupported VVD framebuffer command was retried.
+
+### October 20 — Verified graphics-error checks and rebundling
+
+`npm run lint`, `npx tsc --noEmit`, `npm test -- --runInBand --watchman=false` passed in `platform/vega` after adding specific missing-WebGL2 failure wording (4 tests/2 suites). `vega exec npm run build:release` rebundled JS and passed all three Release targets. Direct `vega build -t aarch64 -b Release` built native packaging but initially reused stale JS; do not use it alone after TypeScript changes. After installation, `vega device terminate-app --appName com.brackenridge.farm.main` followed by launch forces the new app process/URL.
+
+Temporary capability probe: source retained in `docs/audits/2026-10-20-tv-eligibility/graphics-probe.html`, served by copying it to `build/web/graphics-probe.html`. It is labelled diagnostic, not gameplay. Temporarily configure `/host/graphics-probe.html`, build/install/restart, inspect, then restore `/host/` and rebuild before returning to gameplay. Current investigation is comparing an older official SDK using `vega sdk install main@0.24.9914 --non-interactive`; install outcome/runtime still pending. Existing default SDK was 0.24.12112.
+
+## Current Vega WebGL1 route — October 20 (supersedes older startup-only notes)
+
+The official newer simulator visibly runs the game with phone input; sustained responsiveness is still open. VS Code is optional. Full instructions and backend caveats: `platform/vega-gles2/README.md`.
+
+```sh
+npm run test:vega-gles2
+npm run export:vega-gles2
+npm run dev
+node scripts/configure-vega.mjs http://127.0.0.1:8787/host/vega-gles2/index.html
+python3 scripts/start-vega-simulator.py --sdk-root .tools/vega-sdk/vega-sdk/main/0.24.12112 --gpu swiftshader_indirect
+```
+
+Keep relay and simulator in separate terminals. Godot 3 tools/templates must be installed and checksum verified as described in the port README. Generated sources are disposable; edit the adapter or authoritative `game/` source. Launcher refuses port 5555 conflicts and cleans up its owned child on Ctrl+C.
+
+In another activated SDK terminal:
+
+```sh
+vega exec vda reverse tcp:8787 tcp:8787
+cd platform/vega
+vega exec npm run lint
+vega exec npx tsc --noEmit
+vega exec npm test -- --runInBand --watchman=false
+vega exec npm run build:release
+vega run-app build/aarch64-release/brackenridgefarm_aarch64.vpkg com.brackenridge.farm.main -d VirtualDevice
+```
+
+Those wrapper checks and Release builds passed. Build/strict port tests passed with Node 24/Godot 3.6.3. Software graphics render but are slow; Metal ANGLE ran faster then host-emulator-crashed, so it is not the recommended stable backend. SwANGLE also rendered two-player gameplay but was slow. Separate origins (`127.0.0.1` vs `localhost`) or browsers isolate two controller reconnect tokens; two same-origin tabs represent one phone. Phone QR uses the LAN address. Select admits pending phones. All core gameplay executes in Vega; Mac supplies static files/relay.
+
+## Recommended responsive Vega setup — October 20 follow-up
+
+The earlier software default is superseded by the locally tested SDK host OpenGL backend:
+
+```sh
+python3 scripts/start-vega-simulator.py --sdk-root .tools/vega-sdk/vega-sdk/main/0.24.12112 --gpu host
+```
+
+The launcher defaults to host now; stop the existing instance before changing backends. `swiftshader_indirect` is the slower fallback. `angle_indirect` previously host-crashed; do not confuse it with host mode. `test:vega-gles2` / `export:vega-gles2` now cache terrain and building cleanup by source digest. Initial uncached bake requires native graphics access and may take longer; complete exporter imports prevent missing derived resources.
+
+Wrapper tests now total five across two suites; Debug/Release all three architectures passed. Debug shows bounded startup timing samples, not a permanent live FPS meter. Release hides it. See `docs/audits/2026-10-20-vega-performance/` for measurements and scope. Ordinary browser host remains Godot 4.
+
+## Isolated Vega demo recording — October 20
+
+```sh
+python3 scripts/vega-recording.py prepare
+python3 scripts/vega-recording.py serve
+```
+
+These create disposable `build/web/vega-record-coop/` and timing JSONL under `artifacts/demo-vega/raw/`. Forward 8790 as well as 8787 into Vega, temporarily configure the wrapper for `/host/vega-record-coop/index.html`, then rebuild/install Release. OBS records only the simulator window; camera and microphone are disabled. Capture is external because in-page WebGL capture/readback failed. Do not publish the temporary recording wrapper as the normal game.
+
+After successful guest result and stopping OBS:
+
+```sh
+python3 scripts/render-vega-demo.py /absolute/path/to/OBS-recording.mov
+node scripts/configure-vega.mjs http://127.0.0.1:8787/host/vega-gles2/index.html
+```
+
+The renderer requires Pillow, ffmpeg and ffprobe. It checks successful guest result markers before editing; output must still be visually inspected and fully decoded. Restore and rebuild the ordinary wrapper before packaging.
